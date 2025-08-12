@@ -279,7 +279,7 @@ const LandingPage = () => {
               </div>
               <div className="input-content">
                 <label>Date et heure de départ</label>
-                <input type="text" placeholder="mm/dd/yyyy --:-- --" />
+                <input type="date" placeholder="mm/dd/yyyy --:-- --" />
               </div>
             </div>
             
