@@ -1,114 +1,41 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import './LandingPage.css';
 
 const LandingPage = () => {
-  const [darkMode, setDarkMode] = useState(false);
+  const { t, i18n } = useTranslation();
+  const [darkMode, setDarkMode] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
+  const [suggestions, setSuggestions] = useState([]);
+  const [searchValue, setSearchValue] = useState('');
+  const [isLanguageMenuOpen, setIsLanguageMenuOpen] = useState(false);
+  const suggestionsRef = useRef(null);
+  const languageDropdownRef = useRef(null);
+  const [isChatOpen, setIsChatOpen] = useState(false);
+  const [messages, setMessages] = useState([
+    { text: t('chatbot.initialMessage'), sender: 'bot' }
+  ]);
+  const [messageInput, setMessageInput] = useState('');
 
   // Services offerts
-  const services = [
-    {
-      icon: 'airport',
-      title: 'Transfert aéroport / gare',
-      description: 'Accueil VIP et assurance de vos correspondances vers les principaux points de transport'
-    },
-    {
-      icon: 'business',
-      title: 'Déplacements professionnels',
-      description: 'Des déplacements fluides, pour rester concentré sur l\'essentiel'
-    },
-    {
-      icon: 'night',
-      title: 'Déplacements nocturnes',
-      description: 'Voyagez en toute sécurité, même au cœur de la nuit'
-    },
-    {
-      icon: 'events',
-      title: 'Transport pour vos événements',
-      description: 'Une logistique de transport impeccable pour vos événements'
-    },
-    {
-      icon: 'long',
-      title: 'Transport longue distance',
-      description: 'Une solution idéale pour vos trajets hors de la ville'
-    },
-    {
-      icon: 'tour',
-      title: 'Visites guidée',
-      description: 'Nous vous emmenons à la découverte des plus beaux sites régionaux'
-    },
-    {
-      icon: 'kids',
-      title: 'Transport Enfants & Ados',
-      description: 'Transport de vos enfants et adolescents vers leurs destinations'
-    },
-    {
-      icon: 'dispo',
-      title: 'Mise à disposition',
-      description: 'Votre chauffeur privé disponible à chaque instant'
-    }
-  ];
+  const services = t('services', { returnObjects: true });
 
   // Flotte de véhicules
-  const vehicles = [
-    {
-      category: 'Berline Classique',
-      models: ['Mercedes Classe C', 'Peugeot 508', 'Renault Talisman'],
-      image: 'berline-classic'
-    },
-    {
-      category: 'Berline Business',
-      models: ['Mercedes Classe E', 'BMW Série 5', 'Audi A6'],
-      image: 'berline-business'
-    },
-    {
-      category: 'Van Éco',
-      models: ['Renault Trafic', 'Peugeot Expert', 'Ford Transit'],
-      image: 'van-eco'
-    },
-    {
-      category: 'Van Luxe',
-      models: ['Mercedes Classe V', 'Volkswagen Multivan'],
-      image: 'van-luxe'
-    },
-    {
-      category: 'VIP',
-      models: ['Mercedes Classe S', 'BMW Série 7', 'Audi A8'],
-      image: 'vip'
-    },
-    {
-      category: 'VIP Grand Luxe',
-      models: ['Mercedes-Benz Sprinter VIP', 'Range Rover Autobiography'],
-      image: 'vip-grand'
-    }
-  ];
+  const vehicles = t('vehicles', { returnObjects: true });
 
   // Articles du blog
-  const blogPosts = [
-    {
-      title: 'Trois bonne raisons de préférer un VTC à un vol court-courrier',
-      excerpt: 'Saviez-vous qu\'un vol court-courrier émet 5 fois plus de CO2 qu\'un trajet en voiture...',
-      date: '12 août 2024'
-    },
-    {
-      title: 'Chauffeur privé : La solution idéale pour un mariage élégant',
-      excerpt: 'Organiser un mariage est une aventure excitante, mais cela peut aussi être source de...',
-      date: '5 août 2024'
-    },
-    {
-      title: 'Pourquoi choisir Priolys pour vos déplacements à Marseille',
-      excerpt: 'Marseille est une ville à caractère dynamique qui offre une beauté incomparable...',
-      date: '28 juillet 2024'
-    }
-  ];
+  const blogPosts = t('blogPosts', { returnObjects: true });
 
-  // Gestion du scroll pour les animations et la navigation
+  // Suggestions de villes
+  const cities = t('cities', { returnObjects: true });
+
+  // Gestion du scroll
   useEffect(() => {
     const handleScroll = () => {
       setIsMenuOpen(false);
+      setIsLanguageMenuOpen(false);
       
-      // Mise à jour de la section active
       const sections = ['home', 'services', 'fleet', 'partners', 'blog'];
       for (const section of sections) {
         const element = document.getElementById(section);
@@ -117,7 +44,6 @@ const LandingPage = () => {
         }
       }
       
-      // Animations au scroll
       const animateElements = document.querySelectorAll('.animate-on-scroll');
       animateElements.forEach(el => {
         const elementTop = el.getBoundingClientRect().top;
@@ -130,7 +56,7 @@ const LandingPage = () => {
     };
     
     window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Initial call
+    handleScroll();
     
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -148,6 +74,7 @@ const LandingPage = () => {
   const handleNavClick = (e, sectionId) => {
     e.preventDefault();
     setIsMenuOpen(false);
+    setIsLanguageMenuOpen(false);
     
     const element = document.getElementById(sectionId);
     if (element) {
@@ -155,6 +82,80 @@ const LandingPage = () => {
         top: element.offsetTop,
         behavior: 'smooth'
       });
+    }
+  };
+
+  // Gestion des suggestions pour la recherche
+  const handleSearchChange = (e) => {
+    const value = e.target.value;
+    setSearchValue(value);
+    
+    if (value.length > 1) {
+      const filtered = cities.filter(city => 
+        city.toLowerCase().includes(value.toLowerCase())
+      );
+      setSuggestions(filtered);
+    } else {
+      setSuggestions([]);
+    }
+  };
+
+  const selectSuggestion = (city) => {
+    setSearchValue(city);
+    setSuggestions([]);
+  };
+
+  // Fermer les menus quand on clique en dehors
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (suggestionsRef.current && !suggestionsRef.current.contains(e.target)) {
+        setSuggestions([]);
+      }
+      if (languageDropdownRef.current && !languageDropdownRef.current.contains(e.target)) {
+        setIsLanguageMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  // Changer la langue
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+    setIsLanguageMenuOpen(false);
+  };
+
+  // Envoyer un message dans le chatbot
+  const handleSendMessage = () => {
+    if (messageInput.trim() === '') return;
+    
+    // Ajouter le message de l'utilisateur
+    const userMessage = { text: messageInput, sender: 'user' };
+    setMessages([...messages, userMessage]);
+    setMessageInput('');
+    
+    // Simuler une réponse du bot après un délai
+    setTimeout(() => {
+      const responses = [
+        t('chatbot.response1'),
+        t('chatbot.response2'),
+        t('chatbot.response3')
+      ];
+      const botResponse = {
+        text: responses[Math.floor(Math.random() * responses.length)],
+        sender: 'bot'
+      };
+      setMessages(prev => [...prev, botResponse]);
+    }, 1000);
+  };
+
+  // Gestion de la touche Entrée
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleSendMessage();
     }
   };
 
@@ -174,43 +175,76 @@ const LandingPage = () => {
               className={activeSection === 'home' ? 'active' : ''}
               onClick={(e) => handleNavClick(e, 'home')}
             >
-              Accueil
+              {t('menu.home')}
             </a>
             <a 
               href="#services" 
               className={activeSection === 'services' ? 'active' : ''}
               onClick={(e) => handleNavClick(e, 'services')}
             >
-              Services
+              {t('menu.services')}
             </a>
             <a 
               href="#fleet" 
               className={activeSection === 'fleet' ? 'active' : ''}
               onClick={(e) => handleNavClick(e, 'fleet')}
             >
-              Flotte
+              {t('menu.fleet')}
             </a>
             <a 
               href="#partners" 
               className={activeSection === 'partners' ? 'active' : ''}
               onClick={(e) => handleNavClick(e, 'partners')}
             >
-              Partenaires
+              {t('menu.partners')}
             </a>
             <a 
               href="#blog" 
               className={activeSection === 'blog' ? 'active' : ''}
               onClick={(e) => handleNavClick(e, 'blog')}
             >
-              Blog
+              {t('menu.blog')}
             </a>
           </div>
           
           <div className="nav-actions">
+            <div className="language-dropdown" ref={languageDropdownRef}>
+              <button 
+                className="current-language"
+                onClick={() => setIsLanguageMenuOpen(!isLanguageMenuOpen)}
+                aria-expanded={isLanguageMenuOpen}
+              >
+                <span className={`flag-icon ${i18n.language === 'fr' ? 'fr' : 'en'}`}></span>
+                {i18n.language.toUpperCase()}
+                <svg className="dropdown-arrow" viewBox="0 0 24 24">
+                  <path d={isLanguageMenuOpen 
+                    ? "M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z" 
+                    : "M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"}/>
+                </svg>
+              </button>
+              
+              <div className={`language-options ${isLanguageMenuOpen ? 'open' : ''}`}>
+                <button 
+                  className={`lang-option ${i18n.language === 'fr' ? 'active' : ''}`}
+                  onClick={() => changeLanguage('fr')}
+                >
+                  <span className="flag-icon fr"></span>
+                  Français
+                </button>
+                <button 
+                  className={`lang-option ${i18n.language === 'en' ? 'active' : ''}`}
+                  onClick={() => changeLanguage('en')}
+                >
+                  <span className="flag-icon en"></span>
+                  English
+                </button>
+              </div>
+            </div>
+            
             <button 
               className="theme-toggle"
               onClick={() => setDarkMode(!darkMode)}
-              aria-label={darkMode ? "Passer en mode clair" : "Passer en mode sombre"}
+              aria-label={darkMode ? t('ariaLabels.lightMode') : t('ariaLabels.darkMode')}
             >
               {darkMode ? (
                 <svg className="theme-icon" viewBox="0 0 24 24">
@@ -228,12 +262,12 @@ const LandingPage = () => {
                 <path d="M8.25 19.5a1.5 1.5 0 10-3 0 1.5 1.5 0 003 0zM15.75 6.75a.75.75 0 00-.75.75v11.25c0 .087.015.17.042.248a3 3 0 015.958.464c.853-.175 1.522-.935 1.464-1.883a18.659 18.659 0 00-3.732-10.104 1.837 1.837 0 00-1.47-.725H15.75z"/>
                 <path d="M19.5 19.5a1.5 1.5 0 10-3 0 1.5 1.5 0 003 0z"/>
               </svg>
-              Réserver
+              {t('buttons.reserve')}
             </button>
             <button 
               className="menu-toggle" 
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              aria-label="Menu"
+              aria-label={t('ariaLabels.menu')}
             >
               {isMenuOpen ? '✕' : '☰'}
             </button>
@@ -246,13 +280,13 @@ const LandingPage = () => {
         <div className="hero-overlay"></div>
         <div className="container hero-content">
           <div className="hero-text animate-on-scroll">
-            <h1>Solution VTC à la demande</h1>
-            <h2>Votre service VTC professionnel depuis Marseille</h2>
-            <p>Des déplacements haut de gamme avec une flotte premium et des chauffeurs professionnels</p>
+            <h1>{t('hero.title')}</h1>
+            <h2>{t('hero.subtitle')}</h2>
+            <p>{t('hero.description')}</p>
           </div>
           
           <div className="reservation-card animate-on-scroll">
-            <h3>Réserver un trajet</h3>
+            <h3>{t('reservation.title')}</h3>
             
             <div className="form-group">
               <div className="input-icon">
@@ -261,8 +295,8 @@ const LandingPage = () => {
                 </svg>
               </div>
               <div className="input-content">
-                <label>Votre adresse de départ</label>
-                <input type="text" placeholder="Adresse précise, aéroport, hôtel" />
+                <label>{t('reservation.departureLabel')}</label>
+                <input type="text" placeholder={t('reservation.departurePlaceholder')} />
               </div>
               <button className="location-btn">
                 <svg viewBox="0 0 24 24">
@@ -278,8 +312,8 @@ const LandingPage = () => {
                 </svg>
               </div>
               <div className="input-content">
-                <label>Date et heure de départ</label>
-                <input type="text" placeholder="mm/dd/yyyy --:-- --" />
+                <label>{t('reservation.dateLabel')}</label>
+                <input type="text" placeholder={t('reservation.datePlaceholder')} />
               </div>
             </div>
             
@@ -290,8 +324,26 @@ const LandingPage = () => {
                 </svg>
               </div>
               <div className="input-content">
-                <label>Où souhaitez-vous aller ?</label>
-                <input type="text" placeholder="Ville, région ou établissement etc..." />
+                <label>{t('reservation.destinationLabel')}</label>
+                <input 
+                  type="text" 
+                  placeholder={t('reservation.destinationPlaceholder')}
+                  value={searchValue}
+                  onChange={handleSearchChange}
+                />
+                {suggestions.length > 0 && (
+                  <div className="suggestions-box" ref={suggestionsRef}>
+                    {suggestions.map((city, index) => (
+                      <div 
+                        key={index} 
+                        className="suggestion-item"
+                        onClick={() => selectSuggestion(city)}
+                      >
+                        {city}
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
             
@@ -302,7 +354,7 @@ const LandingPage = () => {
                 </svg>
               </div>
               <div className="input-content">
-                <label>Nombre de passagers</label>
+                <label>{t('reservation.passengersLabel')}</label>
                 <select>
                   <option>1</option>
                   <option>2</option>
@@ -317,7 +369,7 @@ const LandingPage = () => {
               <label>
                 <input type="checkbox" />
                 <span className="checkmark"></span>
-                Ajouter un arrêt en chemin
+                {t('reservation.stopLabel')}
               </label>
             </div>
             
@@ -325,7 +377,7 @@ const LandingPage = () => {
               <svg className="btn-icon" viewBox="0 0 24 24">
                 <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
               </svg>
-              Rechercher
+              {t('buttons.search')}
             </button>
           </div>
         </div>
@@ -335,8 +387,8 @@ const LandingPage = () => {
       <section id="services" className="services-section">
         <div className="container">
           <div className="section-header animate-on-scroll">
-            <h2>Nos services et prestations</h2>
-            <p>Nous proposons des solutions adaptées à chacun de vos besoins</p>
+            <h2>{t('servicesSection.title')}</h2>
+            <p>{t('servicesSection.description')}</p>
           </div>
           
           <div className="services-grid">
@@ -346,8 +398,18 @@ const LandingPage = () => {
                 className="service-card animate-on-scroll"
               >
                 <div className={`service-icon ${service.icon}`}></div>
-                <h3>{service.title}</h3>
-                <p>{service.description}</p>
+                <div className="service-content">
+                  <h3>{service.title}</h3>
+                  <p>{service.description}</p>
+                  <div className="service-details">
+                    {service.details.map((detail, i) => (
+                      <div key={i} className="detail-item">
+                        <span className="detail-icon">✓</span>
+                        <span>{detail}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             ))}
           </div>
@@ -358,8 +420,8 @@ const LandingPage = () => {
       <section id="fleet" className="fleet-section">
         <div className="container">
           <div className="section-header animate-on-scroll">
-            <h2>Nos classes de service</h2>
-            <p>Une flotte premium pour tous vos besoins</p>
+            <h2>{t('fleetSection.title')}</h2>
+            <p>{t('fleetSection.description')}</p>
           </div>
           
           <div className="fleet-grid">
@@ -387,28 +449,22 @@ const LandingPage = () => {
       <section id="partners" className="partners-section">
         <div className="container">
           <div className="section-header animate-on-scroll">
-            <h2>Devenir partenaire</h2>
-            <p>Nous avançons ensemble</p>
+            <h2>{t('partnersSection.title')}</h2>
+            <p>{t('partnersSection.subtitle')}</p>
           </div>
           
           <div className="partners-content animate-on-scroll">
             <div className="partners-text">
-              <p>
-                Les partenariats sont une vraie force. Nous aimons collaborer avec des entreprises 
-                et des professionnels qui partagent notre exigence de qualité. Rejoignez-nous pour 
-                offrir à vos clients un service de transport haut de gamme, fiable et pensé pour chaque besoin.
-              </p>
+              <p>{t('partnersSection.description')}</p>
               
               <div className="partners-categories">
-                <div className="category">Entreprises</div>
-                <div className="category">Agences de voyages</div>
-                <div className="category">Organisateurs d'événements</div>
-                <div className="category">Hôtels et restaurants</div>
-                <div className="category">Autres</div>
+                {t('partnersSection.categories', { returnObjects: true }).map((category, index) => (
+                  <div key={index} className="category">{category}</div>
+                ))}
               </div>
               
               <button className="partner-btn">
-                Devenir partenaire
+                {t('buttons.becomePartner')}
                 <svg className="btn-icon" viewBox="0 0 24 24">
                   <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
                 </svg>
@@ -424,8 +480,8 @@ const LandingPage = () => {
       <section id="blog" className="blog-section">
         <div className="container">
           <div className="section-header animate-on-scroll">
-            <h2>Blog</h2>
-            <p>Découvrez nos conseils et actualités sur le transport privé</p>
+            <h2>{t('blogSection.title')}</h2>
+            <p>{t('blogSection.description')}</p>
           </div>
           
           <div className="blog-grid">
@@ -440,7 +496,7 @@ const LandingPage = () => {
                   <h3>{post.title}</h3>
                   <p>{post.excerpt}</p>
                   <a href="#" className="read-more">
-                    Lire la suite
+                    {t('buttons.readMore')}
                     <svg className="arrow-icon" viewBox="0 0 24 24">
                       <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
                     </svg>
@@ -461,25 +517,25 @@ const LandingPage = () => {
                 <span className="logo-icon"></span>
                 <span className="logo-text">PRIOLYS</span>
               </div>
-              <p>Service VTC professionnel à Marseille</p>
+              <p>{t('footer.description')}</p>
               <div className="social-links">
-                <a href="#" aria-label="Facebook">
+                <a href="#" aria-label={t('ariaLabels.facebook')}>
                   <svg viewBox="0 0 24 24">
                     <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
                   </svg>
                 </a>
-                <a href="#" aria-label="Instagram">
+                <a href="#" aria-label={t('ariaLabels.instagram')}>
                   <svg viewBox="0 0 24 24">
                     <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
                     <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zM17.5 6.5h.01"/>
                   </svg>
                 </a>
-                <a href="#" aria-label="Twitter">
+                <a href="#" aria-label={t('ariaLabels.twitter')}>
                   <svg viewBox="0 0 24 24">
                     <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/>
                   </svg>
                 </a>
-                <a href="#" aria-label="LinkedIn">
+                <a href="#" aria-label={t('ariaLabels.linkedin')}>
                   <svg viewBox="0 0 24 24">
                     <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/>
                     <circle cx="4" cy="4" r="2"/>
@@ -489,44 +545,44 @@ const LandingPage = () => {
             </div>
             
             <div className="footer-column">
-              <h4>À propos</h4>
+              <h4>{t('footer.about')}</h4>
               <ul>
-                <li><a href="#">Mentions légales</a></li>
-                <li><a href="#">Conditions d'utilisation</a></li>
-                <li><a href="#">Politique de confidentialité</a></li>
+                <li><a href="#">{t('footer.legal')}</a></li>
+                <li><a href="#">{t('footer.terms')}</a></li>
+                <li><a href="#">{t('footer.privacy')}</a></li>
               </ul>
             </div>
             
             <div className="footer-column">
-              <h4>Services et prestations</h4>
+              <h4>{t('footer.services')}</h4>
               <ul>
-                <li><a href="#">Prestations</a></li>
-                <li><a href="#">Nos véhicules</a></li>
-                <li><a href="#">Circuits touristiques</a></li>
+                <li><a href="#">{t('footer.services')}</a></li>
+                <li><a href="#">{t('footer.vehicles')}</a></li>
+                <li><a href="#">{t('footer.tours')}</a></li>
               </ul>
             </div>
             
             <div className="footer-column">
-              <h4>Contact</h4>
+              <h4>{t('footer.contact')}</h4>
               <ul>
                 <li>
                   <svg className="contact-icon" viewBox="0 0 24 24">
                     <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
                   </svg>
-                  contact@priolys.fr
+                  {t('contact.email')}
                 </li>
                 <li>
                   <svg className="contact-icon" viewBox="0 0 24 24">
                     <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
                   </svg>
-                  +33 7 50 14 18 64
+                  {t('contact.phone')}
                 </li>
                 <li>
                   <a href="#">
                     <svg className="contact-icon" viewBox="0 0 24 24">
                       <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
                     </svg>
-                    Envoyer un feedback
+                    {t('contact.feedback')}
                   </a>
                 </li>
               </ul>
@@ -534,10 +590,68 @@ const LandingPage = () => {
           </div>
           
           <div className="footer-bottom">
-            <p>&copy; {new Date().getFullYear()} Priolys. Tous droits réservés.</p>
+            <p>&copy; {new Date().getFullYear()} Priolys. {t('footer.rights')}</p>
           </div>
         </div>
       </footer>
+
+      {/* Chatbot */}
+      <div className={`chatbot-container ${isChatOpen ? 'open' : ''}`}>
+        <div className="chat-window">
+          <div className="chat-header">
+            <h3>{t('chatbot.title')}</h3>
+            <button className="close-chat" onClick={() => setIsChatOpen(false)}>
+              <svg viewBox="0 0 24 24">
+                <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+              </svg>
+            </button>
+          </div>
+          
+          <div className="chat-messages">
+            {messages.map((msg, index) => (
+              <div key={index} className={`message ${msg.sender}`}>
+                {msg.sender === 'bot' && (
+                  <div className="bot-avatar">
+                    <svg viewBox="0 0 24 24">
+                      <path d="M20 9V7c0-1.1-.9-2-2-2h-3c0-1.66-1.34-3-3-3S9 3.34 9 5H6c-1.1 0-2 .9-2 2v2c-1.66 0-3 1.34-3 3s1.34 3 3 3v4c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-4c1.66 0 3-1.34 3-3s-1.34-3-3-3zM7.5 11.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5S9.83 13 9 13s-1.5-.67-1.5-1.5zM16 17H8v-2h8v2zm-1-4c-.83 0-1.5-.67-1.5-1.5S14.17 10 15 10s1.5.67 1.5 1.5S15.83 13 15 13z"/>
+                    </svg>
+                  </div>
+                )}
+                <div className="message-content">
+                  <p>{msg.text}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          
+          <div className="chat-input">
+            <input
+              type="text"
+              placeholder={t('chatbot.placeholder')}
+              value={messageInput}
+              onChange={(e) => setMessageInput(e.target.value)}
+              onKeyPress={handleKeyPress}
+            />
+            <button onClick={handleSendMessage}>
+              <svg viewBox="0 0 24 24">
+                <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+        
+        <button className="chatbot-button" onClick={() => setIsChatOpen(!isChatOpen)}>
+          {isChatOpen ? (
+            <svg viewBox="0 0 24 24">
+              <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+            </svg>
+          ) : (
+            <svg viewBox="0 0 24 24">
+              <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/>
+            </svg>
+          )}
+        </button>
+      </div>
     </div>
   );
 };

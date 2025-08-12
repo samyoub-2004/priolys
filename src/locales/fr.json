@@ -1,0 +1,184 @@
+{
+  "menu": {
+    "home": "Accueil",
+    "services": "Services",
+    "fleet": "Flotte",
+    "partners": "Partenaires",
+    "blog": "Blog"
+  },
+  "hero": {
+    "title": "Service VTC d'exception",
+    "subtitle": "Votre transport de luxe depuis Marseille",
+    "description": "Des déplacements haut de gamme avec une flotte premium et des chauffeurs professionnels"
+  },
+  "reservation": {
+    "title": "Réserver un trajet",
+    "departureLabel": "Votre adresse de départ",
+    "departurePlaceholder": "Adresse précise, aéroport, hôtel",
+    "dateLabel": "Date et heure de départ",
+    "datePlaceholder": "mm/dd/yyyy --:-- --",
+    "destinationLabel": "Où souhaitez-vous aller ?",
+    "destinationPlaceholder": "Ville, région ou établissement etc...",
+    "passengersLabel": "Nombre de passagers",
+    "stopLabel": "Ajouter un arrêt en chemin"
+  },
+  "buttons": {
+    "reserve": "Réserver",
+    "search": "Rechercher",
+    "becomePartner": "Devenir partenaire",
+    "readMore": "Lire la suite"
+  },
+  "ariaLabels": {
+    "lightMode": "Passer en mode clair",
+    "darkMode": "Passer en mode sombre",
+    "menu": "Menu",
+    "facebook": "Facebook",
+    "instagram": "Instagram",
+    "twitter": "Twitter",
+    "linkedin": "LinkedIn"
+  },
+  "servicesSection": {
+    "title": "Nos services et prestations",
+    "description": "Nous proposons des solutions adaptées à chacun de vos besoins"
+  },
+  "fleetSection": {
+    "title": "Nos classes de service",
+    "description": "Une flotte premium pour tous vos besoins"
+  },
+  "partnersSection": {
+    "title": "Devenir partenaire",
+    "subtitle": "Nous avançons ensemble",
+    "description": "Les partenariats sont une vraie force. Nous aimons collaborer avec des entreprises et des professionnels qui partagent notre exigence de qualité. Rejoignez-nous pour offrir à vos clients un service de transport haut de gamme, fiable et pensé pour chaque besoin.",
+    "categories": [
+      "Entreprises",
+      "Agences de voyages",
+      "Organisateurs d'événements",
+      "Hôtels et restaurants",
+      "Autres"
+    ]
+  },
+  "blogSection": {
+    "title": "Blog",
+    "description": "Découvrez nos conseils et actualités sur le transport privé"
+  },
+  "footer": {
+    "description": "Service VTC professionnel à Marseille",
+    "about": "À propos",
+    "services": "Services et prestations",
+    "contact": "Contact",
+    "legal": "Mentions légales",
+    "terms": "Conditions d'utilisation",
+    "privacy": "Politique de confidentialité",
+    "vehicles": "Nos véhicules",
+    "tours": "Circuits touristiques",
+    "rights": "Tous droits réservés."
+  },
+  "contact": {
+    "email": "contact@priolys.fr",
+    "phone": "+33 7 50 14 18 64",
+    "feedback": "Envoyer un feedback"
+  },
+  "services": [
+
+    {
+      "icon": "airport",
+      "title": "Transfert aéroport / gare",
+      "description": "Accueil VIP et assurance de vos correspondances vers les principaux points de transport",
+      "details": ["Accueil VIP", "Arrivée à l'avance", "Assurance correspondances"]
+      
+    },
+    {
+      "icon": "business",
+      "title": "Déplacements professionnels",
+      "description": "Des déplacements fluides, pour rester concentré sur l'essentiel",
+      "details": ["Chauffeur attitré", "Arrivée à l'avance", "Connexion Wi-Fi"]
+      
+    },
+    {
+      "icon": "night",
+      "title": "Déplacements nocturnes",
+      "description": "Voyagez en toute sécurité, même au cœur de la nuit",
+      "details": ["Sécurité garantie", "Chauffeur expérimenté", "Service 24/7"]
+      
+    },
+    {
+      "icon": "events",
+      "title": "Transport pour vos événements",
+      "description": "Une logistique de transport impeccable pour vos événements",
+      "details": ["WIFI et Chargeur", "Arrêts en route", "Service sur mesure"]
+      
+    },
+    {
+      "icon": "long",
+      "title": "Transport longue distance",
+      "description": "Une solution idéale pour vos trajets hors de la ville",
+      "details": ["Confort optimal", "Arrêts en route", "Boissons offertes"]
+      
+    },
+    {
+      "icon": "kids",
+      "title": "Transport Enfants & Ados",
+      "description": "Transport de vos enfants et adolescents vers leurs destinations",
+      "details": ["Sécurité maximale", "Boissons et snacks", "Chauffeur certifié"]
+      
+    },
+    {
+      "icon": "dispo",
+      "title": "Mise à disposition",
+      "description": "Votre chauffeur privé disponible à chaque instant",
+      "details": ["Service à la demande", "Chauffeur attitré", "Flexibilité horaire"]
+      
+    }
+    
+    
+    
+  ],
+  "vehicles": [
+    {
+      "category": "Berline Classique",
+      "models": ["Mercedes Classe C", "Peugeot 508", "Renault Talisman"],
+      "image": "berline-classic"
+    } ,
+    {
+      "category": "Berline Business",
+      "models": ["Mercedes Classe E", "BMW Série 5", "Audi A6"],
+      "image": "berline-business"
+    },
+    {
+      "category": "Van Éco",
+      "models": ["Renault Trafic", "Peugeot Expert", "Ford Transit"],
+      "image": "van-eco"
+    },
+    {
+      "category": "Van Luxe",
+      "models": ["Mercedes Classe V", "Volkswagen Multivan"],
+      "image": "van-luxe"
+    },
+    {
+      "category": "VIP",
+      "models": ["Mercedes Classe S", "BMW Série 7" , "Audi A8"],
+      "image": "vip"
+    },
+    {
+      "category": "VIP Grand Luxe",
+      "models": ["Mercedes-Benz Sprinter VIP", "Range Rover Autobiography" , "vip-grand"],
+      "image": "vip-grand"
+    }
+
+    
+    
+  ],
+  "blogPosts": [
+    {
+      "title": "Trois bonne raisons de préférer un VTC à un vol court-courrier",
+      "excerpt": "Saviez-vous qu'un vol court-courrier émet 5 fois plus de CO2 qu'un trajet en voiture...",
+      "date": "12 août 2024"
+    }
+    
+  ],
+  "cities": [
+    "Marseille", "Paris", "Lyon", "Toulouse", "Nice", "Nantes", 
+    "Strasbourg", "Montpellier", "Bordeaux", "Lille", "Rennes", 
+    "Aix-en-Provence", "Toulon", "Grenoble", "Dijon", "Avignon"
+  ]
+}

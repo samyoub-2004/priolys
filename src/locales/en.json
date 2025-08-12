@@ -1,0 +1,153 @@
+{
+  "menu": {
+    "home": "Home",
+    "services": "Services",
+    "fleet": "fleet",
+    "partners": "Partners",
+    "blog": "Blog"
+  },
+  "hero": {
+    "title": "Service VTC d'exception",
+    "subtitle": "Votre transport de luxe depuis Marseille",
+    "description": "Des déplacements haut de gamme avec une flotte premium et des chauffeurs professionnels"
+  },
+  "reservation": {
+    "title": "Book a ride",
+    "departureLabel": "Your departure address",
+    "departurePlaceholder": "Precise address, airport, hotel",
+    "dateLabel": "Departure date and time",
+    "datePlaceholder": "mm/dd/yyyy --:-- --",
+    "destinationLabel": "Where do you want to go?",
+    "destinationPlaceholder": "City, region or establishment etc...",
+    "passengersLabel": "Number of passengers",
+    "stopLabel": "Add a stop along the way"
+  },
+  "buttons": {
+    "reserve": "reserve",
+    "search": "search",
+    "becomePartner": "become partner",
+    "readMore": "readMore"
+  },
+  "ariaLabels": {
+    "lightMode": "Light Mode",
+    "darkMode": "Dark Mode",
+    "menu": "Menu",
+    "facebook": "Facebook",
+    "instagram": "Instagram",
+    "twitter": "Twitter",
+    "linkedin": "LinkedIn"
+  },
+  "servicesSection": {
+    "title": "Our services",
+    "description": "We offer solutions tailored to each of your needs"
+  },
+  "fleetSection": {
+    "title": "Our Premium Services",
+    "description": "A premium fleet for all your needs"
+  },
+  "partnersSection": {
+    "title": "Become Partner",
+    "subtitle": "We move forward together",
+    "description": "Partnerships are a real strength. We enjoy collaborating with companies and professionals who share our commitment to quality. Join us to offer your clients a high-end, reliable transportation service designed for every need.",
+    "categories": [
+      "Businesses",
+      "Travel agencies",
+      "Event organizers",
+      "Hotels and restaurants",
+      "Others"
+    ]
+  },
+  "blogSection": {
+    "title": "Blog",
+    "description": "Discover our advice and news on private transport"
+  },
+  "footer": {
+    "description": "Professional VTC service in Marseille",
+    "about": "About us",
+    "services": "Services and benefits",
+    "contact": "Contact",
+    "legal": "Legal notices",
+    "terms": "Terms of Use",
+    "privacy": "Privacy Policy",
+    "vehicles": "Our vehicles",
+    "tours": "Tourist circuits",
+    "rights": "All rights reserved."
+  },
+  "contact": {
+    "email": "contact@priolys.fr",
+    "phone": "+33 7 50 14 18 64",
+    "feedback": "Envoyer un feedback"
+  },
+  "services": [
+    {
+      "icon": "airport",
+      "title": "Airport / train station transfer",
+      "description": "VIP welcome and guaranteed connections to major transport points",
+      "details": ["VIP Welcome", "Early Arrival", "Connection Insurance"]
+    },
+     {
+      "icon": "business",
+      "title": "Business travel",
+      "description": "Smooth movements, to stay focused on what's essential",
+      "details": ["Assigned driver", "Arrival early", "Wi-Fi connection"]
+      
+    },
+    {
+      "icon": "night",
+      "title": "Night travel",
+      "description": "Travel safely, even in the dead of night",
+      "details": ["Guaranteed safety", "Experienced driver", "24/7 service"]
+      
+    },
+    {
+      "icon": "events",
+      "title": "Transportation for your events",
+      "description": "Impeccable transport logistics for your events",
+      "details": ["WIFI and Charger", "Stops on the way", "Customized service"]
+      
+    },
+    {
+      "icon": "long",
+      "title": "Transport longue distance",
+      "description": "An ideal solution for your trips out of town",
+      "details": ["Optimal comfort", "Stops along the way", "Free drinks"]
+      
+    },
+    {
+      "icon": "kids",
+      "title": "Transport for Children & Teenagers",
+      "description": "Transporting your children and teenagers to their destinations",
+      "details": ["Maximum security", "Drinks and snacks", "Certified driver"]
+      
+    },
+    {
+      "icon": "dispo",
+      "title": "Provision",
+      "description": "Your private driver available at all times",
+      "details": ["On-demand service", "Assigned driver", "Flexible hours"]
+      
+    }
+    
+  ],
+  "vehicles": [
+    {
+      "category": "Berline Classique",
+      "models": ["Mercedes Classe C", "Peugeot 508", "Renault Talisman"],
+      "image": "berline-classic"
+    }
+    
+  ],
+  "blogPosts": [
+    {
+      "title": "Three good reasons to choose a VTC over a short-haul flight",
+      "excerpt": "Did you know that a short-haul flight emits 5 times more CO2 than a car journey?...",
+      "date": "12 août 2024"
+    }
+    
+  ],
+  "cities": [
+    "Marseille", "Paris", "Lyon", "Toulouse", "Nice", "Nantes", 
+    "Strasbourg", "Montpellier", "Bordeaux", "Lille", "Rennes", 
+    "Aix-en-Provence", "Toulon", "Grenoble", "Dijon", "Avignon"
+  ]
+}
