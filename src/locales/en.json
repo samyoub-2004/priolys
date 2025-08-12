@@ -134,6 +134,31 @@
       "category": "Berline Classique",
       "models": ["Mercedes Classe C", "Peugeot 508", "Renault Talisman"],
       "image": "berline-classic"
+    },
+    {
+      "category": "Berline Business",
+      "models": ["Mercedes Classe E", "BMW Série 5", "Audi A6"],
+      "image": "berline-business"
+    },
+    {
+      "category": "Van Éco",
+      "models": ["Renault Trafic", "Peugeot Expert", "Ford Transit"],
+      "image": "van-eco"
+    },
+    {
+      "category": "Van Luxe",
+      "models": ["Mercedes Classe V", "Volkswagen Multivan"],
+      "image": "van-luxe"
+    },
+    {
+      "category": "VIP",
+      "models": ["Mercedes Classe S", "BMW Série 7" , "Audi A8"],
+      "image": "vip"
+    },
+    {
+      "category": "VIP Grand Luxe",
+      "models": ["Mercedes-Benz Sprinter VIP", "Range Rover Autobiography" , "vip-grand"],
+      "image": "vip-grand"
     }
     
   ],
