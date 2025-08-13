@@ -164,8 +164,8 @@
       "image": "berline-business"
     },
     {
-      "category": "Eco Van",
-      "models": ["Renault Trafic"],
+     "category": "Berline",
+      "models": ["Mercedes Benz"],
       "image": "van-eco"
     },
     {
