@@ -154,12 +154,12 @@
   ],
   "vehicles": [
     {
-      "category": "Classic Sedan",
+      "category": "Classic Berline",
       "models": ["Mercedes C-Class"],
       "image": "berline-classic"
     },
     {
-      "category": "Business Sedan",
+      "category": "Business Berline",
       "models": ["Mercedes E-Class"],
       "image": "berline-business"
     },
