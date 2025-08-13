@@ -20,7 +20,13 @@
     "destinationLabel": "Où souhaitez-vous aller ?",
     "destinationPlaceholder": "Ville, région ou établissement etc...",
     "passengersLabel": "Nombre de passagers",
-    "stopLabel": "Ajouter un arrêt en chemin"
+    "stopLabel": "Ajouter un arrêt en chemin",
+    "simpleTrip": "Trajet simple",
+    "hourlyRental": "Location à l'heure",
+    "locationLabel": "Lieu de prise en charge",
+    "locationPlaceholder": "Où souhaitez-vous être pris en charge ?",
+    "durationLabel": "Durée",
+    "hours": "heures"
   },
   "buttons": {
     "reserve": "Réserver",
@@ -61,6 +67,30 @@
     "title": "Blog",
     "description": "Découvrez nos conseils et actualités sur le transport privé"
   },
+  "reviewsSection": {
+    "title": "Ce que disent nos clients",
+    "description": "Découvrez les expériences de nos clients satisfaits"
+  },
+  "reviews": [
+    {
+      "name": "Jean Dupont",
+      "rating": 5,
+      "comment": "Service exceptionnel ! Le chauffeur était ponctuel et très professionnel.",
+      "date": "15 Janvier 2023"
+    },
+    {
+      "name": "Marie Lambert",
+      "rating": 4,
+      "comment": "Véhicule propre et confortable. Prix très raisonnable pour la qualité du service.",
+      "date": "28 Février 2023"
+    },
+    {
+      "name": "Thomas Martin",
+      "rating": 5,
+      "comment": "La meilleure compagnie de transport que j'ai utilisée. Je recommande vivement !",
+      "date": "12 Mars 2023"
+    }
+  ],
   "footer": {
     "description": "Service VTC professionnel à Marseille",
     "about": "À propos",
@@ -79,94 +109,80 @@
     "feedback": "Envoyer un feedback"
   },
   "services": [
-
     {
       "icon": "airport",
       "title": "Transfert aéroport / gare",
       "description": "Accueil VIP et assurance de vos correspondances vers les principaux points de transport",
       "details": ["Accueil VIP", "Arrivée à l'avance", "Assurance correspondances"]
-      
     },
     {
       "icon": "business",
       "title": "Déplacements professionnels",
       "description": "Des déplacements fluides, pour rester concentré sur l'essentiel",
       "details": ["Chauffeur attitré", "Arrivée à l'avance", "Connexion Wi-Fi"]
-      
     },
     {
       "icon": "night",
       "title": "Déplacements nocturnes",
       "description": "Voyagez en toute sécurité, même au cœur de la nuit",
       "details": ["Sécurité garantie", "Chauffeur expérimenté", "Service 24/7"]
-      
     },
     {
       "icon": "events",
       "title": "Transport pour vos événements",
       "description": "Une logistique de transport impeccable pour vos événements",
       "details": ["WIFI et Chargeur", "Arrêts en route", "Service sur mesure"]
-      
     },
     {
       "icon": "long",
       "title": "Transport longue distance",
       "description": "Une solution idéale pour vos trajets hors de la ville",
       "details": ["Confort optimal", "Arrêts en route", "Boissons offertes"]
-      
     },
     {
       "icon": "kids",
       "title": "Transport Enfants & Ados",
       "description": "Transport de vos enfants et adolescents vers leurs destinations",
       "details": ["Sécurité maximale", "Boissons et snacks", "Chauffeur certifié"]
-      
     },
     {
       "icon": "dispo",
       "title": "Mise à disposition",
       "description": "Votre chauffeur privé disponible à chaque instant",
       "details": ["Service à la demande", "Chauffeur attitré", "Flexibilité horaire"]
-      
     }
-    
-    
-    
   ],
   "vehicles": [
     {
       "category": "Berline Classique",
-      "models": ["Mercedes Classe C", "Peugeot 508", "Renault Talisman"],
+      "models": ["Mercedes Classe C"],
       "image": "berline-classic"
-    } ,
+    },
     {
       "category": "Berline Business",
-      "models": ["Mercedes Classe E", "BMW Série 5", "Audi A6"],
+      "models": ["Mercedes Classe E"],
       "image": "berline-business"
     },
     {
       "category": "Van Éco",
-      "models": ["Renault Trafic", "Peugeot Expert", "Ford Transit"],
+      "models": ["Renault Trafic"],
       "image": "van-eco"
     },
     {
       "category": "Van Luxe",
-      "models": ["Mercedes Classe V", "Volkswagen Multivan"],
+      "models": ["Mercedes Classe V"],
       "image": "van-luxe"
     },
     {
       "category": "VIP",
-      "models": ["Mercedes Classe S", "BMW Série 7" , "Audi A8"],
+      "models": ["Mercedes Classe S"],
       "image": "vip"
     },
     {
       "category": "VIP Grand Luxe",
-      "models": ["Mercedes-Benz Sprinter VIP", "Range Rover Autobiography" , "vip-grand"],
+      "models": ["Mercedes-Benz Sprinter VIP"],
       "image": "vip-grand"
     }
-
-    
-    
   ],
   "blogPosts": [
     {
@@ -174,7 +190,6 @@
       "excerpt": "Saviez-vous qu'un vol court-courrier émet 5 fois plus de CO2 qu'un trajet en voiture...",
       "date": "12 août 2024"
     }
-    
   ],
   "cities": [
     "Marseille", "Paris", "Lyon", "Toulouse", "Nice", "Nantes", 

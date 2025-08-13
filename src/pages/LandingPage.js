@@ -1,34 +1,34 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 import './LandingPage.css';
 
 const LandingPage = () => {
-  const { t, i18n } = useTranslation();
-  const [darkMode, setDarkMode] = useState(true);
+  const { t } = useTranslation();
+  const [darkMode, setDarkMode] = useState(() => {
+    const savedMode = localStorage.getItem('darkMode');
+    return savedMode ? JSON.parse(savedMode) : false;
+  });
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [suggestions, setSuggestions] = useState([]);
   const [searchValue, setSearchValue] = useState('');
   const [isLanguageMenuOpen, setIsLanguageMenuOpen] = useState(false);
   const suggestionsRef = useRef(null);
-  const languageDropdownRef = useRef(null);
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [messages, setMessages] = useState([
     { text: t('chatbot.initialMessage'), sender: 'bot' }
   ]);
   const [messageInput, setMessageInput] = useState('');
+  const [reservationType, setReservationType] = useState('simple');
 
   // Services offerts
   const services = t('services', { returnObjects: true });
-
-  // Flotte de véhicules
   const vehicles = t('vehicles', { returnObjects: true });
-
-  // Articles du blog
   const blogPosts = t('blogPosts', { returnObjects: true });
-
-  // Suggestions de villes
   const cities = t('cities', { returnObjects: true });
+  const reviews = t('reviews', { returnObjects: true });
 
   // Gestion du scroll
   useEffect(() => {
@@ -36,7 +36,7 @@ const LandingPage = () => {
       setIsMenuOpen(false);
       setIsLanguageMenuOpen(false);
       
-      const sections = ['home', 'services', 'fleet', 'partners', 'blog'];
+      const sections = ['home', 'services', 'fleet', 'partners', 'blog', 'reviews'];
       for (const section of sections) {
         const element = document.getElementById(section);
         if (element && window.scrollY >= element.offsetTop - 100) {
@@ -63,6 +63,8 @@ const LandingPage = () => {
 
   // Appliquer le dark mode
   useEffect(() => {
+    localStorage.setItem('darkMode', JSON.stringify(darkMode));
+    
     if (darkMode) {
       document.body.classList.add('dark-mode');
     } else {
@@ -111,9 +113,6 @@ const LandingPage = () => {
       if (suggestionsRef.current && !suggestionsRef.current.contains(e.target)) {
         setSuggestions([]);
       }
-      if (languageDropdownRef.current && !languageDropdownRef.current.contains(e.target)) {
-        setIsLanguageMenuOpen(false);
-      }
     };
 
     document.addEventListener('mousedown', handleClickOutside);
@@ -122,22 +121,14 @@ const LandingPage = () => {
     };
   }, []);
 
-  // Changer la langue
-  const changeLanguage = (lng) => {
-    i18n.changeLanguage(lng);
-    setIsLanguageMenuOpen(false);
-  };
-
   // Envoyer un message dans le chatbot
   const handleSendMessage = () => {
     if (messageInput.trim() === '') return;
     
-    // Ajouter le message de l'utilisateur
     const userMessage = { text: messageInput, sender: 'user' };
     setMessages([...messages, userMessage]);
     setMessageInput('');
     
-    // Simuler une réponse du bot après un délai
     setTimeout(() => {
       const responses = [
         t('chatbot.response1'),
@@ -152,7 +143,6 @@ const LandingPage = () => {
     }, 1000);
   };
 
-  // Gestion de la touche Entrée
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
       handleSendMessage();
@@ -161,119 +151,16 @@ const LandingPage = () => {
 
   return (
     <div className={`landing-container ${darkMode ? 'dark-mode' : ''}`}>
-      {/* Navigation */}
-      <nav className="navbar">
-        <div className="container">
-          <div className="logo">
-            <span className="logo-icon"></span>
-            <span className="logo-text">PRIOLYS</span>
-          </div>
-          
-          <div className={`nav-links ${isMenuOpen ? 'open' : ''}`}>
-            <a 
-              href="#home" 
-              className={activeSection === 'home' ? 'active' : ''}
-              onClick={(e) => handleNavClick(e, 'home')}
-            >
-              {t('menu.home')}
-            </a>
-            <a 
-              href="#services" 
-              className={activeSection === 'services' ? 'active' : ''}
-              onClick={(e) => handleNavClick(e, 'services')}
-            >
-              {t('menu.services')}
-            </a>
-            <a 
-              href="#fleet" 
-              className={activeSection === 'fleet' ? 'active' : ''}
-              onClick={(e) => handleNavClick(e, 'fleet')}
-            >
-              {t('menu.fleet')}
-            </a>
-            <a 
-              href="#partners" 
-              className={activeSection === 'partners' ? 'active' : ''}
-              onClick={(e) => handleNavClick(e, 'partners')}
-            >
-              {t('menu.partners')}
-            </a>
-            <a 
-              href="#blog" 
-              className={activeSection === 'blog' ? 'active' : ''}
-              onClick={(e) => handleNavClick(e, 'blog')}
-            >
-              {t('menu.blog')}
-            </a>
-          </div>
-          
-          <div className="nav-actions">
-            <div className="language-dropdown" ref={languageDropdownRef}>
-              <button 
-                className="current-language"
-                onClick={() => setIsLanguageMenuOpen(!isLanguageMenuOpen)}
-                aria-expanded={isLanguageMenuOpen}
-              >
-                <span className={`flag-icon ${i18n.language === 'fr' ? 'fr' : 'en'}`}></span>
-                {i18n.language.toUpperCase()}
-                <svg className="dropdown-arrow" viewBox="0 0 24 24">
-                  <path d={isLanguageMenuOpen 
-                    ? "M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z" 
-                    : "M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"}/>
-                </svg>
-              </button>
-              
-              <div className={`language-options ${isLanguageMenuOpen ? 'open' : ''}`}>
-                <button 
-                  className={`lang-option ${i18n.language === 'fr' ? 'active' : ''}`}
-                  onClick={() => changeLanguage('fr')}
-                >
-                  <span className="flag-icon fr"></span>
-                  Français
-                </button>
-                <button 
-                  className={`lang-option ${i18n.language === 'en' ? 'active' : ''}`}
-                  onClick={() => changeLanguage('en')}
-                >
-                  <span className="flag-icon en"></span>
-                  English
-                </button>
-              </div>
-            </div>
-            
-            <button 
-              className="theme-toggle"
-              onClick={() => setDarkMode(!darkMode)}
-              aria-label={darkMode ? t('ariaLabels.lightMode') : t('ariaLabels.darkMode')}
-            >
-              {darkMode ? (
-                <svg className="theme-icon" viewBox="0 0 24 24">
-                  <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z"/>
-                </svg>
-              ) : (
-                <svg className="theme-icon" viewBox="0 0 24 24">
-                  <path d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"/>
-                </svg>
-              )}
-            </button>
-            <button className="reserve-btn">
-              <svg className="btn-icon" viewBox="0 0 24 24">
-                <path d="M3.375 4.5C2.339 4.5 1.5 5.34 1.5 6.375V13.5h12V6.375c0-1.036-.84-1.875-1.875-1.875h-8.25zM13.5 15h-12v2.625c0 1.035.84 1.875 1.875 1.875h.375a3 3 0 116 0h3a.75.75 0 00.75-.75V15z"/>
-                <path d="M8.25 19.5a1.5 1.5 0 10-3 0 1.5 1.5 0 003 0zM15.75 6.75a.75.75 0 00-.75.75v11.25c0 .087.015.17.042.248a3 3 0 015.958.464c.853-.175 1.522-.935 1.464-1.883a18.659 18.659 0 00-3.732-10.104 1.837 1.837 0 00-1.47-.725H15.75z"/>
-                <path d="M19.5 19.5a1.5 1.5 0 10-3 0 1.5 1.5 0 003 0z"/>
-              </svg>
-              {t('buttons.reserve')}
-            </button>
-            <button 
-              className="menu-toggle" 
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              aria-label={t('ariaLabels.menu')}
-            >
-              {isMenuOpen ? '✕' : '☰'}
-            </button>
-          </div>
-        </div>
-      </nav>
+      <Navbar 
+        darkMode={darkMode}
+        setDarkMode={setDarkMode}
+        isMenuOpen={isMenuOpen}
+        setIsMenuOpen={setIsMenuOpen}
+        activeSection={activeSection}
+        handleNavClick={handleNavClick}
+        isLanguageMenuOpen={isLanguageMenuOpen}
+        setIsLanguageMenuOpen={setIsLanguageMenuOpen}
+      />
 
       {/* Section Hero */}
       <section id="home" className="hero-section">
@@ -286,91 +173,187 @@ const LandingPage = () => {
           </div>
           
           <div className="reservation-card animate-on-scroll">
-            <h3>{t('reservation.title')}</h3>
-            
-            <div className="form-group">
-              <div className="input-icon">
-                <svg viewBox="0 0 24 24">
-                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/>
-                </svg>
-              </div>
-              <div className="input-content">
-                <label>{t('reservation.departureLabel')}</label>
-                <input type="text" placeholder={t('reservation.departurePlaceholder')} />
-              </div>
-              <button className="location-btn">
-                <svg viewBox="0 0 24 24">
-                  <path d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm8.94 3A8.994 8.994 0 0013 3.06V1h-2v2.06A8.994 8.994 0 003.06 11H1v2h2.06A8.994 8.994 0 0011 20.94V23h2v-2.06A8.994 8.994 0 0020.94 13H23v-2h-2.06zM12 19c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z"/>
-                </svg>
+            <div className="reservation-type-toggle">
+              <button 
+                className={`toggle-btn ${reservationType === 'simple' ? 'active' : ''}`}
+                onClick={() => setReservationType('simple')}
+              >
+                {t('reservation.simpleTrip')}
+              </button>
+              <button 
+                className={`toggle-btn ${reservationType === 'hourly' ? 'active' : ''}`}
+                onClick={() => setReservationType('hourly')}
+              >
+                {t('reservation.hourlyRental')}
               </button>
             </div>
             
-            <div className="form-group">
-              <div className="input-icon">
-                <svg viewBox="0 0 24 24">
-                  <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
-                </svg>
-              </div>
-              <div className="input-content">
-                <label>{t('reservation.dateLabel')}</label>
-                <input type="text" placeholder={t('reservation.datePlaceholder')} />
-              </div>
-            </div>
-            
-            <div className="form-group">
-              <div className="input-icon">
-                <svg viewBox="0 0 24 24">
-                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/>
-                </svg>
-              </div>
-              <div className="input-content">
-                <label>{t('reservation.destinationLabel')}</label>
-                <input 
-                  type="text" 
-                  placeholder={t('reservation.destinationPlaceholder')}
-                  value={searchValue}
-                  onChange={handleSearchChange}
-                />
-                {suggestions.length > 0 && (
-                  <div className="suggestions-box" ref={suggestionsRef}>
-                    {suggestions.map((city, index) => (
-                      <div 
-                        key={index} 
-                        className="suggestion-item"
-                        onClick={() => selectSuggestion(city)}
-                      >
-                        {city}
-                      </div>
-                    ))}
+            <div className="form-container">
+              {/* Formulaire Trajet Simple */}
+              <div className={`reservation-form ${reservationType === 'simple' ? 'active' : ''}`}>
+                <div className="form-group">
+                  <div className="input-container" >
+                    <div className="input-icon">
+                      <svg viewBox="0 0 24 24">
+                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/>
+                      </svg>
+                    </div>
+                    <div className="input-content">
+                      <label>{t('reservation.departureLabel')}</label>
+                      <input type="text" placeholder={t('reservation.departurePlaceholder')} />
+                    </div>
+                    <button className="location-btn">
+                      <svg viewBox="0 0 24 24">
+                        <path d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm8.94 3A8.994 8.994 0 0013 3.06V1h-2v2.06A8.994 8.994 0 003.06 11H1v2h2.06A8.994 8.994 0 0011 20.94V23h2v-2.06A8.994 8.994 0 0020.94 13H23v-2h-2.06zM12 19c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z"/>
+                      </svg>
+                    </button>
                   </div>
-                )}
+                </div>
+                
+                <div className="form-group">
+                  <div className="input-container">
+                    <div className="input-icon">
+                      <svg viewBox="0 0 24 24">
+                        <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+                      </svg>
+                    </div>
+                    <div className="input-content">
+                      <label>{t('reservation.dateLabel')}</label>
+                      <input type="text" placeholder={t('reservation.datePlaceholder')} />
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="form-group">
+                  <div className="input-container">
+                    <div className="input-icon">
+                      <svg viewBox="0 0 24 24">
+                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/>
+                      </svg>
+                    </div>
+                    <div className="input-content">
+                      <label>{t('reservation.destinationLabel')}</label>
+                      <input 
+                        type="text" 
+                        placeholder={t('reservation.destinationPlaceholder')}
+                        value={searchValue}
+                        onChange={handleSearchChange}
+                      />
+                      {suggestions.length > 0 && (
+                        <div className="suggestions-box" ref={suggestionsRef}>
+                          {suggestions.map((city, index) => (
+                            <div 
+                              key={index} 
+                              className="suggestion-item"
+                              onClick={() => selectSuggestion(city)}
+                            >
+                              {city}
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="form-group">
+                  <div className="input-container">
+                    <div className="input-icon">
+                      <svg viewBox="0 0 24 24">
+                        <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+                      </svg>
+                    </div>
+                    <div className="input-content">
+                      <label>{t('reservation.passengersLabel')}</label>
+                      <select>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5+</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                
+                
               </div>
-            </div>
-            
-            <div className="form-group">
-              <div className="input-icon">
-                <svg viewBox="0 0 24 24">
-                  <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
-                </svg>
+              
+              {/* Formulaire Location à l'heure */}
+              <div className={`reservation-form ${reservationType === 'hourly' ? 'active' : ''}`}>
+                <div className="form-group">
+                  <div className="input-container">
+                    <div className="input-icon">
+                      <svg viewBox="0 0 24 24">
+                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/>
+                      </svg>
+                    </div>
+                    <div className="input-content">
+                      <label>{t('reservation.locationLabel')}</label>
+                      <input type="text" placeholder={t('reservation.locationPlaceholder')} />
+                    </div>
+                    <button className="location-btn">
+                      <svg viewBox="0 0 24 24">
+                        <path d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm8.94 3A8.994 8.994 0 0013 3.06V1h-2v2.06A8.994 8.994 0 003.06 11H1v2h2.06A8.994 8.994 0 0011 20.94V23h2v-2.06A8.994 8.994 0 0020.94 13H23v-2h-2.06zM12 19c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z"/>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+                
+                <div className="form-group">
+                  <div className="input-container">
+                    <div className="input-icon">
+                      <svg viewBox="0 0 24 24">
+                        <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+                      </svg>
+                    </div>
+                    <div className="input-content">
+                      <label>{t('reservation.dateLabel')}</label>
+                      <input type="text" placeholder={t('reservation.datePlaceholder')} />
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="form-group">
+                  <div className="input-container">
+                    <div className="input-icon">
+                      <svg viewBox="0 0 24 24">
+                        <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm1-13h-2v7h4v-2h-2z"/>
+                      </svg>
+                    </div>
+                    <div className="input-content">
+                      <label>{t('reservation.durationLabel')}</label>
+                      <select>
+                        {Array.from({ length: 24 }, (_, i) => i + 1).map(hour => (
+                          <option key={hour} value={hour}>
+                            {hour} {t('reservation.hours')}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="form-group">
+                  <div className="input-container">
+                    <div className="input-icon">
+                      <svg viewBox="0 0 24 24">
+                        <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+                      </svg>
+                    </div>
+                    <div className="input-content">
+                      <label>{t('reservation.passengersLabel')}</label>
+                      <select>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5+</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div className="input-content">
-                <label>{t('reservation.passengersLabel')}</label>
-                <select>
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5+</option>
-                </select>
-              </div>
-            </div>
-            
-            <div className="form-group checkbox-group">
-              <label>
-                <input type="checkbox" />
-                <span className="checkmark"></span>
-                {t('reservation.stopLabel')}
-              </label>
             </div>
             
             <button className="search-btn">
@@ -508,92 +491,39 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="footer">
+      {/* Section Avis */}
+      <section id="reviews" className="reviews-section">
         <div className="container">
-          <div className="footer-grid">
-            <div className="footer-column">
-              <div className="logo">
-                <span className="logo-icon"></span>
-                <span className="logo-text">PRIOLYS</span>
-              </div>
-              <p>{t('footer.description')}</p>
-              <div className="social-links">
-                <a href="#" aria-label={t('ariaLabels.facebook')}>
-                  <svg viewBox="0 0 24 24">
-                    <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
-                  </svg>
-                </a>
-                <a href="#" aria-label={t('ariaLabels.instagram')}>
-                  <svg viewBox="0 0 24 24">
-                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-                    <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zM17.5 6.5h.01"/>
-                  </svg>
-                </a>
-                <a href="#" aria-label={t('ariaLabels.twitter')}>
-                  <svg viewBox="0 0 24 24">
-                    <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/>
-                  </svg>
-                </a>
-                <a href="#" aria-label={t('ariaLabels.linkedin')}>
-                  <svg viewBox="0 0 24 24">
-                    <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/>
-                    <circle cx="4" cy="4" r="2"/>
-                  </svg>
-                </a>
-              </div>
-            </div>
-            
-            <div className="footer-column">
-              <h4>{t('footer.about')}</h4>
-              <ul>
-                <li><a href="#">{t('footer.legal')}</a></li>
-                <li><a href="#">{t('footer.terms')}</a></li>
-                <li><a href="#">{t('footer.privacy')}</a></li>
-              </ul>
-            </div>
-            
-            <div className="footer-column">
-              <h4>{t('footer.services')}</h4>
-              <ul>
-                <li><a href="#">{t('footer.services')}</a></li>
-                <li><a href="#">{t('footer.vehicles')}</a></li>
-                <li><a href="#">{t('footer.tours')}</a></li>
-              </ul>
-            </div>
-            
-            <div className="footer-column">
-              <h4>{t('footer.contact')}</h4>
-              <ul>
-                <li>
-                  <svg className="contact-icon" viewBox="0 0 24 24">
-                    <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-                  </svg>
-                  {t('contact.email')}
-                </li>
-                <li>
-                  <svg className="contact-icon" viewBox="0 0 24 24">
-                    <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
-                  </svg>
-                  {t('contact.phone')}
-                </li>
-                <li>
-                  <a href="#">
-                    <svg className="contact-icon" viewBox="0 0 24 24">
-                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                    </svg>
-                    {t('contact.feedback')}
-                  </a>
-                </li>
-              </ul>
-            </div>
+          <div className="section-header animate-on-scroll">
+            <h2>{t('reviewsSection.title')}</h2>
+            <p>{t('reviewsSection.description')}</p>
           </div>
           
-          <div className="footer-bottom">
-            <p>&copy; {new Date().getFullYear()} Priolys. {t('footer.rights')}</p>
+          <div className="reviews-grid">
+            {reviews.map((review, index) => (
+              <div 
+                key={index} 
+                className="review-card animate-on-scroll"
+              >
+                <div className="review-header">
+                  <div className="review-avatar"></div>
+                  <div>
+                    <h3>{review.name}</h3>
+                    <div className="review-rating">
+                      {'★'.repeat(review.rating)}
+                      {'☆'.repeat(5 - review.rating)}
+                    </div>
+                  </div>
+                </div>
+                <p className="review-comment">"{review.comment}"</p>
+                <div className="review-date">{review.date}</div>
+              </div>
+            ))}
           </div>
         </div>
-      </footer>
+      </section>
+
+      <Footer />
 
       {/* Chatbot */}
       <div className={`chatbot-container ${isChatOpen ? 'open' : ''}`}>
@@ -656,4 +586,4 @@ const LandingPage = () => {
   );
 };
 
-export default LandingPage;
+export default LandingPage; 
