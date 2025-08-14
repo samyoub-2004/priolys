@@ -1,34 +1,91 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useJsApiLoader, Autocomplete } from '@react-google-maps/api';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import './LandingPage.css';
 
+const libraries = ['places'];
+const googleMapsApiKey = "AIzaSyBLGs7aK3AGCGcRok_d-t5_1KJL1R3sf7o";
+
 const LandingPage = () => {
   const { t } = useTranslation();
+  const { isLoaded } = useJsApiLoader({
+    googleMapsApiKey,
+    libraries
+  });
+
+  // États initiaux
   const [darkMode, setDarkMode] = useState(() => {
     const savedMode = localStorage.getItem('darkMode');
     return savedMode ? JSON.parse(savedMode) : false;
   });
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
-  const [suggestions, setSuggestions] = useState([]);
-  const [searchValue, setSearchValue] = useState('');
   const [isLanguageMenuOpen, setIsLanguageMenuOpen] = useState(false);
-  const suggestionsRef = useRef(null);
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [messages, setMessages] = useState([
     { text: t('chatbot.initialMessage'), sender: 'bot' }
   ]);
   const [messageInput, setMessageInput] = useState('');
   const [reservationType, setReservationType] = useState('simple');
+  
+  // États pour les adresses
+  const [departureAddress, setDepartureAddress] = useState('');
+  const [destinationAddress, setDestinationAddress] = useState('');
+  const [locationAddress, setLocationAddress] = useState('');
+  
+  // Références pour les autocomplétions
+  const departureAutocompleteRef = useRef(null);
+  const destinationAutocompleteRef = useRef(null);
+  const locationAutocompleteRef = useRef(null);
 
-  // Services offerts
+  // Données de la page
   const services = t('services', { returnObjects: true });
   const vehicles = t('vehicles', { returnObjects: true });
   const blogPosts = t('blogPosts', { returnObjects: true });
-  const cities = t('cities', { returnObjects: true });
   const reviews = t('reviews', { returnObjects: true });
+
+  // Initialisation des autocomplétions
+  const onDepartureLoad = (autocomplete) => {
+    departureAutocompleteRef.current = autocomplete;
+  };
+
+  const onDestinationLoad = (autocomplete) => {
+    destinationAutocompleteRef.current = autocomplete;
+  };
+
+  const onLocationLoad = (autocomplete) => {
+    locationAutocompleteRef.current = autocomplete;
+  };
+
+  // Gestion des sélections d'adresse
+  const onDeparturePlaceChanged = () => {
+    if (departureAutocompleteRef.current) {
+      const place = departureAutocompleteRef.current.getPlace();
+      if (place.formatted_address) {
+        setDepartureAddress(place.formatted_address);
+      }
+    }
+  };
+
+  const onDestinationPlaceChanged = () => {
+    if (destinationAutocompleteRef.current) {
+      const place = destinationAutocompleteRef.current.getPlace();
+      if (place.formatted_address) {
+        setDestinationAddress(place.formatted_address);
+      }
+    }
+  };
+
+  const onLocationPlaceChanged = () => {
+    if (locationAutocompleteRef.current) {
+      const place = locationAutocompleteRef.current.getPlace();
+      if (place.formatted_address) {
+        setLocationAddress(place.formatted_address);
+      }
+    }
+  };
 
   // Gestion du scroll
   useEffect(() => {
@@ -86,40 +143,6 @@ const LandingPage = () => {
       });
     }
   };
-
-  // Gestion des suggestions pour la recherche
-  const handleSearchChange = (e) => {
-    const value = e.target.value;
-    setSearchValue(value);
-    
-    if (value.length > 1) {
-      const filtered = cities.filter(city => 
-        city.toLowerCase().includes(value.toLowerCase())
-      );
-      setSuggestions(filtered);
-    } else {
-      setSuggestions([]);
-    }
-  };
-
-  const selectSuggestion = (city) => {
-    setSearchValue(city);
-    setSuggestions([]);
-  };
-
-  // Fermer les menus quand on clique en dehors
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (suggestionsRef.current && !suggestionsRef.current.contains(e.target)) {
-        setSuggestions([]);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
 
   // Envoyer un message dans le chatbot
   const handleSendMessage = () => {
@@ -200,7 +223,19 @@ const LandingPage = () => {
                     </div>
                     <div className="input-content">
                       <label>{t('reservation.departureLabel')}</label>
-                      <input type="text" placeholder={t('reservation.departurePlaceholder')} />
+                      {isLoaded && (
+                        <Autocomplete
+                          onLoad={onDepartureLoad}
+                          onPlaceChanged={onDeparturePlaceChanged}
+                        >
+                          <input 
+                            type="text" 
+                            placeholder={t('reservation.departurePlaceholder')}
+                            value={departureAddress}
+                            onChange={(e) => setDepartureAddress(e.target.value)}
+                          />
+                        </Autocomplete>
+                      )}
                     </div>
                     <button className="location-btn">
                       <svg viewBox="0 0 24 24">
@@ -233,24 +268,18 @@ const LandingPage = () => {
                     </div>
                     <div className="input-content">
                       <label>{t('reservation.destinationLabel')}</label>
-                      <input 
-                        type="text" 
-                        placeholder={t('reservation.destinationPlaceholder')}
-                        value={searchValue}
-                        onChange={handleSearchChange}
-                      />
-                      {suggestions.length > 0 && (
-                        <div className="suggestions-box" ref={suggestionsRef}>
-                          {suggestions.map((city, index) => (
-                            <div 
-                              key={index} 
-                              className="suggestion-item"
-                              onClick={() => selectSuggestion(city)}
-                            >
-                              {city}
-                            </div>
-                          ))}
-                        </div>
+                      {isLoaded && (
+                        <Autocomplete
+                          onLoad={onDestinationLoad}
+                          onPlaceChanged={onDestinationPlaceChanged}
+                        >
+                          <input 
+                            type="text" 
+                            placeholder={t('reservation.destinationPlaceholder')}
+                            value={destinationAddress}
+                            onChange={(e) => setDestinationAddress(e.target.value)}
+                          />
+                        </Autocomplete>
                       )}
                     </div>
                   </div>
@@ -275,8 +304,6 @@ const LandingPage = () => {
                     </div>
                   </div>
                 </div>
-                
-                
               </div>
               
               {/* Formulaire Location à l'heure */}
@@ -290,7 +317,19 @@ const LandingPage = () => {
                     </div>
                     <div className="input-content">
                       <label>{t('reservation.locationLabel')}</label>
-                      <input type="text" placeholder={t('reservation.locationPlaceholder')} />
+                      {isLoaded && (
+                        <Autocomplete
+                          onLoad={onLocationLoad}
+                          onPlaceChanged={onLocationPlaceChanged}
+                        >
+                          <input 
+                            type="text" 
+                            placeholder={t('reservation.locationPlaceholder')}
+                            value={locationAddress}
+                            onChange={(e) => setLocationAddress(e.target.value)}
+                          />
+                        </Autocomplete>
+                      )}
                     </div>
                     <button className="location-btn">
                       <svg viewBox="0 0 24 24">
@@ -586,4 +625,4 @@ const LandingPage = () => {
   );
 };
 
-export default LandingPage; 
+export default LandingPage;

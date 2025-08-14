@@ -689,7 +689,7 @@ service-card:hover {
   background: var(--background-color);
   border-radius: 15px;
   box-shadow: var(--hover-shadow);
-  display: flex;
+  display: none;
   flex-direction: column;
   overflow: hidden;
   transform: translateY(20px);
@@ -701,6 +701,7 @@ service-card:hover {
 .chatbot-container.open .chat-window {
   transform: translateY(0);
   opacity: 1;
+  display: flex;
   visibility: visible;
 }
 
