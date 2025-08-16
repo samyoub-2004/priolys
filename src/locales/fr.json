@@ -308,6 +308,12 @@
   },
   "ariaLabels": {
     "accountMenu": "Menu compte"
+  },
+  "location": {
+    "geolocationNotSupported": "La géolocalisation n'est pas supportée par votre navigateur",
+    "googleMapsNotLoaded": "Google Maps n'est pas chargé, veuillez réessayer",
+    "geocodingFailed": "Impossible de trouver votre adresse",
+    "geolocationError": "Erreur de géolocalisation"
   }
 
 

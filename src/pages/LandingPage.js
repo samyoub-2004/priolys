@@ -5,7 +5,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import './LandingPage.css';
 
-const libraries = ['places'];
+const libraries = ['places', 'geocoding'];
 const googleMapsApiKey = "AIzaSyBLGs7aK3AGCGcRok_d-t5_1KJL1R3sf7o";
 
 const LandingPage = () => {
@@ -34,6 +34,14 @@ const LandingPage = () => {
   const [departureAddress, setDepartureAddress] = useState('');
   const [destinationAddress, setDestinationAddress] = useState('');
   const [locationAddress, setLocationAddress] = useState('');
+  
+  // États pour le focus
+  const [focusedInput, setFocusedInput] = useState(null);
+  
+  // Références pour les inputs
+  const departureInputRef = useRef(null);
+  const destinationInputRef = useRef(null);
+  const locationInputRef = useRef(null);
   
   // Références pour les autocomplétions
   const departureAutocompleteRef = useRef(null);
@@ -172,6 +180,52 @@ const LandingPage = () => {
     }
   };
 
+  // Récupérer la localisation actuelle
+  const getCurrentLocation = (type) => {
+    if (!navigator.geolocation) {
+      alert(t('location.geolocationNotSupported'));
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        
+        if (!window.google || !window.google.maps) {
+          alert(t('location.googleMapsNotLoaded'));
+          return;
+        }
+
+        const geocoder = new window.google.maps.Geocoder();
+        const latLng = new window.google.maps.LatLng(latitude, longitude);
+
+        geocoder.geocode({ location: latLng }, (results, status) => {
+          if (status === 'OK' && results[0]) {
+            const address = results[0].formatted_address;
+            switch (type) {
+              case 'departure':
+                setDepartureAddress(address);
+                break;
+              case 'destination':
+                setDestinationAddress(address);
+                break;
+              case 'location':
+                setLocationAddress(address);
+                break;
+              default:
+                break;
+            }
+          } else {
+            alert(t('location.geocodingFailed'));
+          }
+        });
+      },
+      (error) => {
+        alert(`${t('location.geolocationError')}: ${error.message}`);
+      }
+    );
+  };
+
   return (
     <div className={`landing-container ${darkMode ? 'dark-mode' : ''}`}>
       <Navbar 
@@ -215,29 +269,42 @@ const LandingPage = () => {
               {/* Formulaire Trajet Simple */}
               <div className={`reservation-form ${reservationType === 'simple' ? 'active' : ''}`}>
                 <div className="form-group">
-                  <div className="input-container" >
+                  <div 
+                    className={`input-container ${focusedInput === 'departure' ? 'focused' : ''}`}
+                    onClick={() => {
+                      departureInputRef.current.focus();
+                      setFocusedInput('departure');
+                    }}
+                  >
                     <div className="input-icon">
                       <svg viewBox="0 0 24 24">
                         <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/>
                       </svg>
                     </div>
                     <div className="input-content">
-                      <label>{t('reservation.departureLabel')}</label>
+                      <label htmlFor="departure">{t('reservation.departureLabel')}</label>
                       {isLoaded && (
                         <Autocomplete
                           onLoad={onDepartureLoad}
                           onPlaceChanged={onDeparturePlaceChanged}
                         >
                           <input 
+                            id="departure"
                             type="text" 
                             placeholder={t('reservation.departurePlaceholder')}
                             value={departureAddress}
                             onChange={(e) => setDepartureAddress(e.target.value)}
+                            ref={departureInputRef}
+                            onFocus={() => setFocusedInput('departure')}
+                            onBlur={() => setFocusedInput(null)}
                           />
                         </Autocomplete>
                       )}
                     </div>
-                    <button className="location-btn">
+                    <button 
+                      className="location-btn"
+                      onClick={() => getCurrentLocation('departure')}
+                    >
                       <svg viewBox="0 0 24 24">
                         <path d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm8.94 3A8.994 8.994 0 0013 3.06V1h-2v2.06A8.994 8.994 0 003.06 11H1v2h2.06A8.994 8.994 0 0011 20.94V23h2v-2.06A8.994 8.994 0 0020.94 13H23v-2h-2.06zM12 19c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z"/>
                       </svg>
@@ -246,38 +313,57 @@ const LandingPage = () => {
                 </div>
                 
                 <div className="form-group">
-                  <div className="input-container">
+                  <div 
+                    className={`input-container ${focusedInput === 'date' ? 'focused' : ''}`}
+                    onClick={() => setFocusedInput('date')}
+                  >
                     <div className="input-icon">
                       <svg viewBox="0 0 24 24">
                         <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
                       </svg>
                     </div>
                     <div className="input-content">
-                      <label>{t('reservation.dateLabel')}</label>
-                      <input type="text" placeholder={t('reservation.datePlaceholder')} />
+                      <label htmlFor="date">{t('reservation.dateLabel')}</label>
+                      <input 
+                        id="date"
+                        type="text" 
+                        placeholder={t('reservation.datePlaceholder')} 
+                        onFocus={() => setFocusedInput('date')}
+                        onBlur={() => setFocusedInput(null)}
+                      />
                     </div>
                   </div>
                 </div>
                 
                 <div className="form-group">
-                  <div className="input-container">
+                  <div 
+                    className={`input-container ${focusedInput === 'destination' ? 'focused' : ''}`}
+                    onClick={() => {
+                      destinationInputRef.current.focus();
+                      setFocusedInput('destination');
+                    }}
+                  >
                     <div className="input-icon">
                       <svg viewBox="0 0 24 24">
                         <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/>
                       </svg>
                     </div>
                     <div className="input-content">
-                      <label>{t('reservation.destinationLabel')}</label>
+                      <label htmlFor="destination">{t('reservation.destinationLabel')}</label>
                       {isLoaded && (
                         <Autocomplete
                           onLoad={onDestinationLoad}
                           onPlaceChanged={onDestinationPlaceChanged}
                         >
                           <input 
+                            id="destination"
                             type="text" 
                             placeholder={t('reservation.destinationPlaceholder')}
                             value={destinationAddress}
                             onChange={(e) => setDestinationAddress(e.target.value)}
+                            ref={destinationInputRef}
+                            onFocus={() => setFocusedInput('destination')}
+                            onBlur={() => setFocusedInput(null)}
                           />
                         </Autocomplete>
                       )}
@@ -286,15 +372,22 @@ const LandingPage = () => {
                 </div>
                 
                 <div className="form-group">
-                  <div className="input-container">
+                  <div 
+                    className={`input-container ${focusedInput === 'passengers' ? 'focused' : ''}`}
+                    onClick={() => setFocusedInput('passengers')}
+                  >
                     <div className="input-icon">
                       <svg viewBox="0 0 24 24">
                         <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
                       </svg>
                     </div>
                     <div className="input-content">
-                      <label>{t('reservation.passengersLabel')}</label>
-                      <select>
+                      <label htmlFor="passengers">{t('reservation.passengersLabel')}</label>
+                      <select 
+                        id="passengers"
+                        onFocus={() => setFocusedInput('passengers')}
+                        onBlur={() => setFocusedInput(null)}
+                      >
                         <option>1</option>
                         <option>2</option>
                         <option>3</option>
@@ -309,29 +402,42 @@ const LandingPage = () => {
               {/* Formulaire Location à l'heure */}
               <div className={`reservation-form ${reservationType === 'hourly' ? 'active' : ''}`}>
                 <div className="form-group">
-                  <div className="input-container">
+                  <div 
+                    className={`input-container ${focusedInput === 'location' ? 'focused' : ''}`}
+                    onClick={() => {
+                      locationInputRef.current.focus();
+                      setFocusedInput('location');
+                    }}
+                  >
                     <div className="input-icon">
                       <svg viewBox="0 0 24 24">
                         <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/>
                       </svg>
                     </div>
                     <div className="input-content">
-                      <label>{t('reservation.locationLabel')}</label>
+                      <label htmlFor="location">{t('reservation.locationLabel')}</label>
                       {isLoaded && (
                         <Autocomplete
                           onLoad={onLocationLoad}
                           onPlaceChanged={onLocationPlaceChanged}
                         >
                           <input 
+                            id="location"
                             type="text" 
                             placeholder={t('reservation.locationPlaceholder')}
                             value={locationAddress}
                             onChange={(e) => setLocationAddress(e.target.value)}
+                            ref={locationInputRef}
+                            onFocus={() => setFocusedInput('location')}
+                            onBlur={() => setFocusedInput(null)}
                           />
                         </Autocomplete>
                       )}
                     </div>
-                    <button className="location-btn">
+                    <button 
+                      className="location-btn"
+                      onClick={() => getCurrentLocation('location')}
+                    >
                       <svg viewBox="0 0 24 24">
                         <path d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm8.94 3A8.994 8.994 0 0013 3.06V1h-2v2.06A8.994 8.994 0 003.06 11H1v2h2.06A8.994 8.994 0 0011 20.94V23h2v-2.06A8.994 8.994 0 0020.94 13H23v-2h-2.06zM12 19c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z"/>
                       </svg>
@@ -340,29 +446,45 @@ const LandingPage = () => {
                 </div>
                 
                 <div className="form-group">
-                  <div className="input-container">
+                  <div 
+                    className={`input-container ${focusedInput === 'hourly-date' ? 'focused' : ''}`}
+                    onClick={() => setFocusedInput('hourly-date')}
+                  >
                     <div className="input-icon">
                       <svg viewBox="0 0 24 24">
                         <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
                       </svg>
                     </div>
                     <div className="input-content">
-                      <label>{t('reservation.dateLabel')}</label>
-                      <input type="text" placeholder={t('reservation.datePlaceholder')} />
+                      <label htmlFor="hourly-date">{t('reservation.dateLabel')}</label>
+                      <input 
+                        id="hourly-date"
+                        type="text" 
+                        placeholder={t('reservation.datePlaceholder')}
+                        onFocus={() => setFocusedInput('hourly-date')}
+                        onBlur={() => setFocusedInput(null)}
+                      />
                     </div>
                   </div>
                 </div>
                 
                 <div className="form-group">
-                  <div className="input-container">
+                  <div 
+                    className={`input-container ${focusedInput === 'duration' ? 'focused' : ''}`}
+                    onClick={() => setFocusedInput('duration')}
+                  >
                     <div className="input-icon">
                       <svg viewBox="0 0 24 24">
                         <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm1-13h-2v7h4v-2h-2z"/>
                       </svg>
                     </div>
                     <div className="input-content">
-                      <label>{t('reservation.durationLabel')}</label>
-                      <select>
+                      <label htmlFor="duration">{t('reservation.durationLabel')}</label>
+                      <select 
+                        id="duration"
+                        onFocus={() => setFocusedInput('duration')}
+                        onBlur={() => setFocusedInput(null)}
+                      >
                         {Array.from({ length: 24 }, (_, i) => i + 1).map(hour => (
                           <option key={hour} value={hour}>
                             {hour} {t('reservation.hours')}
@@ -374,15 +496,22 @@ const LandingPage = () => {
                 </div>
                 
                 <div className="form-group">
-                  <div className="input-container">
+                  <div 
+                    className={`input-container ${focusedInput === 'hourly-passengers' ? 'focused' : ''}`}
+                    onClick={() => setFocusedInput('hourly-passengers')}
+                  >
                     <div className="input-icon">
                       <svg viewBox="0 0 24 24">
                         <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
                       </svg>
                     </div>
                     <div className="input-content">
-                      <label>{t('reservation.passengersLabel')}</label>
-                      <select>
+                      <label htmlFor="hourly-passengers">{t('reservation.passengersLabel')}</label>
+                      <select 
+                        id="hourly-passengers"
+                        onFocus={() => setFocusedInput('hourly-passengers')}
+                        onBlur={() => setFocusedInput(null)}
+                      >
                         <option>1</option>
                         <option>2</option>
                         <option>3</option>
