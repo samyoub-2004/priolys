@@ -6,6 +6,7 @@ import i18n from './i18n';
 import LandingPage from "./pages/LandingPage";
 import Login from "./pages/Login/Login"
 import SignUpPage from "./pages/SignUp/SignUp"
+import VerifyEmailPage from "./pages/SignUp/VerifyEmailPage";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUpPage />} />
+          <Route path="/verify-email" element={<VerifyEmailPage />} />
 
         </Routes>
       </Router>

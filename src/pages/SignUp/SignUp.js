@@ -1,6 +1,15 @@
+// src/pages/SignUp/SignUpPage.jsx
 import React, { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import { 
+  createUserWithEmailAndPassword, 
+  signInWithPopup,
+  updateProfile,
+  sendEmailVerification
+} from 'firebase/auth';
+import { doc, setDoc } from 'firebase/firestore';
+import { auth, db, googleProvider, appleProvider } from '../FirebaseConf/firebase';
 import '../Login/Login.css';
 
 const SignUpPage = () => {
@@ -25,6 +34,8 @@ const SignUpPage = () => {
   });
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
   const languageMenuRef = useRef(null);
 
   // Appliquer le dark mode
@@ -127,31 +138,81 @@ const SignUpPage = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleEmailSignUp = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setError('');
     
-    // Vérifier que les mots de passe correspondent
     if (password !== confirmPassword) {
-      alert(t('signup.passwordsMismatch'));
+      setError(t('signup.passwordsMismatch'));
+      setLoading(false);
       return;
     }
     
-    // Vérifier la force du mot de passe
     if (passwordStrength.score < 3) {
-      alert(t('signup.passwordTooWeak'));
+      setError(t('signup.passwordTooWeak'));
+      setLoading(false);
       return;
     }
     
-    // Vérifier l'acceptation des conditions
     if (!agreedToTerms) {
-      alert(t('signup.agreeTermsRequired'));
+      setError(t('signup.agreeTermsRequired'));
+      setLoading(false);
       return;
     }
     
-    // Logique d'inscription
-    console.log('Inscription:', { firstName, lastName, email, password });
-    // Redirection après inscription réussie
-    navigate('/dashboard');
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      await updateProfile(user, {
+        displayName: `${firstName} ${lastName}`
+      });
+
+      await sendEmailVerification(user);
+
+      await setDoc(doc(db, "users", user.uid), {
+        uid: user.uid,
+        firstName,
+        lastName,
+        email,
+        createdAt: new Date(),
+        lastLogin: new Date(),
+      });
+
+      navigate('/verify-email', { state: { email: user.email } });
+    } catch (error) {
+      console.error("Erreur d'inscription", error);
+      setError(t(`signup.errors.${error.code}`) || t('signup.errors.default'));
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSocialSignUp = async (provider) => {
+    setLoading(true);
+    setError('');
+    
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      
+      await setDoc(doc(db, "users", user.uid), {
+        uid: user.uid,
+        firstName: user.displayName?.split(' ')[0] || '',
+        lastName: user.displayName?.split(' ')[1] || '',
+        email: user.email,
+        createdAt: new Date(),
+        lastLogin: new Date(),
+      });
+
+      navigate('/');
+    } catch (error) {
+      console.error("Erreur de connexion sociale", error);
+      setError(t(`signup.errors.${error.code}`) || t('signup.errors.default'));
+    } finally {
+      setLoading(false);
+    }
   };
 
   const goToLogin = () => {
@@ -160,7 +221,6 @@ const SignUpPage = () => {
 
   return (
     <div className="route-page-container">
-      {/* Navbar compacte */}
       <nav className="route-navbar compact">
         <div className="route-navbar-left">
           <h1 className="route-logo">Priolys</h1>
@@ -227,14 +287,13 @@ const SignUpPage = () => {
               </svg>
             ) : (
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-                <path d="M9.37 5.51A7.35 7.35 0 009.1 7.5c0 4.08 3.32 7.4 7.4 7.4.68 0 1.35-.09 1.99-.27A7.014 7.014 0 0112 19c-3.86 0-7-3.14-7-7 0-2.93 1.81-5.45 4.37-6.49zM12 3a9 9 0 109 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 01-4.4 2.26 5.403 5.403 0 01-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/>
+                <path d="M9.37 5.51A7.35 7.35 0 009.1 7.5c0 4.08 3.32 7.4 7.4 7.4.68 0 1.35-.09 1.99-.27A7.014 7.014 0 0112 19c-3.86 0-7-3.14-7-7 0-2.93 1.81-5.45 4.37-6.49M12 3a9 9 0 109 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 01-4.4 2.26 5.403 5.403 0 01-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/>
               </svg>
             )}
           </button>
         </div>
       </nav>
 
-      {/* Formulaire d'inscription */}
       <div className="route-form-container">
         <div className="route-card">
           <div className="route-header">
@@ -242,7 +301,9 @@ const SignUpPage = () => {
             <p>{t('signup.subtitle')}</p>
           </div>
           
-          <form onSubmit={handleSubmit} className="route-form">
+          {error && <div className="route-error-message">{error}</div>}
+          
+          <form onSubmit={handleEmailSignUp} className="route-form">
             <div className="route-form-group">
               <label htmlFor="firstName">{t('signup.firstName')}</label>
               <input
@@ -252,6 +313,7 @@ const SignUpPage = () => {
                 onChange={(e) => setFirstName(e.target.value)}
                 placeholder={t('signup.firstNamePlaceholder')}
                 required
+                disabled={loading}
               />
             </div>
             
@@ -264,6 +326,7 @@ const SignUpPage = () => {
                 onChange={(e) => setLastName(e.target.value)}
                 placeholder={t('signup.lastNamePlaceholder')}
                 required
+                disabled={loading}
               />
             </div>
             
@@ -276,6 +339,7 @@ const SignUpPage = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder={t('signup.emailPlaceholder')}
                 required
+                disabled={loading}
               />
             </div>
             
@@ -289,11 +353,13 @@ const SignUpPage = () => {
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder={t('signup.passwordPlaceholder')}
                   required
+                  disabled={loading}
                 />
                 <button 
                   type="button" 
                   className="route-password-toggle"
                   onClick={() => setShowPassword(!showPassword)}
+                  disabled={loading}
                 >
                   {showPassword ? (
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
@@ -307,7 +373,6 @@ const SignUpPage = () => {
                 </button>
               </div>
               
-              {/* Indicateur de force du mot de passe */}
               {password.length > 0 && (
                 <div className="route-password-strength">
                   <div className={`route-strength-bar ${getPasswordStrengthClass()}`}>
@@ -351,11 +416,13 @@ const SignUpPage = () => {
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   placeholder={t('signup.confirmPasswordPlaceholder')}
                   required
+                  disabled={loading}
                 />
                 <button 
                   type="button" 
                   className="route-password-toggle"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  disabled={loading}
                 >
                   {showConfirmPassword ? (
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
@@ -380,6 +447,7 @@ const SignUpPage = () => {
                   id="terms"
                   checked={agreedToTerms}
                   onChange={(e) => setAgreedToTerms(e.target.checked)}
+                  disabled={loading}
                 />
                 <label htmlFor="terms">
                   {t('signup.agreeTo')} <a href="#" className="route-terms-link">{t('signup.terms')}</a>
@@ -387,8 +455,16 @@ const SignUpPage = () => {
               </div>
             </div>
             
-            <button type="submit" className="route-btn">
-              {t('signup.createAccount')}
+            <button 
+              type="submit" 
+              className="route-btn"
+              disabled={loading}
+            >
+              {loading ? (
+                <div className="route-loader"></div>
+              ) : (
+                t('signup.createAccount')
+              )}
             </button>
           </form>
           
@@ -397,12 +473,20 @@ const SignUpPage = () => {
           </div>
           
           <div className="route-social-login">
-            <button className="route-social-btn route-google-btn">
+            <button 
+              className="route-social-btn route-google-btn"
+              onClick={() => handleSocialSignUp(googleProvider)}
+              disabled={loading}
+            >
               <img src="https://cdn-icons-png.flaticon.com/128/300/300221.png" width={20} height={20} loading='lazy' alt="Google" />
               {t('signup.signUpGoogle')}
             </button>
             
-            <button className="route-social-btn route-apple-btn">
+            <button 
+              className="route-social-btn route-apple-btn"
+              onClick={() => handleSocialSignUp(appleProvider)}
+              disabled={loading}
+            >
               <img src="https://cdn-icons-png.flaticon.com/128/25/25345.png" width={20} height={20} loading='lazy' alt="Apple" />
               {t('signup.signUpApple')}
             </button>

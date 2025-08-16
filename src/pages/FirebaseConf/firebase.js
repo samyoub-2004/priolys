@@ -1,19 +1,20 @@
 // Import des SDK Firebase nécessaires
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import {
-  getAuth,
-  GoogleAuthProvider,
-  OAuthProvider,
-  sendEmailVerification
+import { 
+  getAuth, 
+  GoogleAuthProvider, 
+  OAuthProvider, 
+  sendEmailVerification 
 } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 
 // Configuration Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyCT68wtgOFbKiFBk52ijbQrXl_XYVi46dY",
   authDomain: "vtccc-a34fd.firebaseapp.com",
   projectId: "vtccc-a34fd",
-  storageBucket: "vtccc-a34fd.appspot.com", // Correction du format
+  storageBucket: "vtccc-a34fd.appspot.com",
   messagingSenderId: "548137400763",
   appId: "1:548137400763:web:1e155fef7fb09278b2ac9e",
   measurementId: "G-DBV3M8FXEH"
@@ -22,9 +23,8 @@ const firebaseConfig = {
 // Initialisation de Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
-
-// Initialisation de l'authentification
 const auth = getAuth(app);
+const db = getFirestore(app);
 
 // Fournisseurs d'authentification
 const googleProvider = new GoogleAuthProvider();
@@ -47,5 +47,6 @@ export {
   analytics,
   googleProvider,
   appleProvider,
-  sendConfirmationEmail
+  sendConfirmationEmail,
+  db
 };

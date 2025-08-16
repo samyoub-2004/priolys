@@ -1,6 +1,8 @@
-import React, { useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { auth } from '../FirebaseConf/firebase';
 import "./Navbar.css";
 
 const Navbar = ({ 
@@ -15,7 +17,49 @@ const Navbar = ({
 }) => {
   const { t, i18n } = useTranslation();
   const languageDropdownRef = useRef(null);
+  const accountDropdownRef = useRef(null);
   const navigate = useNavigate();
+  
+  const [user, setUser] = useState(null);
+  const [isAccountMenuOpen, setIsAccountMenuOpen] = useState(false);
+  const [loadingAuth, setLoadingAuth] = useState(true);
+
+  // Observer l'état d'authentification
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        setUser({
+          uid: currentUser.uid,
+          displayName: currentUser.displayName,
+          email: currentUser.email,
+          photoURL: currentUser.photoURL,
+          emailVerified: currentUser.emailVerified
+        });
+      } else {
+        setUser(null);
+      }
+      setLoadingAuth(false);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  // Fermer les menus quand on clique en dehors
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (languageDropdownRef.current && !languageDropdownRef.current.contains(event.target)) {
+        setIsLanguageMenuOpen(false);
+      }
+      if (accountDropdownRef.current && !accountDropdownRef.current.contains(event.target)) {
+        setIsAccountMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
@@ -23,7 +67,26 @@ const Navbar = ({
   };
 
   const handleAuthClick = () => {
-    navigate('/login'); // Redirection vers la page Login
+    navigate('/login');
+  };
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      setIsAccountMenuOpen(false);
+      navigate('/');
+    } catch (error) {
+      console.error("Erreur lors de la déconnexion", error);
+    }
+  };
+
+  const getInitials = (name) => {
+    if (!name) return "??";
+    const parts = name.split(' ');
+    if (parts.length > 1) {
+      return `${parts[0][0]}${parts[parts.length - 1][0]}`.toUpperCase();
+    }
+    return name.substring(0, 2).toUpperCase();
   };
 
   return (
@@ -122,13 +185,88 @@ const Navbar = ({
             )}
           </button>
           
-          {/* Bouton d'authentification avec redirection */}
-          <button className="auth-btn" onClick={handleAuthClick}>
-            <svg className="btn-icon" viewBox="0 0 24 24">
-              <path d="M12 12a5 5 0 100-10 5 5 0 000 10zm0 2c-4.42 0-8 2.69-8 6v2h16v-2c0-3.31-3.58-6-8-6z"/>
-            </svg>
-            {t('buttons.authenticate')}
-          </button>
+          {loadingAuth ? (
+            <div className="auth-loading"></div>
+          ) : user && user.emailVerified ? (
+            <div className="account-dropdown" ref={accountDropdownRef}>
+              <button 
+                className="account-toggle"
+                onClick={() => setIsAccountMenuOpen(!isAccountMenuOpen)}
+                aria-label={t('ariaLabels.accountMenu')}
+              >
+                {user.photoURL ? (
+                  <img 
+                    src={user.photoURL} 
+                    alt={user.displayName || t('ariaLabels.userAvatar')} 
+                    className="account-avatar" 
+                  />
+                ) : (
+                  <div className="account-avatar-initials">
+                    {getInitials(user.displayName || user.email)}
+                  </div>
+                )}
+                <svg className="dropdown-arrow" viewBox="0 0 24 24">
+                  <path d={isAccountMenuOpen 
+                    ? "M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z" 
+                    : "M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"}/>
+                </svg>
+              </button>
+              
+              {isAccountMenuOpen && (
+                <div className="account-menu">
+                  <div className="account-info">
+                    <div className="account-name">{user.displayName || user.email}</div>
+                    <div className="account-email">{user.email}</div>
+                  </div>
+                  
+                  <button 
+                    className="account-option"
+                    onClick={() => {
+                      setIsAccountMenuOpen(false);
+                      navigate('/profile');
+                    }}
+                  >
+                    <svg viewBox="0 0 24 24">
+                      <path d="M12 12a4 4 0 100-8 4 4 0 000 8zm0 2c-4.42 0-8 2.69-8 6v1h16v-1c0-3.31-3.58-6-8-6z"/>
+                    </svg>
+                    {t('navbar.profile')}
+                  </button>
+                  
+                  <button 
+                    className="account-option"
+                    onClick={() => {
+                      setIsAccountMenuOpen(false);
+                      navigate('/bookings');
+                    }}
+                  >
+                    <svg viewBox="0 0 24 24">
+                      <path d="M17 3H7c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H7V5h10v14zm-5-6H9v-2h3V8h2v3h3v2h-3v3h-2v-3z"/>
+                    </svg>
+                    {t('navbar.bookings')}
+                  </button>
+                  
+                  <div className="account-separator"></div>
+                  
+                  <button 
+                    className="account-option account-logout"
+                    onClick={handleLogout}
+                  >
+                    <svg viewBox="0 0 24 24">
+                      <path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/>
+                    </svg>
+                    {t('navbar.logout')}
+                  </button>
+                </div>
+              )}
+            </div>
+          ) : (
+            <button className="auth-btn" onClick={handleAuthClick}>
+              <svg className="btn-icon" viewBox="0 0 24 24">
+                <path d="M12 12a5 5 0 100-10 5 5 0 000 10zm0 2c-4.42 0-8 2.69-8 6v2h16v-2c0-3.31-3.58-6-8-6z"/>
+              </svg>
+              {t('buttons.authenticate')}
+            </button>
+          )}
           
           <button 
             className="menu-toggle" 

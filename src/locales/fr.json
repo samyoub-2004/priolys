@@ -262,7 +262,46 @@
     "lowercase": "Une lettre minuscule",
     "number": "Un chiffre",
     "specialChar": "Un caractère spécial",
-    "passwordTooWeak": "Votre mot de passe est trop faible. Veuillez le renforcer."
+    "passwordTooWeak": "Votre mot de passe est trop faible. Veuillez le renforcer.",
+    "errors": {
+      "auth/email-already-in-use": "Cet email est déjà utilisé",
+      "auth/weak-password": "Mot de passe trop faible",
+      "auth/invalid-email": "Email invalide",
+      "default": "Une erreur est survenue"
+    }
+  },
+  "verifyEmail": {
+    "title": "Vérification d'email requise",
+    "subtitle": "Veuillez vérifier votre adresse email pour activer votre compte",
+    "instructions": "Pour compléter votre inscription:",
+    "step1": "Vérifiez votre boîte de réception",
+    "step2": "Ouvrez l'email de Priolys",
+    "step3": "Cliquez sur le lien de vérification",
+    "resendButton": "Renvoyer l'email",
+    "checkButton": "J'ai vérifié mon email",
+    "didNotReceive": "Vous n'avez pas reçu l'email?",
+    "spamFolder": "Vérifiez votre dossier spam/courrier indésirable",
+    "wrongEmail": "Email incorrect?",
+    "login": "Connectez-vous avec un autre compte",
+    "resendSuccess": "Email de vérification renvoyé avec succès!",
+    "resendError": "Erreur lors de l'envoi. Veuillez réessayer plus tard.",
+    "verifiedSuccess": "Email vérifié avec succès! Redirection...",
+    "notVerifiedYet": "Votre email n'a pas encore été vérifié",
+    "verificationError": "Erreur lors de la vérification. Veuillez réessayer.",
+    "redirecting": "Redirection vers l'accueil",
+    "rightsReserved": "Tous droits réservés.",
+    "terms": "Conditions d'utilisation",
+    "privacy": "Politique de confidentialité",
+    "help": "Aide",
+    "loading": "Chargement de la vérification..."
+  },
+  "navbar": {
+    "profile": "Profil",
+    "bookings": "Mes réservations",
+    "logout": "Déconnexion"
+  },
+  "ariaLabels": {
+    "accountMenu": "Menu compte"
   }
 
 

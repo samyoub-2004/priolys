@@ -455,3 +455,153 @@
     width: 100px;
   }
 }
+
+/* Navbar.css - Ajouts pour la gestion du compte */
+
+.auth-loading {
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--text-light);
+  border-top: 2px solid var(--primary-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-right: 10px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.account-dropdown {
+  position: relative;
+  margin-left: 10px;
+}
+
+.account-toggle {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 20px;
+  transition: background-color 0.3s;
+}
+
+.account-toggle:hover {
+  background-color: var(--border-color);
+}
+
+.account-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 5px;
+}
+
+.account-avatar-initials {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  color: var(--background-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 14px;
+  margin-right: 5px;
+}
+
+.account-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: var(--background-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  min-width: 250px;
+  z-index: 1000;
+  overflow: hidden;
+  margin-top: 10px;
+}
+
+.account-info {
+  padding: 15px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.account-name {
+  font-weight: bold;
+  color: var(--text-color);
+  font-size: 16px;
+  margin-bottom: 3px;
+}
+
+.account-email {
+  color: var(--text-light);
+  font-size: 14px;
+}
+
+.account-option {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 12px 15px;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  color: var(--text-color);
+  transition: background-color 0.3s;
+}
+
+.account-option:hover {
+  background-color: var(--border-color);
+}
+
+.account-option svg {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  fill: var(--text-color);
+}
+
+.account-separator {
+  height: 1px;
+  background-color: var(--border-color);
+  margin: 5px 0;
+}
+
+.account-logout {
+  color: #e53935;
+}
+
+.account-logout:hover {
+  background-color: rgba(229, 57, 53, 0.1);
+}
+
+/* Dark mode adjustments */
+.dark-mode .account-toggle:hover {
+  background-color: #333;
+}
+
+.dark-mode .account-menu {
+  background-color: var(--card-bg);
+  border-color: #444;
+}
+
+.dark-mode .account-info {
+  border-color: #444;
+}
+
+.dark-mode .account-option:hover {
+  background-color: #333;
+}
+
+.dark-mode .account-separator {
+  background-color: #444;
+}
