@@ -267,7 +267,13 @@
       "auth/email-already-in-use": "Cet email est déjà utilisé",
       "auth/weak-password": "Mot de passe trop faible",
       "auth/invalid-email": "Email invalide",
-      "default": "Une erreur est survenue"
+      "auth/invalid-credential": "Email ou mot de passe incorrect",
+      "auth/user-not-found": "Aucun compte trouvé avec cet email",
+      "auth/wrong-password": "Mot de passe incorrect",
+      "auth/too-many-requests": "Trop de tentatives échouées. Veuillez réessayer plus tard",
+      "auth/popup-closed-by-user": "La fenêtre de connexion a été fermée",
+      "auth/cancelled-popup-request": "Connexion annulée",
+      "default": "Une erreur est survenue. Veuillez réessayer"
     }
   },
   "verifyEmail": {

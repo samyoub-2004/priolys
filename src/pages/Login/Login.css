@@ -731,3 +731,76 @@ button:disabled {
     height: 60px;
   }
 }
+
+/* Ajoutez ceci à votre fichier Login.css */
+
+.route-forgot-password {
+  background: none;
+  border: none;
+  color: var(--accent-color);
+  cursor: pointer;
+  font-size: 0.875rem;
+  padding: 0;
+  margin-left: auto;
+  transition: var(--transition);
+  text-decoration: none;
+}
+
+.route-forgot-password:hover {
+  color: var(--primary-color);
+  text-decoration: underline;
+}
+
+.route-forgot-password:disabled {
+  color: var(--text-light);
+  cursor: not-allowed;
+  opacity: 0.7;
+  text-decoration: none;
+}
+
+/* Dark mode adjustments */
+.dark-mode .route-forgot-password {
+  color: #64b5f6; /* Bleu plus clair pour le dark mode */
+}
+
+.dark-mode .route-forgot-password:hover {
+  color: #bbdefb;
+}
+
+.dark-mode .route-forgot-password:disabled {
+  color: #666;
+}
+
+/* Alignement avec "Se souvenir de moi" */
+.route-form-options {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 1rem 0;
+}
+
+.route-remember-me {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Version alternative si vous voulez un style bouton plus visible */
+.route-forgot-password.btn-style {
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.dark-mode .route-forgot-password.btn-style {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.route-forgot-password.btn-style:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  text-decoration: none;
+}
+
+.dark-mode .route-forgot-password.btn-style:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
