@@ -249,7 +249,20 @@
     "privacy": "Confidentialité",
     "help": "Aide",
     "passwordsMismatch": "Les mots de passe ne correspondent pas",
-    "agreeTermsRequired": "Veuillez accepter les conditions d'utilisation"
+    "agreeTermsRequired": "Veuillez accepter les conditions d'utilisation",
+    "weak": "Faible",
+    "medium": "Moyen",
+    "good": "Bon",
+    "strong": "Fort",
+    "excellent": "Excellent",
+    "strength": "Force",
+    "requirements": "Le mot de passe doit contenir :",
+    "minLength": "8 caractères minimum",
+    "uppercase": "Une lettre majuscule",
+    "lowercase": "Une lettre minuscule",
+    "number": "Un chiffre",
+    "specialChar": "Un caractère spécial",
+    "passwordTooWeak": "Votre mot de passe est trop faible. Veuillez le renforcer."
   }
 
 

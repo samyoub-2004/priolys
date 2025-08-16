@@ -15,6 +15,16 @@ const SignUpPage = () => {
   const [agreedToTerms, setAgreedToTerms] = useState(false);
   const [currentLanguage, setCurrentLanguage] = useState('fr');
   const [isLanguageMenuOpen, setIsLanguageMenuOpen] = useState(false);
+  const [passwordStrength, setPasswordStrength] = useState({
+    score: 0,
+    hasMinLength: false,
+    hasUpperCase: false,
+    hasLowerCase: false,
+    hasNumber: false,
+    hasSpecialChar: false
+  });
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const languageMenuRef = useRef(null);
 
   // Appliquer le dark mode
@@ -45,6 +55,27 @@ const SignUpPage = () => {
     };
   }, []);
 
+  // Vérifier la force du mot de passe
+  useEffect(() => {
+    const hasMinLength = password.length >= 8;
+    const hasUpperCase = /[A-Z]/.test(password);
+    const hasLowerCase = /[a-z]/.test(password);
+    const hasNumber = /[0-9]/.test(password);
+    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+    
+    const score = [hasMinLength, hasUpperCase, hasLowerCase, hasNumber, hasSpecialChar]
+      .filter(Boolean).length;
+
+    setPasswordStrength({
+      score,
+      hasMinLength,
+      hasUpperCase,
+      hasLowerCase,
+      hasNumber,
+      hasSpecialChar
+    });
+  }, [password]);
+
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
   };
@@ -58,11 +89,56 @@ const SignUpPage = () => {
     setIsLanguageMenuOpen(!isLanguageMenuOpen);
   };
 
+  const getPasswordStrengthText = () => {
+    if (password.length === 0) return '';
+    switch(passwordStrength.score) {
+      case 0:
+      case 1:
+        return t('signup.weak');
+      case 2:
+        return t('signup.medium');
+      case 3:
+        return t('signup.good');
+      case 4:
+        return t('signup.strong');
+      case 5:
+        return t('signup.excellent');
+      default:
+        return '';
+    }
+  };
+
+  const getPasswordStrengthClass = () => {
+    if (password.length === 0) return '';
+    switch(passwordStrength.score) {
+      case 0:
+      case 1:
+        return 'route-password-weak';
+      case 2:
+        return 'route-password-medium';
+      case 3:
+        return 'route-password-good';
+      case 4:
+        return 'route-password-strong';
+      case 5:
+        return 'route-password-excellent';
+      default:
+        return '';
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    
     // Vérifier que les mots de passe correspondent
     if (password !== confirmPassword) {
       alert(t('signup.passwordsMismatch'));
+      return;
+    }
+    
+    // Vérifier la force du mot de passe
+    if (passwordStrength.score < 3) {
+      alert(t('signup.passwordTooWeak'));
       return;
     }
     
@@ -205,26 +281,96 @@ const SignUpPage = () => {
             
             <div className="route-form-group">
               <label htmlFor="password">{t('signup.password')}</label>
-              <input
-                type="password"
-                id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder={t('signup.passwordPlaceholder')}
-                required
-              />
+              <div className="route-password-input-container">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  id="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder={t('signup.passwordPlaceholder')}
+                  required
+                />
+                <button 
+                  type="button" 
+                  className="route-password-toggle"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+                      <path d="M12 9a3 3 0 00-3 3 3 3 0 003 3 3 3 0 003-3 3 3 0 00-3-3zm0 8a5 5 0 01-5-5 5 5 0 015-5 5 5 0 015 5 5 5 0 01-5 5zm0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5z"/>
+                    </svg>
+                  ) : (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+                      <path d="M11.83 9L15 12.16V12a3 3 0 00-3-3h-.17m-4.3.8l1.55 1.55c-.05.21-.08.42-.08.65a3 3 0 003 3c.22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53a5 5 0 01-5-5c0-.79.2-1.53.53-2.2M2 4.27l2.28 2.28.45.45C3.08 8.3 1.78 10 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.43.42L19.73 22 21 20.73 3.27 3 2 4.27z"/>
+                    </svg>
+                  )}
+                </button>
+              </div>
+              
+              {/* Indicateur de force du mot de passe */}
+              {password.length > 0 && (
+                <div className="route-password-strength">
+                  <div className={`route-strength-bar ${getPasswordStrengthClass()}`}>
+                    <div className="route-strength-fill"></div>
+                  </div>
+                  <div className="route-strength-text">
+                    {t('signup.strength')}: <span className={getPasswordStrengthClass()}>{getPasswordStrengthText()}</span>
+                  </div>
+                  
+                  <div className="route-password-requirements">
+                    <p>{t('signup.requirements')}:</p>
+                    <ul>
+                      <li className={passwordStrength.hasMinLength ? 'route-requirement-met' : ''}>
+                        {t('signup.minLength')}
+                      </li>
+                      <li className={passwordStrength.hasUpperCase ? 'route-requirement-met' : ''}>
+                        {t('signup.uppercase')}
+                      </li>
+                      <li className={passwordStrength.hasLowerCase ? 'route-requirement-met' : ''}>
+                        {t('signup.lowercase')}
+                      </li>
+                      <li className={passwordStrength.hasNumber ? 'route-requirement-met' : ''}>
+                        {t('signup.number')}
+                      </li>
+                      <li className={passwordStrength.hasSpecialChar ? 'route-requirement-met' : ''}>
+                        {t('signup.specialChar')}
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              )}
             </div>
             
             <div className="route-form-group">
               <label htmlFor="confirmPassword">{t('signup.confirmPassword')}</label>
-              <input
-                type="password"
-                id="confirmPassword"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                placeholder={t('signup.confirmPasswordPlaceholder')}
-                required
-              />
+              <div className="route-password-input-container">
+                <input
+                  type={showConfirmPassword ? "text" : "password"}
+                  id="confirmPassword"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  placeholder={t('signup.confirmPasswordPlaceholder')}
+                  required
+                />
+                <button 
+                  type="button" 
+                  className="route-password-toggle"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                >
+                  {showConfirmPassword ? (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+                      <path d="M12 9a3 3 0 00-3 3 3 3 0 003 3 3 3 0 003-3 3 3 0 00-3-3zm0 8a5 5 0 01-5-5 5 5 0 015-5 5 5 0 015 5 5 5 0 01-5 5zm0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5z"/>
+                    </svg>
+                  ) : (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+                      <path d="M11.83 9L15 12.16V12a3 3 0 00-3-3h-.17m-4.3.8l1.55 1.55c-.05.21-.08.42-.08.65a3 3 0 003 3c.22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53a5 5 0 01-5-5c0-.79.2-1.53.53-2.2M2 4.27l2.28 2.28.45.45C3.08 8.3 1.78 10 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.43.42L19.73 22 21 20.73 3.27 3 2 4.27z"/>
+                    </svg>
+                  )}
+                </button>
+              </div>
+              {password.length > 0 && confirmPassword.length > 0 && password !== confirmPassword && (
+                <p className="route-password-mismatch">{t('signup.passwordsMismatch')}</p>
+              )}
             </div>
             
             <div className="route-form-group">
@@ -252,16 +398,12 @@ const SignUpPage = () => {
           
           <div className="route-social-login">
             <button className="route-social-btn route-google-btn">
-              {/* Icône Google de Flaticon */}
-              <img src="https://cdn-icons-png.flaticon.com/128/300/300221.png" width={20} height={20} loading='lazy' alt="Girl in a jacket"></img>
+              <img src="https://cdn-icons-png.flaticon.com/128/300/300221.png" width={20} height={20} loading='lazy' alt="Google" />
               {t('signup.signUpGoogle')}
             </button>
             
             <button className="route-social-btn route-apple-btn">
-              {/* Icône Apple de Flaticon */}
-              
-                <img src="https://cdn-icons-png.flaticon.com/128/25/25345.png" width={20} height={20} loading='lazy' alt="Girl in a jacket"></img>
-
+              <img src="https://cdn-icons-png.flaticon.com/128/25/25345.png" width={20} height={20} loading='lazy' alt="Apple" />
               {t('signup.signUpApple')}
             </button>
           </div>

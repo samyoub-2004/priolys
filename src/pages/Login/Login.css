@@ -434,3 +434,101 @@
 .route-signup-button:hover {
   opacity: 0.8;
 }
+/* Styles pour les mots de passe */
+.route-password-input-container {
+  position: relative;
+}
+
+.route-password-toggle {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--main-light-text);
+}
+
+.route-password-strength {
+  margin-top: 10px;
+}
+
+.route-strength-bar {
+  height: 6px;
+  background-color: var(--main-border);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.route-strength-fill {
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+.route-strength-text {
+  font-size: 12px;
+  color: var(--main-light-text);
+  margin-bottom: 8px;
+}
+
+.route-password-requirements {
+  font-size: 12px;
+  color: var(--main-light-text);
+}
+
+.route-password-requirements ul {
+  padding-left: 20px;
+  margin-top: 5px;
+}
+
+.route-password-requirements li {
+  list-style-type: disc;
+}
+
+.route-requirement-met {
+  color: #4CAF50;
+}
+
+.route-password-mismatch {
+  color: #f44336;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+/* Classes de force de mot de passe */
+.route-password-weak .route-strength-fill {
+  width: 20%;
+  background-color: #f44336;
+}
+
+.route-password-medium .route-strength-fill {
+  width: 40%;
+  background-color: #ff9800;
+}
+
+.route-password-good .route-strength-fill {
+  width: 60%;
+  background-color: #ffc107;
+}
+
+.route-password-strong .route-strength-fill {
+  width: 80%;
+  background-color: #4CAF50;
+}
+
+.route-password-excellent .route-strength-fill {
+  width: 100%;
+  background-color: #2E7D32;
+}
+
+.route-password-weak { color: #f44336; }
+.route-password-medium { color: #ff9800; }
+.route-password-good { color: #ffc107; }
+.route-password-strong { color: #4CAF50; }
+.route-password-excellent { color: #2E7D32; }
