@@ -1108,6 +1108,6 @@ service-card:hover {
 .btn-icon {
   width: 20px !important;
   height: 20px !important;
-  fill: white !important;
+  fill: var(--text-color) !important;
   margin-right: 8px !important;
 }

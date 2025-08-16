@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import "./Navbar.css"
+import { useNavigate } from 'react-router-dom';
+import "./Navbar.css";
 
 const Navbar = ({ 
   darkMode, 
@@ -14,10 +15,15 @@ const Navbar = ({
 }) => {
   const { t, i18n } = useTranslation();
   const languageDropdownRef = useRef(null);
+  const navigate = useNavigate();
 
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
     setIsLanguageMenuOpen(false);
+  };
+
+  const handleAuthClick = () => {
+    navigate('/login'); // Redirection vers la page Login
   };
 
   return (
@@ -115,14 +121,15 @@ const Navbar = ({
               </svg>
             )}
           </button>
-          <button className="reserve-btn">
+          
+          {/* Bouton d'authentification avec redirection */}
+          <button className="auth-btn" onClick={handleAuthClick}>
             <svg className="btn-icon" viewBox="0 0 24 24">
-              <path d="M3.375 4.5C2.339 4.5 1.5 5.34 1.5 6.375V13.5h12V6.375c0-1.036-.84-1.875-1.875-1.875h-8.25zM13.5 15h-12v2.625c0 1.035.84 1.875 1.875 1.875h.375a3 3 0 116 0h3a.75.75 0 00.75-.75V15z"/>
-              <path d="M8.25 19.5a1.5 1.5 0 10-3 0 1.5 1.5 0 003 0zM15.75 6.75a.75.75 0 00-.75.75v11.25c0 .087.015.17.042.248a3 3 0 015.958.464c.853-.175 1.522-.935 1.464-1.883a18.659 18.659 0 00-3.732-10.104 1.837 1.837 0 00-1.47-.725H15.75z"/>
-              <path d="M19.5 19.5a1.5 1.5 0 10-3 0 1.5 1.5 0 003 0z"/>
+              <path d="M12 12a5 5 0 100-10 5 5 0 000 10zm0 2c-4.42 0-8 2.69-8 6v2h16v-2c0-3.31-3.58-6-8-6z"/>
             </svg>
-            {t('buttons.reserve')}
+            {t('buttons.authenticate')}
           </button>
+          
           <button 
             className="menu-toggle" 
             onClick={() => setIsMenuOpen(!isMenuOpen)}

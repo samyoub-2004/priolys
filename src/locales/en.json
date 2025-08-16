@@ -32,7 +32,8 @@
     "reserve": "Book",
     "search": "Search",
     "becomePartner": "Become a partner",
-    "readMore": "Read more"
+    "readMore": "Read more",
+    "authenticate" : "SignIn"
   },
   "ariaLabels": {
     "lightMode": "Switch to light mode",
@@ -195,5 +196,61 @@
     "Marseille", "Paris", "Lyon", "Toulouse", "Nice", "Nantes", 
     "Strasbourg", "Montpellier", "Bordeaux", "Lille", "Rennes", 
     "Aix-en-Provence", "Toulon", "Grenoble", "Dijon", "Avignon"
-  ]
+  ],
+  "login": {
+    "title": "Sign in to your account",
+    "subtitle": "Access your personal space",
+    "email": "Email address",
+    "emailPlaceholder": "your@email.com",
+    "password": "Password",
+    "passwordPlaceholder": "••••••••",
+    "rememberMe": "Remember me",
+    "forgotPassword": "Forgot password?",
+    "signIn": "Sign in",
+    "or": "or continue with",
+    "signInGoogle": "Continue with Google",
+    "signInApple": "Continue with Apple",
+    "noAccount": "Don't have an account?",
+    "signUp": "Sign up",
+    "terms": "Terms of service",
+    "privacy": "Privacy policy",
+    "help": "Help",
+    "rightsReserved": "All rights reserved.",
+    "languages": {
+      "fr": "French",
+      "en": "English"
+    }
+  },
+  "signup": {
+    "title": "Create your account",
+    "subtitle": "Join the Priolys community",
+    "fullName": "Full Name",
+    "fullNamePlaceholder": "Your full name",
+    "email": "Email address",
+    "emailPlaceholder": "your@email.com",
+    "password": "Password",
+    "passwordPlaceholder": "••••••••",
+    "passwordHint": "At least 8 characters with letters and numbers",
+    "confirmPassword": "Confirm Password",
+    "confirmPasswordPlaceholder": "••••••••",
+    "agreeTo": "I agree to the",
+    "terms": "Terms of Service",
+    "and": "and",
+    "privacyPolicy": "Privacy Policy",
+    "signUp": "Sign Up",
+    "or": "or continue with",
+    "signUpGoogle": "Sign up with Google",
+    "signUpApple": "Sign up with Apple",
+    "haveAccount": "Already have an account?",
+    "signIn": "Sign in",
+    "privacy": "Privacy policy",
+    "help": "Help",
+    "rightsReserved": "All rights reserved.",
+    "languages": {
+      "fr": "French",
+      "en": "English"
+    }
+  }
+
+
 }

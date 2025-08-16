@@ -6,6 +6,7 @@
     "partners": "Partenaires",
     "blog": "Blog"
   },
+  
   "hero": {
     "title": "Service VTC d'exception",
     "subtitle": "Votre transport de luxe depuis Marseille",
@@ -32,7 +33,8 @@
     "reserve": "Réserver",
     "search": "Rechercher",
     "becomePartner": "Devenir partenaire",
-    "readMore": "Lire la suite"
+    "readMore": "Lire la suite",
+    "authenticate" : "S'authentifier"
   },
   "ariaLabels": {
     "lightMode": "Passer en mode clair",
@@ -195,5 +197,60 @@
     "Marseille", "Paris", "Lyon", "Toulouse", "Nice", "Nantes", 
     "Strasbourg", "Montpellier", "Bordeaux", "Lille", "Rennes", 
     "Aix-en-Provence", "Toulon", "Grenoble", "Dijon", "Avignon"
-  ]
+  ],
+  
+  "login": {
+    "title": "Connectez-vous à votre compte",
+    "subtitle": "Accédez à votre espace personnel",
+    "email": "Adresse e-mail",
+    "emailPlaceholder": "votre@email.com",
+    "password": "Mot de passe",
+    "passwordPlaceholder": "••••••••",
+    "rememberMe": "Se souvenir de moi",
+    "forgotPassword": "Mot de passe oublié ?",
+    "signIn": "Se connecter",
+    "or": "ou continuer avec",
+    "signInGoogle": "Continuer avec Google",
+    "signInApple": "Continuer avec Apple",
+    "noAccount": "Pas encore de compte ?",
+    "signUp": "Inscrivez-vous",
+    "terms": "Conditions d'utilisation",
+    "privacy": "Politique de confidentialité",
+    "help": "Aide",
+    "rightsReserved": "Tous droits réservés.",
+    "languages": {
+      "fr": "Français",
+      "en": "Anglais"
+    }
+  },
+  
+  "signup": {
+    "title": "Créer un compte",
+    "subtitle": "Rejoignez notre communauté dès aujourd'hui",
+    "firstName": "Prénom",
+    "firstNamePlaceholder": "Votre prénom",
+    "lastName": "Nom",
+    "lastNamePlaceholder": "Votre nom",
+    "email": "Adresse email",
+    "emailPlaceholder": "votre@email.com",
+    "password": "Mot de passe",
+    "passwordPlaceholder": "Créez un mot de passe",
+    "confirmPassword": "Confirmer le mot de passe",
+    "confirmPasswordPlaceholder": "Répétez votre mot de passe",
+    "agreeTo": "J'accepte les",
+    "terms": "conditions d'utilisation",
+    "createAccount": "Créer un compte",
+    "or": "Ou inscrivez-vous avec",
+    "signUpGoogle": "S'inscrire avec Google",
+    "signUpApple": "S'inscrire avec Apple",
+    "alreadyAccount": "Vous avez déjà un compte?",
+    "login": "Connectez-vous",
+    "rightsReserved": "Tous droits réservés.",
+    "privacy": "Confidentialité",
+    "help": "Aide",
+    "passwordsMismatch": "Les mots de passe ne correspondent pas",
+    "agreeTermsRequired": "Veuillez accepter les conditions d'utilisation"
+  }
+
+
 }
