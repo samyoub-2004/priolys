@@ -1,0 +1,402 @@
+{
+  "menu": {
+    "home": "Accueil",
+    "services": "Services",
+    "fleet": "Flotte",
+    "partners": "Partenaires",
+    "blog": "Blog"
+  },
+  
+  "hero": {
+    "title": "Service VTC d'exception",
+    "subtitle": "Votre transport de luxe depuis Marseille",
+    "description": "Des déplacements haut de gamme avec une flotte premium et des chauffeurs professionnels"
+  },
+  "reservation": {
+    "title": "Réserver un trajet",
+    "departureLabel": "Votre adresse de départ",
+    "departurePlaceholder": "Adresse précise, aéroport, hôtel",
+    "dateLabel": "Date et heure de départ",
+    "datePlaceholder": "mm/dd/yyyy --:-- --",
+    "destinationLabel": "Où souhaitez-vous aller ?",
+    "destinationPlaceholder": "Ville, région ou établissement etc...",
+    "passengersLabel": "Nombre de passagers",
+    "stopLabel": "Ajouter un arrêt en chemin",
+    "simpleTrip": "Trajet simple",
+    "hourlyRental": "Location à l'heure",
+    "locationLabel": "Lieu de prise en charge",
+    "locationPlaceholder": "Où souhaitez-vous être pris en charge ?",
+    "durationLabel": "Durée",
+    "hours": "heures"
+  },
+  "buttons": {
+    "reserve": "Réserver",
+    "search": "Rechercher",
+    "becomePartner": "Devenir partenaire",
+    "readMore": "Lire la suite",
+    "authenticate" : "S'authentifier",
+    "accountMenu": "Menu compte",
+    "back": "Retour",
+    "continue": "Continuer"
+  },
+  "ariaLabels": {
+    "lightMode": "Passer en mode clair",
+    "darkMode": "Passer en mode sombre",
+    "menu": "Menu",
+    "facebook": "Facebook",
+    "instagram": "Instagram",
+    "twitter": "Twitter",
+    "linkedin": "LinkedIn"
+  },
+  "servicesSection": {
+    "title": "Nos services et prestations",
+    "description": "Nous proposons des solutions adaptées à chacun de vos besoins"
+  },
+  "fleetSection": {
+    "title": "Nos classes de service",
+    "description": "Une flotte premium pour tous vos besoins"
+  },
+  "partnersSection": {
+    "title": "Devenir partenaire",
+    "subtitle": "Nous avançons ensemble",
+    "description": "Les partenariats sont une vraie force. Nous aimons collaborer avec des entreprises et des professionnels qui partagent notre exigence de qualité. Rejoignez-nous pour offrir à vos clients un service de transport haut de gamme, fiable et pensé pour chaque besoin.",
+    "categories": [
+      "Entreprises",
+      "Agences de voyages",
+      "Organisateurs d'événements",
+      "Hôtels et restaurants",
+      "Autres"
+    ]
+  },
+  "blogSection": {
+    "title": "Blog",
+    "description": "Découvrez nos conseils et actualités sur le transport privé"
+  },
+  "reviewsSection": {
+    "title": "Ce que disent nos clients",
+    "description": "Découvrez les expériences de nos clients satisfaits"
+  },
+  "reviews": [
+    {
+      "name": "Jean Dupont",
+      "rating": 5,
+      "comment": "Service exceptionnel ! Le chauffeur était ponctuel et très professionnel.",
+      "date": "15 Janvier 2023"
+    },
+    {
+      "name": "Marie Lambert",
+      "rating": 4,
+      "comment": "Véhicule propre et confortable. Prix très raisonnable pour la qualité du service.",
+      "date": "28 Février 2023"
+    },
+    {
+      "name": "Thomas Martin",
+      "rating": 5,
+      "comment": "La meilleure compagnie de transport que j'ai utilisée. Je recommande vivement !",
+      "date": "12 Mars 2023"
+    }
+  ],
+  "footer": {
+    "description": "Service VTC professionnel à Marseille",
+    "about": "À propos",
+    "services": "Services et prestations",
+    "contact": "Contact",
+    "legal": "Mentions légales",
+    "terms": "Conditions d'utilisation",
+    "privacy": "Politique de confidentialité",
+    "vehicles": "Nos véhicules",
+    "tours": "Circuits touristiques",
+    "rights": "Tous droits réservés."
+  },
+  "contact": {
+    "email": "contact@priolys.fr",
+    "phone": "+33 7 50 14 18 64",
+    "feedback": "Envoyer un feedback"
+  },
+  "services": [
+    {
+      "icon": "airport",
+      "title": "Transfert aéroport / gare",
+      "description": "Accueil VIP et assurance de vos correspondances vers les principaux points de transport",
+      "details": ["Accueil VIP", "Arrivée à l'avance", "Assurance correspondances"]
+    },
+    {
+      "icon": "business",
+      "title": "Déplacements professionnels",
+      "description": "Des déplacements fluides, pour rester concentré sur l'essentiel",
+      "details": ["Chauffeur attitré", "Arrivée à l'avance", "Connexion Wi-Fi"]
+    },
+    {
+      "icon": "night",
+      "title": "Déplacements nocturnes",
+      "description": "Voyagez en toute sécurité, même au cœur de la nuit",
+      "details": ["Sécurité garantie", "Chauffeur expérimenté", "Service 24/7"]
+    },
+    {
+      "icon": "events",
+      "title": "Transport pour vos événements",
+      "description": "Une logistique de transport impeccable pour vos événements",
+      "details": ["WIFI et Chargeur", "Arrêts en route", "Service sur mesure"]
+    },
+    {
+      "icon": "long",
+      "title": "Transport longue distance",
+      "description": "Une solution idéale pour vos trajets hors de la ville",
+      "details": ["Confort optimal", "Arrêts en route", "Boissons offertes"]
+    },
+    {
+      "icon": "kids",
+      "title": "Transport Enfants & Ados",
+      "description": "Transport de vos enfants et adolescents vers leurs destinations",
+      "details": ["Sécurité maximale", "Boissons et snacks", "Chauffeur certifié"]
+    },
+    {
+      "icon": "dispo",
+      "title": "Mise à disposition",
+      "description": "Votre chauffeur privé disponible à chaque instant",
+      "details": ["Service à la demande", "Chauffeur attitré", "Flexibilité horaire"]
+    }
+  ],
+  "vehicles": [
+    {
+      "category": "Berline Classique",
+      "models": ["Mercedes Classe C"],
+      "image": "berline-classic"
+    },
+    {
+      "category": "Berline Business",
+      "models": ["Mercedes Classe E"],
+      "image": "berline-business"
+    },
+    {
+      "category": "Berline",
+      "models": ["Mercedes Benz"],
+      "image": "van-eco"
+    },
+    {
+      "category": "Van Luxe",
+      "models": ["Mercedes Classe V"],
+      "image": "van-luxe"
+    },
+    {
+      "category": "VIP",
+      "models": ["Mercedes Classe S"],
+      "image": "vip"
+    },
+    {
+      "category": "VIP Grand Luxe",
+      "models": ["Mercedes-Benz Sprinter VIP"],
+      "image": "vip-grand"
+    }
+  ],
+  "blogPosts": [
+    {
+      "title": "Trois bonne raisons de préférer un VTC à un vol court-courrier",
+      "excerpt": "Saviez-vous qu'un vol court-courrier émet 5 fois plus de CO2 qu'un trajet en voiture...",
+      "date": "12 août 2024"
+    }
+  ],
+  "cities": [
+    "Marseille", "Paris", "Lyon", "Toulouse", "Nice", "Nantes", 
+    "Strasbourg", "Montpellier", "Bordeaux", "Lille", "Rennes", 
+    "Aix-en-Provence", "Toulon", "Grenoble", "Dijon", "Avignon"
+  ],
+  
+  "login": {
+    "title": "Connectez-vous à votre compte",
+    "subtitle": "Accédez à votre espace personnel",
+    "email": "Adresse e-mail",
+    "emailPlaceholder": "votre@email.com",
+    "password": "Mot de passe",
+    "passwordPlaceholder": "••••••••",
+    "rememberMe": "Se souvenir de moi",
+    "forgotPassword": "Mot de passe oublié ?",
+    "signIn": "Se connecter",
+    "or": "ou continuer avec",
+    "signInGoogle": "Continuer avec Google",
+    "signInApple": "Continuer avec Apple",
+    "noAccount": "Pas encore de compte ?",
+    "signUp": "Inscrivez-vous",
+    "terms": "Conditions d'utilisation",
+    "privacy": "Politique de confidentialité",
+    "help": "Aide",
+    "rightsReserved": "Tous droits réservés.",
+    "languages": {
+      "fr": "Français",
+      "en": "Anglais"
+    }
+  },
+  
+  "signup": {
+    "title": "Créer un compte",
+    "subtitle": "Rejoignez notre communauté dès aujourd'hui",
+    "firstName": "Prénom",
+    "firstNamePlaceholder": "Votre prénom",
+    "lastName": "Nom",
+    "lastNamePlaceholder": "Votre nom",
+    "email": "Adresse email",
+    "emailPlaceholder": "votre@email.com",
+    "password": "Mot de passe",
+    "passwordPlaceholder": "Créez un mot de passe",
+    "confirmPassword": "Confirmer le mot de passe",
+    "confirmPasswordPlaceholder": "Répétez votre mot de passe",
+    "agreeTo": "J'accepte les",
+    "terms": "conditions d'utilisation",
+    "createAccount": "Créer un compte",
+    "or": "Ou inscrivez-vous avec",
+    "signUpGoogle": "S'inscrire avec Google",
+    "signUpApple": "S'inscrire avec Apple",
+    "alreadyAccount": "Vous avez déjà un compte?",
+    "login": "Connectez-vous",
+    "rightsReserved": "Tous droits réservés.",
+    "privacy": "Confidentialité",
+    "help": "Aide",
+    "passwordsMismatch": "Les mots de passe ne correspondent pas",
+    "agreeTermsRequired": "Veuillez accepter les conditions d'utilisation",
+    "weak": "Faible",
+    "medium": "Moyen",
+    "good": "Bon",
+    "strong": "Fort",
+    "excellent": "Excellent",
+    "strength": "Force",
+    "requirements": "Le mot de passe doit contenir :",
+    "minLength": "8 caractères minimum",
+    "uppercase": "Une lettre majuscule",
+    "lowercase": "Une lettre minuscule",
+    "number": "Un chiffre",
+    "specialChar": "Un caractère spécial",
+    "passwordTooWeak": "Votre mot de passe est trop faible. Veuillez le renforcer.",
+    "errors": {
+      "auth/email-already-in-use": "Cet email est déjà utilisé",
+      "auth/weak-password": "Mot de passe trop faible",
+      "auth/invalid-email": "Email invalide",
+      "auth/invalid-credential": "Email ou mot de passe incorrect",
+      "auth/user-not-found": "Aucun compte trouvé avec cet email",
+      "auth/wrong-password": "Mot de passe incorrect",
+      "auth/too-many-requests": "Trop de tentatives échouées. Veuillez réessayer plus tard",
+      "auth/popup-closed-by-user": "La fenêtre de connexion a été fermée",
+      "auth/cancelled-popup-request": "Connexion annulée",
+      "default": "Une erreur est survenue. Veuillez réessayer"
+    }
+  },
+  "verifyEmail": {
+    "title": "Vérification d'email requise",
+    "subtitle": "Veuillez vérifier votre adresse email pour activer votre compte",
+    "instructions": "Pour compléter votre inscription:",
+    "step1": "Vérifiez votre boîte de réception",
+    "step2": "Ouvrez l'email de Priolys",
+    "step3": "Cliquez sur le lien de vérification",
+    "resendButton": "Renvoyer l'email",
+    "checkButton": "J'ai vérifié mon email",
+    "didNotReceive": "Vous n'avez pas reçu l'email?",
+    "spamFolder": "Vérifiez votre dossier spam/courrier indésirable",
+    "wrongEmail": "Email incorrect?",
+    "login": "Connectez-vous avec un autre compte",
+    "resendSuccess": "Email de vérification renvoyé avec succès!",
+    "resendError": "Erreur lors de l'envoi. Veuillez réessayer plus tard.",
+    "verifiedSuccess": "Email vérifié avec succès! Redirection...",
+    "notVerifiedYet": "Votre email n'a pas encore été vérifié",
+    "verificationError": "Erreur lors de la vérification. Veuillez réessayer.",
+    "redirecting": "Redirection vers l'accueil",
+    "rightsReserved": "Tous droits réservés.",
+    "terms": "Conditions d'utilisation",
+    "privacy": "Politique de confidentialité",
+    "help": "Aide",
+    "loading": "Chargement de la vérification..."
+  },
+  "navbar": {
+    "profile": "Profil",
+    "bookings": "Mes réservations",
+    "logout": "Déconnexion"
+  },
+  
+ "location": {
+  "locating": "Localisation en cours...",
+  "geolocationNotSupported": "La géolocalisation n'est pas prise en charge par votre navigateur",
+  "permissionDenied": "Veuillez autoriser la localisation pour utiliser cette fonctionnalité",
+  "positionUnavailable": "Impossible d'obtenir votre position",
+  "timeout": "La demande de localisation a expiré",
+  "geolocationError": "Erreur lors de la localisation"
+},
+"vehicle" : {
+  "title": "Gestion des Véhicules",
+  "addVehicle": "Ajouter un véhicule",
+  "addNewVehicle": "Ajouter un nouveau véhicule",
+  "name": "Nom du véhicule",
+  "namePlaceholder": "Ex: Tesla Model S",
+  "imageUrl": "URL de l'image",
+  "imagePlaceholder": "https://example.com/image.jpg",
+  "passengers": "Passagers",
+  "luggage": "Bagages",
+  "pricePerKm": "Prix par km",
+  "pricePerHour": "Prix par heure",
+  "basePrice": "Prix de base",
+  "noVehicles": "Aucun véhicule disponible. Ajoutez votre premier véhicule !",
+  "editVehicle": "Modifier le véhicule",
+  "updateVehicle": "Mettre à jour",
+  "edit": "Modifier",
+  "delete": "Supprimer",
+  "confirmDelete": "Êtes-vous sûr de vouloir supprimer ce véhicule ?"
+
+},
+"booking": {
+     "step1Title": "Plan your journey",
+    "step1Subtitle": "Enter your departure and destination points",
+    "step2Title": "Date & Passengers",
+    "step2Subtitle": "Select date and number of passengers",
+    "step3Title": "Additional Options",
+    "step3Subtitle": "Customize your ride with extra services",
+    "step4Title": "Select Vehicle",
+    "step4Subtitle": "Choose the perfect vehicle for your journey",
+    "step5Title": "Confirm Reservation",
+    "step5Subtitle": "Review and confirm your booking details",
+    
+    "departure": "Departure",
+    "departurePlaceholder": "Enter departure address",
+    "destination": "Destination",
+    "destinationPlaceholder": "Enter destination address",
+    "waypoints": "Intermediate Stops",
+    "waypointPlaceholder": "Enter stop address",
+    "addWaypoint": "Add Stop",
+    "flightNumber": "Flight Number",
+    "flightPlaceholder": "Enter flight number (optional)",
+    
+    "dateTime": "Date & Time",
+    "passengers": "Passengers",
+    
+    "airportVIP": "Airport VIP Service",
+    "babySeat": "Baby Seat (0-12 months)",
+    "childSeat": "Child Seat (1-4 years)",
+    "boosterSeat": "Booster Seat (4-8 years)",
+    "pets": "Pet Transportation",
+    "earlyArrival": "Early Arrival (15 min)",
+    
+    "selectedOptions": "Selected Options",
+    "noOptions": "No additional options selected",
+    "total": "Total",
+    
+    "distance": "Distance",
+    "duration": "Duration",
+    "estimatedTotal": "Estimated Total",
+    "basePrice": "Base Price",
+    "kmPrice": "Price per km",
+    "hourPrice": "Price per hour",
+    "optionsTotal": "Options Total",
+    "totalPrice": "Total Price",
+    
+    "itinerary": "Itinerary",
+    "waypoint": "Stop",
+    "selectedVehicle": "Selected Vehicle",
+    "luggage": "luggage",
+    
+    "loadingMap": "Loading map...",
+    "loadingVehicles": "Loading available vehicles...",
+    "noVehiclesAvailable": "No vehicles available for your passenger count",
+    "vehiclesLoadError": "Error loading vehicles. Please try again.",
+    "notCalculated": "Not calculated",
+    
+    "confirmReservation": "Confirm Reservation"
+  }
+
+
+}

@@ -1,0 +1,334 @@
+{
+  "menu": {
+    "home": "Home",
+    "services": "Services",
+    "fleet": "Fleet",
+    "partners": "Partners",
+    "blog": "Blog"
+  },
+  
+  "hero": {
+    "title": "Exceptional Luxury Car Service",
+    "subtitle": "Your luxury transportation from Marseille",
+    "description": "Premium transportation with a premium fleet and professional drivers"
+  },
+  "reservation": {
+    "title": "Book a trip",
+    "departureLabel": "Your departure address",
+    "departurePlaceholder": "Exact address, airport, hotel",
+    "dateLabel": "Departure date and time",
+    "datePlaceholder": "mm/dd/yyyy --:-- --",
+    "destinationLabel": "Where would you like to go?",
+    "destinationPlaceholder": "City, region, or establishment, etc...",
+    "passengersLabel": "Number of passengers",
+    "stopLabel": "Add a stop along the way",
+    "simpleTrip": "One-way trip",
+    "hourlyRental": "Hourly rental",
+    "locationLabel": "Pick-up location",
+    "locationPlaceholder": "Where would you like to be picked up?",
+    "durationLabel": "Duration",
+    "hours": "hours"
+  },
+  "buttons": {
+    "reserve": "Reserve",
+    "search": "Search",
+    "becomePartner": "Become a partner",
+    "readMore": "Read more",
+    "authenticate": "Log in",
+    "accountMenu": "Account menu"
+  },
+  "ariaLabels": {
+    "lightMode": "Switch to light mode",
+    "darkMode": "Switch to dark mode",
+    "menu": "Menu",
+    "facebook": "Facebook",
+    "instagram": "Instagram",
+    "twitter": "Twitter",
+    "linkedin": "LinkedIn"
+  },
+  "servicesSection": {
+    "title": "Our services and offerings",
+    "description": "We offer solutions tailored to each of your needs"
+  },
+  "fleetSection": {
+    "title": "Our service classes",
+    "description": "A premium fleet for all your needs"
+  },
+  "partnersSection": {
+    "title": "Become a partner",
+    "subtitle": "We move forward together",
+    "description": "Partnerships are a true strength. We love collaborating with businesses and professionals who share our quality standards. Join us to offer your clients a premium, reliable transportation service designed for every need.",
+    "categories": [
+      "Businesses",
+      "Travel agencies",
+      "Event organizers",
+      "Hotels and restaurants",
+      "Others"
+    ]
+  },
+  "blogSection": {
+    "title": "Blog",
+    "description": "Discover our tips and news on private transportation"
+  },
+  "reviewsSection": {
+    "title": "What our customers say",
+    "description": "Discover the experiences of our satisfied customers"
+  },
+  "reviews": [
+    {
+      "name": "Jean Dupont",
+      "rating": 5,
+      "comment": "Exceptional service! The driver was punctual and very professional.",
+      "date": "January 15, 2023"
+    },
+    {
+      "name": "Marie Lambert",
+      "rating": 4,
+      "comment": "Clean and comfortable vehicle. Very reasonable price for the quality of service.",
+      "date": "February 28, 2023"
+    },
+    {
+      "name": "Thomas Martin",
+      "rating": 5,
+      "comment": "The best transportation company I've used. I highly recommend it!",
+      "date": "March 12, 2023"
+    }
+  ],
+  "footer": {
+    "description": "Professional Luxury Car Service in Marseille",
+    "about": "About",
+    "services": "Services and offerings",
+    "contact": "Contact",
+    "legal": "Legal notices",
+    "terms": "Terms of use",
+    "privacy": "Privacy policy",
+    "vehicles": "Our vehicles",
+    "tours": "Tourist tours",
+    "rights": "All rights reserved."
+  },
+  "contact": {
+    "email": "contact@priolys.fr",
+    "phone": "+33 7 50 14 18 64",
+    "feedback": "Send feedback"
+  },
+  "services": [
+    {
+      "icon": "airport",
+      "title": "Airport / Train Station Transfer",
+      "description": "VIP greeting and assurance of your connections to major transport hubs",
+      "details": ["VIP greeting", "Early arrival", "Connection assurance"]
+    },
+    {
+      "icon": "business",
+      "title": "Business Trips",
+      "description": "Seamless travel to stay focused on what matters",
+      "details": ["Dedicated driver", "Early arrival", "Wi-Fi connection"]
+    },
+    {
+      "icon": "night",
+      "title": "Night Trips",
+      "description": "Travel safely even in the middle of the night",
+      "details": ["Guaranteed security", "Experienced driver", "24/7 service"]
+    },
+    {
+      "icon": "events",
+      "title": "Transport for Your Events",
+      "description": "Flawless transportation logistics for your events",
+      "details": ["Wi-Fi and chargers", "Stops along the way", "Custom service"]
+    },
+    {
+      "icon": "long",
+      "title": "Long-Distance Transport",
+      "description": "An ideal solution for trips outside the city",
+      "details": ["Optimal comfort", "Stops along the way", "Complimentary beverages"]
+    },
+    {
+      "icon": "kids",
+      "title": "Children & Teen Transport",
+      "description": "Transportation for your children and teenagers to their destinations",
+      "details": ["Maximum safety", "Beverages and snacks", "Certified driver"]
+    },
+    {
+      "icon": "dispo",
+      "title": "On-Demand Service",
+      "description": "Your private driver available at any moment",
+      "details": ["On-demand service", "Dedicated driver", "Flexible hours"]
+    }
+  ],
+  "vehicles": [
+    {
+      "category": "Classic Sedan",
+      "models": ["Mercedes C-Class"],
+      "image": "berline-classic"
+    },
+    {
+      "category": "Business Sedan",
+      "models": ["Mercedes E-Class"],
+      "image": "berline-business"
+    },
+    {
+      "category": "Sedan",
+      "models": ["Mercedes Benz"],
+      "image": "van-eco"
+    },
+    {
+      "category": "Luxury Van",
+      "models": ["Mercedes V-Class"],
+      "image": "van-luxe"
+    },
+    {
+      "category": "VIP",
+      "models": ["Mercedes S-Class"],
+      "image": "vip"
+    },
+    {
+      "category": "Grand Luxury VIP",
+      "models": ["Mercedes-Benz Sprinter VIP"],
+      "image": "vip-grand"
+    }
+  ],
+  "blogPosts": [
+    {
+      "title": "Three good reasons to prefer a luxury car service over a short-haul flight",
+      "excerpt": "Did you know that a short-haul flight emits 5 times more CO2 than a car trip...",
+      "date": "August 12, 2024"
+    }
+  ],
+  "cities": [
+    "Marseille", "Paris", "Lyon", "Toulouse", "Nice", "Nantes", 
+    "Strasbourg", "Montpellier", "Bordeaux", "Lille", "Rennes", 
+    "Aix-en-Provence", "Toulon", "Grenoble", "Dijon", "Avignon"
+  ],
+  
+  "login": {
+    "title": "Log in to your account",
+    "subtitle": "Access your personal space",
+    "email": "Email address",
+    "emailPlaceholder": "your@email.com",
+    "password": "Password",
+    "passwordPlaceholder": "••••••••",
+    "rememberMe": "Remember me",
+    "forgotPassword": "Forgot password?",
+    "signIn": "Log in",
+    "or": "or continue with",
+    "signInGoogle": "Continue with Google",
+    "signInApple": "Continue with Apple",
+    "noAccount": "Don't have an account yet?",
+    "signUp": "Sign up",
+    "terms": "Terms of use",
+    "privacy": "Privacy policy",
+    "help": "Help",
+    "rightsReserved": "All rights reserved.",
+    "languages": {
+      "fr": "French",
+      "en": "English"
+    }
+  },
+  
+  "signup": {
+    "title": "Create an account",
+    "subtitle": "Join our community today",
+    "firstName": "First name",
+    "firstNamePlaceholder": "Your first name",
+    "lastName": "Last name",
+    "lastNamePlaceholder": "Your last name",
+    "email": "Email address",
+    "emailPlaceholder": "your@email.com",
+    "password": "Password",
+    "passwordPlaceholder": "Create a password",
+    "confirmPassword": "Confirm password",
+    "confirmPasswordPlaceholder": "Repeat your password",
+    "agreeTo": "I agree to the",
+    "terms": "terms of use",
+    "createAccount": "Create account",
+    "or": "Or sign up with",
+    "signUpGoogle": "Sign up with Google",
+    "signUpApple": "Sign up with Apple",
+    "alreadyAccount": "Already have an account?",
+    "login": "Log in",
+    "rightsReserved": "All rights reserved.",
+    "privacy": "Privacy",
+    "help": "Help",
+    "passwordsMismatch": "Passwords do not match",
+    "agreeTermsRequired": "Please accept the terms of use",
+    "weak": "Weak",
+    "medium": "Medium",
+    "good": "Good",
+    "strong": "Strong",
+    "excellent": "Excellent",
+    "strength": "Strength",
+    "requirements": "Password must contain:",
+    "minLength": "At least 8 characters",
+    "uppercase": "One uppercase letter",
+    "lowercase": "One lowercase letter",
+    "number": "One number",
+    "specialChar": "One special character",
+    "passwordTooWeak": "Your password is too weak. Please strengthen it.",
+    "errors": {
+      "auth/email-already-in-use": "This email is already in use",
+      "auth/weak-password": "Password too weak",
+      "auth/invalid-email": "Invalid email",
+      "auth/invalid-credential": "Incorrect email or password",
+      "auth/user-not-found": "No account found with this email",
+      "auth/wrong-password": "Incorrect password",
+      "auth/too-many-requests": "Too many failed attempts. Please try again later",
+      "auth/popup-closed-by-user": "The login window was closed",
+      "auth/cancelled-popup-request": "Login cancelled",
+      "default": "An error occurred. Please try again"
+    }
+  },
+  "verifyEmail": {
+    "title": "Email verification required",
+    "subtitle": "Please verify your email address to activate your account",
+    "instructions": "To complete your registration:",
+    "step1": "Check your inbox",
+    "step2": "Open the email from Priolys",
+    "step3": "Click the verification link",
+    "resendButton": "Resend email",
+    "checkButton": "I've verified my email",
+    "didNotReceive": "Didn't receive the email?",
+    "spamFolder": "Check your spam/junk folder",
+    "wrongEmail": "Wrong email?",
+    "login": "Log in with another account",
+    "resendSuccess": "Verification email sent successfully!",
+    "resendError": "Error sending email. Please try again later.",
+    "verifiedSuccess": "Email verified successfully! Redirecting...",
+    "notVerifiedYet": "Your email hasn't been verified yet",
+    "verificationError": "Verification error. Please try again.",
+    "redirecting": "Redirecting to homepage",
+    "rightsReserved": "All rights reserved.",
+    "terms": "Terms of use",
+    "privacy": "Privacy policy",
+    "help": "Help",
+    "loading": "Verifying email..."
+  },
+  "navbar": {
+    "profile": "Profile",
+    "bookings": "My bookings",
+    "logout": "Log out"
+  },
+  
+  "location": {
+    "locating": "Locating...",
+    "geolocationNotSupported": "Geolocation is not supported by your browser",
+    "permissionDenied": "Please enable location permissions to use this feature",
+    "positionUnavailable": "Unable to retrieve your location",
+    "timeout": "Location request timed out",
+    "geolocationError": "Geolocation error"
+  },
+  "vehicle": {
+    "title": "Vehicle Management",
+    "addVehicle": "Add vehicle",
+    "addNewVehicle": "Add new vehicle",
+    "name": "Vehicle name",
+    "namePlaceholder": "Ex: Tesla Model S",
+    "imageUrl": "Image URL",
+    "imagePlaceholder": "https://example.com/image.jpg",
+    "passengers": "Passengers",
+    "luggage": "Luggage",
+    "pricePerKm": "Price per km",
+    "pricePerHour": "Price per hour",
+    "basePrice": "Base price",
+    "noVehicles": "No vehicles available. Add your first vehicle!"
+  }
+}

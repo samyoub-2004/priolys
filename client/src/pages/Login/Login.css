@@ -1,0 +1,806 @@
+/* Routes.css */
+:root {
+  --main-primary: #000000;
+  --main-secondary: #ffffff;
+  --main-accent: #e0e0e0;
+  --main-text: #333333;
+  --main-light-text: #666666;
+  --main-border: #e0e0e0;
+  --main-input-bg: #f9f9f9;
+  --main-card-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  --main-nav-height: 60px;
+}
+
+.route-dark-mode {
+  --main-primary: #ffffff;
+  --main-secondary: #121212;
+  --main-accent: #333333;
+  --main-text: #e0e0e0;
+  --main-light-text: #aaaaaa;
+  --main-border: #444444;
+  --main-input-bg: #1e1e1e;
+  --main-card-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.route-page-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--main-secondary);
+  color: var(--main-text);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Navbar compacte */
+.route-navbar.compact {
+  height: var(--main-nav-height);
+  padding: 0 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--main-border);
+  background-color: var(--main-secondary);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.route-logo {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--main-primary);
+  margin: 0;
+}
+
+.route-navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.route-language-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.route-language-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: 1px solid var(--main-border);
+  border-radius: 4px;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: var(--main-text);
+}
+
+.route-language-toggle:hover {
+  background-color: var(--main-accent);
+}
+
+.route-flag-icon {
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.route-dropdown-icon {
+  width: 16px;
+  height: 16px;
+  fill: var(--main-text);
+}
+
+.route-language-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: var(--main-secondary);
+  border: 1px solid var(--main-border);
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  min-width: 140px;
+  z-index: 100;
+  margin-top: 5px;
+  overflow: hidden;
+}
+
+.route-language-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 15px;
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: none;
+  color: var(--main-text);
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.route-language-option:hover {
+  background-color: var(--main-accent);
+}
+
+.route-language-option.active {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.route-language-option span {
+  font-size: 14px;
+}
+
+.route-theme-toggle {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--main-primary);
+  transition: background 0.2s;
+  border: 1px solid var(--main-border);
+}
+
+.route-theme-toggle:hover {
+  background: var(--main-accent);
+}
+
+.route-theme-toggle svg {
+  width: 20px;
+  height: 20px;
+  fill: var(--main-primary);
+}
+
+/* Contenu principal */
+.route-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  padding: 30px 20px;
+}
+
+.route-card {
+  width: 100%;
+  max-width: 440px;
+  padding: 40px;
+  background: var(--main-secondary);
+  border: 1px solid var(--main-border);
+  border-radius: 8px;
+  box-shadow: var(--main-card-shadow);
+}
+
+.route-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.route-header h2 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--main-primary);
+}
+
+.route-header p {
+  color: var(--main-light-text);
+  font-size: 16px;
+}
+
+.route-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.route-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.route-form-group label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--main-text);
+}
+
+.route-form-group input {
+  padding: 14px;
+  border: 1px solid var(--main-border);
+  border-radius: 6px;
+  background: var(--main-input-bg);
+  color: var(--main-text);
+  font-size: 16px;
+  transition: border-color 0.2s;
+}
+
+.route-form-group input:focus {
+  outline: none;
+  border-color: var(--main-primary);
+}
+
+.route-form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.route-remember-me {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.route-remember-me input {
+  accent-color: var(--main-primary);
+}
+
+.route-remember-me label {
+  font-size: 14px;
+  color: var(--main-text);
+  cursor: pointer;
+}
+
+.route-forgot-password {
+  font-size: 14px;
+  color: var(--main-primary);
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.route-forgot-password:hover {
+  opacity: 0.8;
+}
+
+.route-btn {
+  padding: 14px;
+  background: var(--main-primary);
+  color: var(--main-secondary);
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.route-btn:hover {
+  opacity: 0.9;
+}
+
+.route-separator {
+  position: relative;
+  text-align: center;
+  margin: 25px 0;
+}
+
+.route-separator span {
+  position: relative;
+  padding: 0 10px;
+  background: var(--main-secondary);
+  color: var(--main-light-text);
+  font-size: 14px;
+  z-index: 1;
+}
+
+.route-separator:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--main-border);
+  transform: translateY(-50%);
+  z-index: 0;
+}
+
+.route-social-login {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.route-social-btn {
+  padding: 12px;
+  border: 1px solid var(--main-border);
+  border-radius: 6px;
+  background: transparent;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--main-text);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: background 0.2s;
+}
+
+.route-social-btn:hover {
+  background: var(--main-accent);
+}
+
+.route-google-btn {
+  background: var(--main-secondary);
+}
+
+.route-apple-btn {
+  background: var(--main-secondary);
+}
+
+.route-signup-link {
+  text-align: center;
+  margin-top: 25px;
+  font-size: 15px;
+  color: var(--main-light-text);
+}
+
+.route-signup-link a {
+  color: var(--main-primary);
+  font-weight: 500;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.route-signup-link a:hover {
+  opacity: 0.8;
+}
+
+.route-footer {
+  padding: 20px 30px;
+  border-top: 1px solid var(--main-border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.route-footer p {
+  font-size: 13px;
+  color: var(--main-light-text);
+  margin: 0;
+}
+
+.route-footer-links {
+  display: flex;
+  gap: 15px;
+}
+
+.route-footer-links a {
+  font-size: 13px;
+  color: var(--main-light-text);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.route-footer-links a:hover {
+  color: var(--main-primary);
+}
+
+@media (max-width: 768px) {
+  .route-navbar.compact {
+    padding: 0 15px;
+  }
+  
+  .route-card {
+    padding: 30px 20px;
+  }
+  
+  .route-footer {
+    padding: 15px;
+  }
+  
+  .route-language-toggle {
+    padding: 5px 8px;
+    font-size: 14px;
+  }
+  
+  .route-theme-toggle {
+    padding: 5px;
+  }
+}
+/* Styles supplémentaires pour la page d'inscription */
+.route-terms-link {
+  color: var(--main-primary);
+  text-decoration: none;
+  transition: opacity 0.2s;
+  font-weight: 500;
+}
+
+.route-terms-link:hover {
+  opacity: 0.8;
+}
+
+.route-signup-button {
+  background: none;
+  border: none;
+  color: var(--main-primary);
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 5px;
+  transition: opacity 0.2s;
+}
+
+.route-signup-button:hover {
+  opacity: 0.8;
+}
+/* Styles pour les mots de passe */
+.route-password-input-container {
+  position: relative;
+}
+
+.route-password-toggle {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--main-light-text);
+}
+
+.route-password-strength {
+  margin-top: 10px;
+}
+
+.route-strength-bar {
+  height: 6px;
+  background-color: var(--main-border);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.route-strength-fill {
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+.route-strength-text {
+  font-size: 12px;
+  color: var(--main-light-text);
+  margin-bottom: 8px;
+}
+
+.route-password-requirements {
+  font-size: 12px;
+  color: var(--main-light-text);
+}
+
+.route-password-requirements ul {
+  padding-left: 20px;
+  margin-top: 5px;
+}
+
+.route-password-requirements li {
+  list-style-type: disc;
+}
+
+.route-requirement-met {
+  color: #4CAF50;
+}
+
+.route-password-mismatch {
+  color: #f44336;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+/* Classes de force de mot de passe */
+.route-password-weak .route-strength-fill {
+  width: 20%;
+  background-color: #f44336;
+}
+
+.route-password-medium .route-strength-fill {
+  width: 40%;
+  background-color: #ff9800;
+}
+
+.route-password-good .route-strength-fill {
+  width: 60%;
+  background-color: #ffc107;
+}
+
+.route-password-strong .route-strength-fill {
+  width: 80%;
+  background-color: #4CAF50;
+}
+
+.route-password-excellent .route-strength-fill {
+  width: 100%;
+  background-color: #2E7D32;
+}
+
+.route-password-weak { color: #f44336; }
+.route-password-medium { color: #ff9800; }
+.route-password-good { color: #ffc107; }
+.route-password-strong { color: #4CAF50; }
+.route-password-excellent { color: #2E7D32; }
+
+/* src/pages/Login/Login.css */
+/* ... (styles existants) ... */
+
+/* Loader */
+.route-loader {
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top: 3px solid #fff;
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto;
+}
+
+.route-dark-mode .route-loader {
+  border: 3px solid rgba(0, 0, 0, 0.3);
+  border-top: 3px solid #000;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Message d'erreur */
+.route-error-message {
+  background-color: #ffebee;
+  color: #c62828;
+  padding: 12px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  border-left: 4px solid #c62828;
+}
+
+.route-dark-mode .route-error-message {
+  background-color: #2c0b0e;
+  color: #ff8a80;
+  border-left-color: #ff8a80;
+}
+
+/* Désactivation des boutons pendant le chargement */
+button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+/* Ajoutez ceci à votre fichier Login.css */
+
+/* Styles pour la page de vérification d'email */
+.verify-email-card {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.route-email-icon {
+  margin-bottom: 20px;
+}
+
+.route-email-icon svg {
+  width: 80px;
+  height: 80px;
+  fill: var(--main-primary);
+}
+
+.route-email-display {
+  background-color: var(--main-input-bg);
+  border-radius: 8px;
+  padding: 15px;
+  margin: 20px 0;
+  font-weight: bold;
+  font-size: 1.1rem;
+  border: 1px solid var(--main-border);
+}
+
+.route-instructions {
+  text-align: left;
+  margin: 25px 0;
+  background-color: var(--main-input-bg);
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid var(--main-border);
+}
+
+.route-instructions ul {
+  padding-left: 20px;
+  margin-top: 10px;
+}
+
+.route-instructions li {
+  margin-bottom: 8px;
+}
+
+.route-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin: 30px 0;
+}
+
+.route-resend-btn {
+  background-color: var(--main-accent);
+  color: var(--main-text);
+}
+
+.route-resend-btn:hover {
+  background-color: var(--main-primary);
+  color: var(--main-secondary);
+}
+
+.route-resend-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.route-check-btn {
+  background-color: var(--main-primary);
+  color: var(--main-secondary);
+}
+
+.route-troubleshooting {
+  text-align: left;
+  margin-top: 25px;
+  padding: 15px;
+  background-color: var(--main-input-bg);
+  border-radius: 8px;
+  border: 1px solid var(--main-border);
+}
+
+.route-troubleshooting ul {
+  padding-left: 20px;
+  margin-top: 10px;
+}
+
+.route-status-message {
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.route-success {
+  background-color: rgba(46, 204, 113, 0.2);
+  border: 1px solid rgba(46, 204, 113, 0.5);
+  color: #27ae60;
+}
+
+.route-info {
+  background-color: rgba(52, 152, 219, 0.2);
+  border: 1px solid rgba(52, 152, 219, 0.5);
+  color: #2980b9;
+}
+
+.route-redirecting {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.route-loader-small {
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top: 2px solid currentColor;
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
+}
+
+.route-loader-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  gap: 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .route-actions {
+    flex-direction: column;
+  }
+  
+  .verify-email-card {
+    padding: 20px;
+  }
+  
+  .route-email-icon svg {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+/* Ajoutez ceci à votre fichier Login.css */
+
+.route-forgot-password {
+  background: none;
+  border: none;
+  color: var(--accent-color);
+  cursor: pointer;
+  font-size: 0.875rem;
+  padding: 0;
+  margin-left: auto;
+  transition: var(--transition);
+  text-decoration: none;
+}
+
+.route-forgot-password:hover {
+  color: var(--primary-color);
+  text-decoration: underline;
+}
+
+.route-forgot-password:disabled {
+  color: var(--text-light);
+  cursor: not-allowed;
+  opacity: 0.7;
+  text-decoration: none;
+}
+
+/* Dark mode adjustments */
+.dark-mode .route-forgot-password {
+  color: #64b5f6; /* Bleu plus clair pour le dark mode */
+}
+
+.dark-mode .route-forgot-password:hover {
+  color: #bbdefb;
+}
+
+.dark-mode .route-forgot-password:disabled {
+  color: #666;
+}
+
+/* Alignement avec "Se souvenir de moi" */
+.route-form-options {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 1rem 0;
+}
+
+.route-remember-me {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Version alternative si vous voulez un style bouton plus visible */
+.route-forgot-password.btn-style {
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.dark-mode .route-forgot-password.btn-style {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.route-forgot-password.btn-style:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  text-decoration: none;
+}
+
+.dark-mode .route-forgot-password.btn-style:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
