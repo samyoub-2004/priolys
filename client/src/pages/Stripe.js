@@ -3,7 +3,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 
 // Configuration Stripe avec votre clé publique
-const stripePromise = loadStripe('pk_test_51Rx3tvLqsvouAgjJDmzlTUx0ydaE3s11PnC2Ie3K06Z1A0HQGNUdJw4x2Saym9iadFkok0eujRJM5paqq3xsQVL100qq3UTdOw');
+const stripePromise = loadStripe(process.env.API_STRIPE_KEY);
 
 // Style pour le CardElement
 const CARD_ELEMENT_OPTIONS = {
