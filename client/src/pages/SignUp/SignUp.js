@@ -9,6 +9,7 @@ import {
   sendEmailVerification
 } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
+import Navbar from '../components/Navbar';
 import { auth, db, googleProvider, appleProvider } from '../FirebaseConf/firebase';
 import '../Login/Login.css';
 
@@ -221,78 +222,12 @@ const SignUpPage = () => {
 
   return (
     <div className="route-page-container">
-      <nav className="route-navbar compact">
-        <div className="route-navbar-left">
-          <h1 className="route-logo">Priolys</h1>
-        </div>
-        <div className="route-navbar-right">
-          <div className="route-language-dropdown" ref={languageMenuRef}>
-            <button className="route-language-toggle" onClick={toggleLanguageMenu}>
-              {currentLanguage === 'fr' ? (
-                <svg className="route-flag-icon" viewBox="0 0 640 480" width="20" height="15">
-                  <path fill="#fff" d="M0 0h640v480H0z"/>
-                  <path fill="#002654" d="M0 0h213.3v480H0z"/>
-                  <path fill="#ce1126" d="M426.7 0H640v480H426.7z"/>
-                </svg>
-              ) : (
-                <svg className="route-flag-icon" viewBox="0 0 640 480" width="20" height="15">
-                  <path fill="#012169" d="M0 0h640v480H0z"/>
-                  <path fill="#FFF" d="m75 0 244 181L562 0h78v62L400 241l240 178v61h-80L320 301 81 480H0v-60l239-178L0 64V0h75z"/>
-                  <path fill="#C8102E" d="m424 281 216 159v40L369 281h55zm-184 20 6 35L54 480H0l240-179zM640 0v3L391 191l2-44L590 0h50zM0 0l239 176h-60L0 42V0z"/>
-                  <path fill="#FFF" d="M241 0v480h160V0H241zM0 160v160h640V160H0z"/>
-                  <path fill="#C8102E" d="M0 193v96h640v-96H0zM273 0v480h96V0h-96z"/>
-                </svg>
-              )}
-              <span>{currentLanguage.toUpperCase()}</span>
-              <svg className="route-dropdown-icon" viewBox="0 0 24 24">
-                <path d="M7 10l5 5 5-5z"/>
-              </svg>
-            </button>
-            
-            {isLanguageMenuOpen && (
-              <div className="route-language-menu">
-                <button 
-                  className={`route-language-option ${currentLanguage === 'fr' ? 'active' : ''}`}
-                  onClick={() => changeLanguage('fr')}
-                >
-                  <svg className="route-flag-icon" viewBox="0 0 640 480" width="20" height="15">
-                    <path fill="#fff" d="M0 0h640v480H0z"/>
-                    <path fill="#002654" d="M0 0h213.3v480H0z"/>
-                    <path fill="#ce1126" d="M426.7 0H640v480H426.7z"/>
-                  </svg>
-                  <span>Français</span>
-                </button>
-                
-                <button 
-                  className={`route-language-option ${currentLanguage === 'en' ? 'active' : ''}`}
-                  onClick={() => changeLanguage('en')}
-                >
-                  <svg className="route-flag-icon" viewBox="0 0 640 480" width="20" height="15">
-                    <path fill="#012169" d="M0 0h640v480H0z"/>
-                    <path fill="#FFF" d="m75 0 244 181L562 0h78v62L400 241l240 178v61h-80L320 301 81 480H0v-60l239-178L0 64V0h75z"/>
-                    <path fill="#C8102E" d="m424 281 216 159v40L369 281h55zm-184 20 6 35L54 480H0l240-179zM640 0v3L391 191l2-44L590 0h50zM0 0l239 176h-60L0 42V0z"/>
-                    <path fill="#FFF" d="M241 0v480h160V0H241zM0 160v160h640V160H0z"/>
-                    <path fill="#C8102E" d="M0 193v96h640v-96H0zM273 0v480h96V0h-96z"/>
-                  </svg>
-                  <span>English</span>
-                </button>
-              </div>
-            )}
-          </div>
-          
-          <button className="route-theme-toggle" onClick={toggleDarkMode}>
-            {darkMode ? (
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-                <path d="M6.76 4.84l-1.8-1.79-1.41 1.41 1.79 1.79zM1 12.5h3v2H1zM11 .55h2V3.5h-2zm8.04 2.495l1.408 1.407-1.79 1.79-1.407-1.408zm-1.8 15.115l1.79 1.8 1.41-1.41-1.8-1.79zM20 12.5h3v2h-3zm-8-5c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm-1 4h2v2.95h-2zm-7.45-.96l1.41 1.41 1.79-1.8-1.41-1.41z"/>
-              </svg>
-            ) : (
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-                <path d="M9.37 5.51A7.35 7.35 0 009.1 7.5c0 4.08 3.32 7.4 7.4 7.4.68 0 1.35-.09 1.99-.27A7.014 7.014 0 0112 19c-3.86 0-7-3.14-7-7 0-2.93 1.81-5.45 4.37-6.49M12 3a9 9 0 109 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 01-4.4 2.26 5.403 5.403 0 01-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/>
-              </svg>
-            )}
-          </button>
-        </div>
-      </nav>
+      <Navbar 
+        darkMode={darkMode}
+        setDarkMode={setDarkMode}
+        isLanguageMenuOpen={isLanguageMenuOpen}
+        setIsLanguageMenuOpen={setIsLanguageMenuOpen}
+      />
 
       <div className="route-form-container">
         <div className="route-card">
