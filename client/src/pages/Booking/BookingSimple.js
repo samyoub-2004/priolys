@@ -9,7 +9,7 @@ import { Elements, CardNumberElement, CardExpiryElement, CardCvcElement, useStri
 import Navbar from '../components/Navbar';
 import './BookingSimple.css';
 
-const stripePromise = loadStripe("pk_test_51Rx3tvLqsvouAgjJDmzlTUx0ydaE3s11PnC2Ie3K06Z1A0HQGNUdJw4x2Saym9iadFkok0eujRJM5paqq3xsQVL100qq3UTdOw");
+const stripePromise = loadStripe(process.env.REACT_APP_API_STRIPE_KEY);
 const libraries = ['places', 'geocoding'];
 const googleMapsApiKey = "AIzaSyBLGs7aK3AGCGcRok_d-t5_1KJL1R3sf7o";
 
@@ -120,7 +120,8 @@ const StripePaymentForm = ({ amount, onSuccess, onError }) => {
     }
     
     try {
-      const response = await fetch('http://localhost:3001/create-payment-intent', {
+      const api = process.env.REACT_APP_API_SERVER
+      const response = await fetch(api, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

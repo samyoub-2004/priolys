@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { auth, sendConfirmationEmail } from '../FirebaseConf/firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import '../../pages/Login/Login.css';
+import '../Login/Login.css';
 
 const VerifyEmailPage = () => {
   const { t, i18n } = useTranslation();

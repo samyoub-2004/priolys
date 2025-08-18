@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { auth } from '../FirebaseConf/firebase';
 import "./Navbar.css";
@@ -19,10 +19,14 @@ const Navbar = ({
   const languageDropdownRef = useRef(null);
   const accountDropdownRef = useRef(null);
   const navigate = useNavigate();
+  const location = useLocation();
   
   const [user, setUser] = useState(null);
   const [isAccountMenuOpen, setIsAccountMenuOpen] = useState(false);
   const [loadingAuth, setLoadingAuth] = useState(true);
+
+  // Vérifier si on est sur la page d'accueil
+  const isHomePage = location.pathname === '/';
 
   // Observer l'état d'authentification
   useEffect(() => {
@@ -97,43 +101,45 @@ const Navbar = ({
           <span className="logo-text">PRIOLYS</span>
         </div>
         
-        <div className={`nav-links ${isMenuOpen ? 'open' : ''}`}>
-          <a 
-            href="#home" 
-            className={activeSection === 'home' ? 'active' : ''}
-            onClick={(e) => handleNavClick(e, 'home')}
-          >
-            {t('menu.home')}
-          </a>
-          <a 
-            href="#services" 
-            className={activeSection === 'services' ? 'active' : ''}
-            onClick={(e) => handleNavClick(e, 'services')}
-          >
-            {t('menu.services')}
-          </a>
-          <a 
-            href="#fleet" 
-            className={activeSection === 'fleet' ? 'active' : ''}
-            onClick={(e) => handleNavClick(e, 'fleet')}
-          >
-            {t('menu.fleet')}
-          </a>
-          <a 
-            href="#partners" 
-            className={activeSection === 'partners' ? 'active' : ''}
-            onClick={(e) => handleNavClick(e, 'partners')}
-          >
-            {t('menu.partners')}
-          </a>
-          <a 
-            href="#blog" 
-            className={activeSection === 'blog' ? 'active' : ''}
-            onClick={(e) => handleNavClick(e, 'blog')}
-          >
-            {t('menu.blog')}
-          </a>
-        </div>
+        {isHomePage && (
+          <div className={`nav-links ${isMenuOpen ? 'open' : ''}`}>
+            <a 
+              href="#home" 
+              className={activeSection === 'home' ? 'active' : ''}
+              onClick={(e) => handleNavClick(e, 'home')}
+            >
+              {t('menu.home')}
+            </a>
+            <a 
+              href="#services" 
+              className={activeSection === 'services' ? 'active' : ''}
+              onClick={(e) => handleNavClick(e, 'services')}
+            >
+              {t('menu.services')}
+            </a>
+            <a 
+              href="#fleet" 
+              className={activeSection === 'fleet' ? 'active' : ''}
+              onClick={(e) => handleNavClick(e, 'fleet')}
+            >
+              {t('menu.fleet')}
+            </a>
+            <a 
+              href="#partners" 
+              className={activeSection === 'partners' ? 'active' : ''}
+              onClick={(e) => handleNavClick(e, 'partners')}
+            >
+              {t('menu.partners')}
+            </a>
+            <a 
+              href="#blog" 
+              className={activeSection === 'blog' ? 'active' : ''}
+              onClick={(e) => handleNavClick(e, 'blog')}
+            >
+              {t('menu.blog')}
+            </a>
+          </div>
+        )}
         
         <div className="nav-actions">
           <div className="language-dropdown" ref={languageDropdownRef}>
@@ -268,13 +274,15 @@ const Navbar = ({
             </button>
           )}
           
-          <button 
-            className="menu-toggle" 
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label={t('ariaLabels.menu')}
-          >
-            {isMenuOpen ? '✕' : '☰'}
-          </button>
+          {isHomePage && (
+            <button 
+              className="menu-toggle" 
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              aria-label={t('ariaLabels.menu')}
+            >
+              {isMenuOpen ? '✕' : '☰'}
+            </button>
+          )}
         </div>
       </div>
     </nav>
