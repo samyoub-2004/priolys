@@ -8,7 +8,6 @@ import Login from "./pages/Login/Login"
 import SignUpPage from "./pages/SignUp/SignUp"
 import VerifyEmailPage from "./pages/SignUp/VerifyEmailPage";
 import VehiclePage from "./pages/Vehicule/VehiculePage";
-
 import BookingSimple from "./pages/Booking/BookingSimple";
 
 

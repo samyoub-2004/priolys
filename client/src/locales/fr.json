@@ -6,7 +6,6 @@
     "partners": "Partenaires",
     "blog": "Blog"
   },
-  
   "hero": {
     "title": "Service VTC d'exception",
     "subtitle": "Votre transport de luxe depuis Marseille",
@@ -34,7 +33,7 @@
     "search": "Rechercher",
     "becomePartner": "Devenir partenaire",
     "readMore": "Lire la suite",
-    "authenticate" : "S'authentifier",
+    "authenticate": "S'authentifier",
     "accountMenu": "Menu compte",
     "back": "Retour",
     "continue": "Continuer"
@@ -52,9 +51,12 @@
     "title": "Nos services et prestations",
     "description": "Nous proposons des solutions adaptées à chacun de vos besoins"
   },
-  "fleetSection": {
-    "title": "Nos classes de service",
-    "description": "Une flotte premium pour tous vos besoins"
+  "fleet": {
+    "title": "Notre Flotte",
+    "subtitle": "Découvrez notre collection de véhicules de luxe",
+    "passengers": "passagers",
+    "luggage": "bagages",
+    "viewMore": "Voir plus"
   },
   "partnersSection": {
     "title": "Devenir partenaire",
@@ -197,11 +199,10 @@
     }
   ],
   "cities": [
-    "Marseille", "Paris", "Lyon", "Toulouse", "Nice", "Nantes", 
-    "Strasbourg", "Montpellier", "Bordeaux", "Lille", "Rennes", 
+    "Marseille", "Paris", "Lyon", "Toulouse", "Nice", "Nantes",
+    "Strasbourg", "Montpellier", "Bordeaux", "Lille", "Rennes",
     "Aix-en-Provence", "Toulon", "Grenoble", "Dijon", "Avignon"
   ],
-  
   "login": {
     "title": "Connectez-vous à votre compte",
     "subtitle": "Accédez à votre espace personnel",
@@ -226,7 +227,6 @@
       "en": "Anglais"
     }
   },
-  
   "signup": {
     "title": "Créer un compte",
     "subtitle": "Rejoignez notre communauté dès aujourd'hui",
@@ -309,94 +309,98 @@
     "bookings": "Mes réservations",
     "logout": "Déconnexion"
   },
-  
- "location": {
-  "locating": "Localisation en cours...",
-  "geolocationNotSupported": "La géolocalisation n'est pas prise en charge par votre navigateur",
-  "permissionDenied": "Veuillez autoriser la localisation pour utiliser cette fonctionnalité",
-  "positionUnavailable": "Impossible d'obtenir votre position",
-  "timeout": "La demande de localisation a expiré",
-  "geolocationError": "Erreur lors de la localisation"
-},
-"vehicle" : {
-  "title": "Gestion des Véhicules",
-  "addVehicle": "Ajouter un véhicule",
-  "addNewVehicle": "Ajouter un nouveau véhicule",
-  "name": "Nom du véhicule",
-  "namePlaceholder": "Ex: Tesla Model S",
-  "imageUrl": "URL de l'image",
-  "imagePlaceholder": "https://example.com/image.jpg",
-  "passengers": "Passagers",
-  "luggage": "Bagages",
-  "pricePerKm": "Prix par km",
-  "pricePerHour": "Prix par heure",
-  "basePrice": "Prix de base",
-  "noVehicles": "Aucun véhicule disponible. Ajoutez votre premier véhicule !",
-  "editVehicle": "Modifier le véhicule",
-  "updateVehicle": "Mettre à jour",
-  "edit": "Modifier",
-  "delete": "Supprimer",
-  "confirmDelete": "Êtes-vous sûr de vouloir supprimer ce véhicule ?"
-
-},
-"booking": {
-     "step1Title": "Plan your journey",
-    "step1Subtitle": "Enter your departure and destination points",
-    "step2Title": "Date & Passengers",
-    "step2Subtitle": "Select date and number of passengers",
-    "step3Title": "Additional Options",
-    "step3Subtitle": "Customize your ride with extra services",
-    "step4Title": "Select Vehicle",
-    "step4Subtitle": "Choose the perfect vehicle for your journey",
-    "step5Title": "Confirm Reservation",
-    "step5Subtitle": "Review and confirm your booking details",
-    
-    "departure": "Departure",
-    "departurePlaceholder": "Enter departure address",
+  "location": {
+    "locating": "Localisation en cours...",
+    "geolocationNotSupported": "La géolocalisation n'est pas prise en charge par votre navigateur",
+    "permissionDenied": "Veuillez autoriser la localisation pour utiliser cette fonctionnalité",
+    "positionUnavailable": "Impossible d'obtenir votre position",
+    "timeout": "La demande de localisation a expiré",
+    "geolocationError": "Erreur lors de la localisation"
+  },
+  "vehicle": {
+    "title": "Gestion des Véhicules",
+    "addVehicle": "Ajouter un véhicule",
+    "addNewVehicle": "Ajouter un nouveau véhicule",
+    "name": "Nom du véhicule",
+    "namePlaceholder": "Ex: Tesla Model S",
+    "imageUrl": "URL de l'image",
+    "imagePlaceholder": "https://example.com/image.jpg",
+    "passengers": "Passagers",
+    "luggage": "Bagages",
+    "pricePerKm": "Prix par km",
+    "pricePerHour": "Prix par heure",
+    "basePrice": "Prix de base",
+    "noVehicles": "Aucun véhicule disponible. Ajoutez votre premier véhicule !",
+    "editVehicle": "Modifier le véhicule",
+    "updateVehicle": "Mettre à jour",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "confirmDelete": "Êtes-vous sûr de vouloir supprimer ce véhicule ?"
+  },
+  "booking": {
+    "step1Title": "Planifiez votre trajet",
+    "step1Subtitle": "Saisissez votre point de départ et votre destination",
+    "step2Title": "Date et passagers",
+    "step2Subtitle": "Sélectionnez la date et le nombre de passagers",
+    "step3Title": "Options supplémentaires",
+    "step3Subtitle": "Personnalisez votre course avec des services supplémentaires",
+    "step4Title": "Sélectionner un véhicule",
+    "step4Subtitle": "Choisissez le véhicule idéal pour votre trajet",
+    "step5Title": "Confirmer la réservation",
+    "step5Subtitle": "Vérifiez et confirmez les détails de votre réservation",
+    "departure": "Départ",
+    "departurePlaceholder": "Saisissez l'adresse de départ",
     "destination": "Destination",
-    "destinationPlaceholder": "Enter destination address",
-    "waypoints": "Intermediate Stops",
-    "waypointPlaceholder": "Enter stop address",
-    "addWaypoint": "Add Stop",
-    "flightNumber": "Flight Number",
-    "flightPlaceholder": "Enter flight number (optional)",
-    
-    "dateTime": "Date & Time",
-    "passengers": "Passengers",
-    
-    "airportVIP": "Airport VIP Service",
-    "babySeat": "Baby Seat (0-12 months)",
-    "childSeat": "Child Seat (1-4 years)",
-    "boosterSeat": "Booster Seat (4-8 years)",
-    "pets": "Pet Transportation",
-    "earlyArrival": "Early Arrival (15 min)",
-    
-    "selectedOptions": "Selected Options",
-    "noOptions": "No additional options selected",
+    "destinationPlaceholder": "Saisissez l'adresse de destination",
+    "waypoints": "Arrêts intermédiaires",
+    "waypointPlaceholder": "Saisissez l'adresse de l'arrêt",
+    "addWaypoint": "Ajouter un arrêt",
+    "flightNumber": "Numéro de vol",
+    "flightPlaceholder": "Saisissez le numéro de vol (facultatif)",
+    "dateTime": "Date et heure",
+    "passengers": "Passagers",
+    "airportVIP": "Service VIP aéroport",
+    "babySeat": "Siège bébé (0-12 mois)",
+    "childSeat": "Siège enfant (1-4 ans)",
+    "boosterSeat": "Siège d'appoint (4-8 ans)",
+    "pets": "Transport d'animaux domestiques",
+    "earlyArrival": "Arrivée anticipée (15 min)",
+    "selectedOptions": "Options sélectionnées",
+    "noOptions": "Aucune option supplémentaire sélectionnée",
     "total": "Total",
-    
     "distance": "Distance",
-    "duration": "Duration",
-    "estimatedTotal": "Estimated Total",
-    "basePrice": "Base Price",
-    "kmPrice": "Price per km",
-    "hourPrice": "Price per hour",
-    "optionsTotal": "Options Total",
-    "totalPrice": "Total Price",
-    
-    "itinerary": "Itinerary",
-    "waypoint": "Stop",
-    "selectedVehicle": "Selected Vehicle",
-    "luggage": "luggage",
-    
-    "loadingMap": "Loading map...",
-    "loadingVehicles": "Loading available vehicles...",
-    "noVehiclesAvailable": "No vehicles available for your passenger count",
-    "vehiclesLoadError": "Error loading vehicles. Please try again.",
-    "notCalculated": "Not calculated",
-    
-    "confirmReservation": "Confirm Reservation"
+    "duration": "Durée",
+    "estimatedTotal": "Total estimé",
+    "basePrice": "Prix de base",
+    "kmPrice": "Prix par km",
+    "hourPrice": "Prix par heure",
+    "optionsTotal": "Total des options",
+    "totalPrice": "Prix total",
+    "itinerary": "Itinéraire",
+    "waypoint": "Arrêt",
+    "selectedVehicle": "Véhicule sélectionné",
+    "luggage": "bagages",
+    "loadingMap": "Chargement de la carte...",
+    "loadingVehicles": "Chargement des véhicules disponibles...",
+    "noVehiclesAvailable": "Aucun véhicule disponible pour ce nombre de passagers",
+    "vehiclesLoadError": "Erreur lors du chargement des véhicules. Veuillez réessayer.",
+    "notCalculated": "Non calculé",
+    "confirmReservation": "Confirmer la réservation"
+  },
+  "payment": {
+    "title": "Paiement",
+    "subtitle": "Sélectionnez votre mode de paiement",
+    "creditCard": "Carte de crédit",
+    "cash": "Espèces",
+    "securePayment": "Paiement sécurisé",
+    "payDriver": "Payez directement au chauffeur",
+    "confirmCash": "Confirmer la réservation",
+    "cashMessage": "Vous paierez directement au chauffeur à la fin du trajet.",
+    "totalAmount": "Montant total à payer",
+    "processing": "Traitement en cours...",
+    "successTitle": "Paiement réussi !",
+    "successMessage": "Votre réservation a été confirmée. Une confirmation a été envoyée à votre adresse email.",
+    "viewReservations": "Voir mes réservations"
   }
-
-
 }
+  

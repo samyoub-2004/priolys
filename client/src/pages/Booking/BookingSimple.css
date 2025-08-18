@@ -748,3 +748,233 @@
     padding: 15px;
   }
 }
+/* Styles spécifiques pour l'étape de paiement */
+.payment-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: var(--main-secondary);
+  border-radius: 8px;
+  box-shadow: var(--main-card-shadow);
+}
+
+.payment-methods {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.payment-option {
+  flex: 1;
+  min-width: 200px;
+  padding: 20px;
+  border: 1px solid var(--main-border);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: var(--main-input-bg);
+}
+
+.payment-option.selected {
+  border-color: var(--main-primary);
+  background-color: rgba(0, 0, 0, 0.05);
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+}
+
+.route-dark-mode .payment-option.selected {
+  background-color: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
+}
+
+.payment-option h3 {
+  margin: 15px 0 5px;
+  color: var(--main-text);
+}
+
+.payment-option p {
+  color: var(--main-light-text);
+  font-size: 0.9rem;
+}
+
+.payment-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: var(--main-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.payment-icon svg {
+  width: 24px;
+  height: 24px;
+  fill: var(--main-primary);
+}
+
+.card-payment-form {
+  padding: 20px;
+  border-radius: 8px;
+  background-color: var(--main-input-bg);
+  margin-bottom: 20px;
+}
+
+.stripe-form .form-group {
+  margin-bottom: 20px;
+}
+
+.card-element-container {
+  padding: 12px;
+  border: 1px solid var(--main-border);
+  border-radius: 4px;
+  background-color: var(--main-secondary);
+  width: 100%;
+}
+
+.cash-payment-confirm {
+  padding: 20px;
+  border-radius: 8px;
+  background-color: var(--main-input-bg);
+  text-align: center;
+}
+
+.cash-summary p {
+  margin-bottom: 15px;
+  color: var(--main-text);
+}
+
+.total-amount {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 20px 0;
+  padding: 10px;
+  background-color: var(--main-accent);
+  border-radius: 4px;
+}
+
+.payment-error-message {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px;
+  background-color: #fff0f0;
+  border-radius: 4px;
+  margin: 20px 0;
+  color: #ff5252;
+}
+
+.route-dark-mode .payment-error-message {
+  background-color: #2a0f0f;
+}
+
+.payment-error-message svg {
+  width: 24px;
+  height: 24px;
+  fill: #ff5252;
+}
+
+.stripe-submit {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+}
+
+.payment-error {
+  color: #ff5252;
+  margin: 10px 0;
+  font-size: 0.9rem;
+}
+
+.stripe-form .form-row {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+.stripe-form .form-row .form-group {
+  flex: 1;
+}
+
+.stripe-form input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--main-border);
+  border-radius: 4px;
+  background-color: var(--main-input-bg);
+  color: var(--main-text);
+}
+.stripe-form .stripe-submit {
+  margin-top: 20px;
+  width: 100%;
+}
+.payment-error {
+  color: #ff5252;
+  margin: 10px 0;
+}
+/* Thème sombre spécifique */
+.route-dark-mode .stripe-form .card-element-container {
+  background-color: var(--main-accent);
+}
+.route-dark-mode .stripe-form input {
+  background-color: var(--main-accent);
+  color: var(--main-text);
+  border-color: var(--main-border);
+}
+
+/* Popup de succès */
+.success-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.success-popup {
+  background-color: var(--main-secondary);
+  border-radius: 12px;
+  padding: 30px;
+  max-width: 500px;
+  width: 90%;
+  text-align: center;
+  box-shadow: var(--main-card-shadow);
+  border: 1px solid var(--main-border);
+}
+
+.success-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  background-color: #4CAF50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.success-icon svg {
+  width: 48px;
+  height: 48px;
+  fill: white;
+}
+
+.success-popup h2 {
+  color: var(--main-text);
+  margin-bottom: 15px;
+  font-size: 24px;
+}
+
+.success-popup p {
+  color: var(--main-light-text);
+  margin-bottom: 25px;
+  font-size: 16px;
+  line-height: 1.5;
+}
+

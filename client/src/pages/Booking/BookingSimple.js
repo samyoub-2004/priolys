@@ -2,13 +2,232 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useJsApiLoader, GoogleMap, DirectionsRenderer, Marker, Autocomplete } from '@react-google-maps/api';
 import { useNavigate } from 'react-router-dom';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, addDoc, serverTimestamp, getDocs } from 'firebase/firestore';
 import { db } from '../FirebaseConf/firebase';
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements, CardNumberElement, CardExpiryElement, CardCvcElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import Navbar from '../components/Navbar';
 import './BookingSimple.css';
 
+const stripePromise = loadStripe("pk_test_51Rx3tvLqsvouAgjJDmzlTUx0ydaE3s11PnC2Ie3K06Z1A0HQGNUdJw4x2Saym9iadFkok0eujRJM5paqq3xsQVL100qq3UTdOw");
 const libraries = ['places', 'geocoding'];
 const googleMapsApiKey = "AIzaSyBLGs7aK3AGCGcRok_d-t5_1KJL1R3sf7o";
+
+// Style pour la carte en mode sombre
+const darkMapStyle = [
+  { elementType: "geometry", stylers: [{ color: "#242f3e" }] },
+  { elementType: "labels.text.stroke", stylers: [{ color: "#242f3e" }] },
+  { elementType: "labels.text.fill", stylers: [{ color: "#746855" }] },
+  {
+    featureType: "administrative.locality",
+    elementType: "labels.text.fill",
+    stylers: [{ color: "#d59563" }]
+  },
+  {
+    featureType: "poi",
+    elementType: "labels.text.fill",
+    stylers: [{ color: "#d59563" }]
+  },
+  {
+    featureType: "poi.park",
+    elementType: "geometry",
+    stylers: [{ color: "#263c3f" }]
+  },
+  {
+    featureType: "poi.park",
+    elementType: "labels.text.fill",
+    stylers: [{ color: "#6b9a76" }]
+  },
+  {
+    featureType: "road",
+    elementType: "geometry",
+    stylers: [{ color: "#38414e" }]
+  },
+  {
+    featureType: "road",
+    elementType: "geometry.stroke",
+    stylers: [{ color: "#212a37" }]
+  },
+  {
+    featureType: "road",
+    elementType: "labels.text.fill",
+    stylers: [{ color: "#9ca5b3" }]
+  },
+  {
+    featureType: "road.highway",
+    elementType: "geometry",
+    stylers: [{ color: "#746855" }]
+  },
+  {
+    featureType: "road.highway",
+    elementType: "geometry.stroke",
+    stylers: [{ color: "#1f2835" }]
+  },
+  {
+    featureType: "road.highway",
+    elementType: "labels.text.fill",
+    stylers: [{ color: "#f3d19c" }]
+  },
+  {
+    featureType: "transit",
+    elementType: "geometry",
+    stylers: [{ color: "#2f3948" }]
+  },
+  {
+    featureType: "transit.station",
+    elementType: "labels.text.fill",
+    stylers: [{ color: "#d59563" }]
+  },
+  {
+    featureType: "water",
+    elementType: "geometry",
+    stylers: [{ color: "#17263c" }]
+  },
+  {
+    featureType: "water",
+    elementType: "labels.text.fill",
+    stylers: [{ color: "#515c6d" }]
+  },
+  {
+    featureType: "water",
+    elementType: "labels.text.stroke",
+    stylers: [{ color: "#17263c" }]
+  }
+];
+
+const StripePaymentForm = ({ amount, onSuccess, onError }) => {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [cardholderName, setCardholderName] = useState('');
+  const stripe = useStripe();
+  const elements = useElements();
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setLoading(true);
+    setError(null);
+    
+    if (!stripe || !elements) {
+      setError("Stripe n'est pas initialisé");
+      setLoading(false);
+      return;
+    }
+    
+    if (!cardholderName.trim()) {
+      setError("Veuillez entrer le nom du titulaire de la carte");
+      setLoading(false);
+      return;
+    }
+    
+    try {
+      const response = await fetch('http://localhost:3001/create-payment-intent', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          amount: Math.round(amount * 100),
+          currency: 'eur'
+        }),
+      });
+      
+      if (!response.ok) {
+        throw new Error('Erreur lors de la création du PaymentIntent');
+      }
+      
+      const { clientSecret } = await response.json();
+      const { error: stripeError, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: elements.getElement(CardNumberElement),
+          billing_details: {
+            name: cardholderName,
+          },
+        }
+      });
+      
+      if (stripeError) {
+        throw new Error(stripeError.message);
+      }
+      
+      if (paymentIntent.status === 'succeeded') {
+        onSuccess(paymentIntent.id);
+      }
+    } catch (err) {
+      setError(err.message);
+      onError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const CARD_ELEMENT_OPTIONS = {
+    style: {
+      base: {
+        color: 'var(--main-text)',
+        fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+        fontSmoothing: 'antialiased',
+        fontSize: '16px',
+        '::placeholder': {
+          color: 'var(--main-light-text)'
+        },
+        backgroundColor: 'var(--main-input-bg)'
+      },
+      invalid: {
+        color: '#ff5252',
+        iconColor: '#ff5252'
+      }
+    }
+  };
+  
+  return (
+    <form onSubmit={handleSubmit} className="stripe-form">
+      <div className="form-group">
+        <label>Nom du titulaire de la carte</label>
+        <input
+          type="text"
+          placeholder="Nom complet comme indiqué sur la carte"
+          value={cardholderName}
+          onChange={(e) => setCardholderName(e.target.value)}
+          required
+        />
+      </div>
+      
+      <div className="form-row">
+        <div className="form-group">
+          <label>Numéro de carte</label>
+          <div className="card-element-container">
+            <CardNumberElement options={CARD_ELEMENT_OPTIONS} />
+          </div>
+        </div>
+      </div>
+      
+      <div className="form-row">
+        <div className="form-group">
+          <label>Date d'expiration (MM/AA)</label>
+          <div className="card-element-container">
+            <CardExpiryElement options={CARD_ELEMENT_OPTIONS} />
+          </div>
+        </div>
+        <div className="form-group">
+          <label>CVC</label>
+          <div className="card-element-container">
+            <CardCvcElement options={CARD_ELEMENT_OPTIONS} />
+          </div>
+        </div>
+      </div>
+      
+      {error && <div className="payment-error">{error}</div>}
+      
+      <button
+        type="submit"
+        disabled={!stripe || loading}
+        className="btn-primary stripe-submit"
+      >
+        {loading ? 'Traitement...' : `Payer ${amount.toFixed(2)}€`}
+      </button>
+    </form>
+  );
+};
 
 const BookingSimple = () => {
   const { t } = useTranslation();
@@ -17,26 +236,22 @@ const BookingSimple = () => {
     googleMapsApiKey,
     libraries
   });
-
-  // Récupération des données depuis localStorage
-  const reservationData = JSON.parse(localStorage.getItem('tempReservation') || localStorage.getItem('reservationData') || '{}');
   
-  // États pour le wizard
+  const reservationData = JSON.parse(localStorage.getItem('reservationData') || '{}');
+  
   const [currentStep, setCurrentStep] = useState(1);
   const [darkMode, setDarkMode] = useState(false);
   const [isLanguageMenuOpen, setIsLanguageMenuOpen] = useState(false);
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
   
-  // États pour les adresses
   const [departure, setDeparture] = useState(reservationData.departure || '');
   const [destination, setDestination] = useState(reservationData.destination || '');
   const [waypoints, setWaypoints] = useState(reservationData.waypoints || []);
   const [flightNumber, setFlightNumber] = useState(reservationData.flightNumber || '');
   
-  // États pour le trajet
   const [date, setDate] = useState(reservationData.date || '');
   const [passengers, setPassengers] = useState(reservationData.passengers || '1');
   
-  // États pour Google Maps
   const [map, setMap] = useState(null);
   const [directions, setDirections] = useState(null);
   const [distance, setDistance] = useState(reservationData.distance || '');
@@ -46,23 +261,19 @@ const BookingSimple = () => {
   const [center, setCenter] = useState({ lat: 48.8566, lng: 2.3522 });
   const [markers, setMarkers] = useState([]);
   
-  // Références pour les inputs
   const departureInputRef = useRef(null);
   const destinationInputRef = useRef(null);
   const waypointInputRefs = useRef([]);
   
-  // Références pour les autocomplétions
   const departureAutocompleteRef = useRef(null);
   const destinationAutocompleteRef = useRef(null);
   const waypointAutocompleteRefs = useRef([]);
-
-  // États pour les véhicules
+  
   const [vehicles, setVehicles] = useState([]);
   const [selectedVehicle, setSelectedVehicle] = useState(null);
   const [loadingVehicles, setLoadingVehicles] = useState(false);
   const [vehiclesError, setVehiclesError] = useState('');
-
-  // Options supplémentaires
+  
   const additionalOptions = [
     { id: 'airport', name: t('booking.airportVIP'), price: 30 },
     { id: 'baby', name: t('booking.babySeat'), price: 10 },
@@ -73,23 +284,34 @@ const BookingSimple = () => {
   ];
   
   const [selectedOptions, setSelectedOptions] = useState(reservationData.selectedOptions || []);
-
-  // Calculer le prix total des options
+  const [paymentMethod, setPaymentMethod] = useState('');
+  const [paymentError, setPaymentError] = useState('');
+  const [paymentProcessing, setPaymentProcessing] = useState(false);
+  
   const totalOptionsPrice = selectedOptions.reduce((total, optionId) => {
     const option = additionalOptions.find(opt => opt.id === optionId);
     return total + (option ? option.price : 0);
   }, 0);
+  
+  const calculateTotalPrice = (vehicle) => {
+    if (!vehicle) return 0;
+    
+    const distancePrice = vehicle.pricePerKm * distanceValue;
+    const timePrice = vehicle.pricePerHour * (durationValue / 60);
+    const basePrice = vehicle.basePrice;
+    
+    return basePrice + distancePrice + timePrice + totalOptionsPrice;
+  };
+  
+  const totalPrice = selectedVehicle ? calculateTotalPrice(selectedVehicle) : 0;
 
-  // Charger les données initiales
   useEffect(() => {
-    // Appliquer le dark mode si nécessaire
     const savedMode = localStorage.getItem('darkMode');
     if (savedMode) {
       setDarkMode(JSON.parse(savedMode));
     }
   }, []);
 
-  // Appliquer le dark mode
   useEffect(() => {
     localStorage.setItem('darkMode', JSON.stringify(darkMode));
     
@@ -100,20 +322,18 @@ const BookingSimple = () => {
     }
   }, [darkMode]);
 
-  // Initialiser les autocomplétions
   const onDepartureLoad = (autocomplete) => {
     departureAutocompleteRef.current = autocomplete;
   };
-
+  
   const onDestinationLoad = (autocomplete) => {
     destinationAutocompleteRef.current = autocomplete;
   };
-
+  
   const onWaypointLoad = (autocomplete, index) => {
     waypointAutocompleteRefs.current[index] = autocomplete;
   };
-
-  // Gestion des sélections d'adresse
+  
   const onDeparturePlaceChanged = () => {
     if (departureAutocompleteRef.current) {
       const place = departureAutocompleteRef.current.getPlace();
@@ -122,7 +342,7 @@ const BookingSimple = () => {
       }
     }
   };
-
+  
   const onDestinationPlaceChanged = () => {
     if (destinationAutocompleteRef.current) {
       const place = destinationAutocompleteRef.current.getPlace();
@@ -131,7 +351,7 @@ const BookingSimple = () => {
       }
     }
   };
-
+  
   const onWaypointPlaceChanged = (index) => {
     if (waypointAutocompleteRefs.current[index]) {
       const place = waypointAutocompleteRefs.current[index].getPlace();
@@ -142,11 +362,9 @@ const BookingSimple = () => {
       }
     }
   };
-
-  // Calculer l'itinéraire
+  
   const calculateRoute = () => {
     if (!isLoaded || !departure || !destination) return;
-
     const directionsService = new window.google.maps.DirectionsService();
     
     const waypointsFormatted = waypoints
@@ -164,7 +382,6 @@ const BookingSimple = () => {
         if (status === window.google.maps.DirectionsStatus.OK) {
           setDirections(result);
           
-          // Mettre à jour la distance et la durée
           const route = result.routes[0].legs.reduce((acc, leg) => {
             acc.distance += leg.distance.value;
             acc.duration += leg.duration.value;
@@ -179,7 +396,6 @@ const BookingSimple = () => {
           setDistanceValue(distanceKm);
           setDurationValue(durationMin);
           
-          // Centrer la carte sur le trajet
           const bounds = new window.google.maps.LatLngBounds();
           result.routes[0].legs.forEach(leg => {
             bounds.extend(leg.start_location);
@@ -187,7 +403,6 @@ const BookingSimple = () => {
           });
           if (map) map.fitBounds(bounds);
           
-          // Mettre à jour les marqueurs
           const newMarkers = [];
           if (departure) newMarkers.push({ position: result.routes[0].legs[0].start_location, label: "A" });
           if (destination) newMarkers.push({ position: result.routes[0].legs[result.routes[0].legs.length - 1].end_location, label: "B" });
@@ -198,8 +413,7 @@ const BookingSimple = () => {
       }
     );
   };
-
-  // Charger les véhicules depuis Firestore
+  
   const loadVehicles = async () => {
     setLoadingVehicles(true);
     setVehiclesError('');
@@ -210,7 +424,6 @@ const BookingSimple = () => {
       
       querySnapshot.forEach((doc) => {
         const vehicle = doc.data();
-        // Convertir les valeurs numériques
         vehicle.pricePerKm = parseFloat(vehicle.pricePerKm);
         vehicle.pricePerHour = parseFloat(vehicle.pricePerHour);
         vehicle.basePrice = parseFloat(vehicle.basePrice);
@@ -219,7 +432,6 @@ const BookingSimple = () => {
         vehiclesData.push(vehicle);
       });
       
-      // Filtrer les véhicules par capacité de passagers
       const filteredVehicles = vehiclesData.filter(
         vehicle => vehicle.passengers >= parseInt(passengers)
       );
@@ -236,32 +448,106 @@ const BookingSimple = () => {
       setLoadingVehicles(false);
     }
   };
-
-  // Ajouter une étape intermédiaire
+  
   const addWaypoint = () => {
     setWaypoints([...waypoints, '']);
     waypointInputRefs.current.push({current : null});
     waypointAutocompleteRefs.current.push(null);
   };
-
-  // Supprimer une étape
+  
   const removeWaypoint = (index) => {
     const newWaypoints = [...waypoints];
     newWaypoints.splice(index, 1);
     setWaypoints(newWaypoints);
   };
-
-  // Passer à l'étape suivante
+  
   const nextStep = () => {
-    if (currentStep < 5) {
+    if (currentStep < 6) {
       setCurrentStep(currentStep + 1);
       
-      // Charger les véhicules quand on arrive à l'étape 3 (après date/passagers)
       if (currentStep === 2) {
         loadVehicles();
       }
+    }
+  };
+  
+  const prevStep = () => {
+    if (currentStep > 1) {
+      setCurrentStep(currentStep - 1);
     } else {
-      // Sauvegarder les données et passer à la confirmation
+      navigate('/');
+    }
+  };
+  
+  const toggleOption = (optionId) => {
+    if (selectedOptions.includes(optionId)) {
+      setSelectedOptions(selectedOptions.filter(id => id !== optionId));
+    } else {
+      setSelectedOptions([...selectedOptions, optionId]);
+    }
+  };
+  
+  const saveReservation = async (paymentId = '', paymentStatus = 'pending') => {
+    try {
+      const reservationData = {
+        type: 'simple',
+        departure,
+        destination,
+        date,
+        passengers,
+        waypoints,
+        flightNumber,
+        distance,
+        duration,
+        distanceValue,
+        durationValue,
+        selectedOptions,
+        selectedVehicle: selectedVehicle.id,
+        totalPrice,
+        paymentMethod,
+        paymentId,
+        paymentStatus,
+        createdAt: serverTimestamp(),
+        status: 'confirmed'
+      };
+      
+      const docRef = await addDoc(collection(db, 'reservations'), reservationData);
+      return docRef.id;
+    } catch (error) {
+      console.error("Erreur lors de l'enregistrement: ", error);
+      throw new Error(t('booking.saveError'));
+    }
+  };
+  
+  const handlePaymentSuccess = async (paymentId) => {
+    try {
+      setPaymentProcessing(true);
+      await saveReservation(paymentId, 'paid');
+      setShowSuccessPopup(true);
+    } catch (error) {
+      setPaymentError(error.message);
+      setPaymentProcessing(false);
+    }
+  };
+  
+  const confirmCashPayment = async () => {
+    try {
+      setPaymentProcessing(true);
+      await saveReservation();
+      setShowSuccessPopup(true);
+    } catch (error) {
+      setPaymentError(error.message);
+      setPaymentProcessing(false);
+    }
+  };
+  
+  const handleViewReservations = () => {
+    localStorage.removeItem('reservationData');
+    navigate('/reservations');
+  };
+
+  useEffect(() => {
+    if (currentStep > 1) {
       const reservationData = {
         type: 'simple',
         departure,
@@ -276,41 +562,11 @@ const BookingSimple = () => {
         durationValue,
         selectedOptions,
         selectedVehicle,
-        totalPrice: calculateTotalPrice(selectedVehicle)
+        totalPrice
       };
       localStorage.setItem('reservationData', JSON.stringify(reservationData));
-      navigate('/confirmation');
     }
-  };
-
-  // Calculer le prix total
-  const calculateTotalPrice = (vehicle) => {
-    if (!vehicle) return 0;
-    
-    const distancePrice = vehicle.pricePerKm * distanceValue;
-    const timePrice = vehicle.pricePerHour * (durationValue / 60); // durationValue est en minutes
-    const basePrice = vehicle.basePrice;
-    
-    return basePrice + distancePrice + timePrice + totalOptionsPrice;
-  };
-
-  // Revenir à l'étape précédente
-  const prevStep = () => {
-    if (currentStep > 1) {
-      setCurrentStep(currentStep - 1);
-    } else {
-      navigate('/');
-    }
-  };
-
-  // Toggle une option supplémentaire
-  const toggleOption = (optionId) => {
-    if (selectedOptions.includes(optionId)) {
-      setSelectedOptions(selectedOptions.filter(id => id !== optionId));
-    } else {
-      setSelectedOptions([...selectedOptions, optionId]);
-    }
-  };
+  }, [currentStep, departure, destination, date, passengers, waypoints, flightNumber, distance, duration, selectedOptions, selectedVehicle]);
 
   return (
     <div className="booking-container">
@@ -322,22 +578,21 @@ const BookingSimple = () => {
       />
       
       <div className="booking-content">
-        {/* Barre de progression */}
         <div className="stepper">
           <div className={`step ${currentStep >= 1 ? 'active' : ''}`}></div>
           <div className={`step ${currentStep >= 2 ? 'active' : ''}`}></div>
           <div className={`step ${currentStep >= 3 ? 'active' : ''}`}></div>
           <div className={`step ${currentStep >= 4 ? 'active' : ''}`}></div>
           <div className={`step ${currentStep >= 5 ? 'active' : ''}`}></div>
+          <div className={`step ${currentStep >= 6 ? 'active' : ''}`}></div>
           <div className="progress-bar">
             <div 
               className="progress" 
-              style={{ width: `${(currentStep - 1) * 25}%` }}
+              style={{ width: `${(currentStep - 1) * 20}%` }}
             ></div>
           </div>
         </div>
         
-        {/* Étape 1: Itinéraire */}
         {currentStep === 1 && (
           <div className="step-container">
             <h2 className="step-title">{t('booking.step1Title')}</h2>
@@ -444,7 +699,6 @@ const BookingSimple = () => {
           </div>
         )}
         
-        {/* Étape 2: Date et passagers */}
         {currentStep === 2 && (
           <div className="step-container">
             <h2 className="step-title">{t('booking.step2Title')}</h2>
@@ -538,7 +792,6 @@ const BookingSimple = () => {
           </div>
         )}
         
-        {/* Étape 3: Sélection du véhicule */}
         {currentStep === 3 && (
           <div className="step-container">
             <h2 className="step-title">{t('booking.step3Title')}</h2>
@@ -555,8 +808,10 @@ const BookingSimple = () => {
                     options={{
                       streetViewControl: false,
                       mapTypeControl: false,
-                      fullscreenControl: false
+                      fullscreenControl: false,
+                      styles: darkMode ? darkMapStyle : [],
                     }}
+                    key={darkMode ? 'dark' : 'light'}
                   >
                     {directions && <DirectionsRenderer directions={directions} />}
                     {markers.map((marker, index) => (
@@ -687,7 +942,6 @@ const BookingSimple = () => {
           </div>
         )}
         
-        {/* Étape 4: Options supplémentaires */}
         {currentStep === 4 && (
           <div className="step-container">
             <h2 className="step-title">{t('booking.step4Title')}</h2>
@@ -752,7 +1006,6 @@ const BookingSimple = () => {
           </div>
         )}
         
-        {/* Étape 5: Récapitulatif */}
         {currentStep === 5 && (
           <div className="step-container">
             <h2 className="step-title">{t('booking.step5Title')}</h2>
@@ -882,7 +1135,7 @@ const BookingSimple = () => {
                   )}
                   <div className="total-item main-total">
                     <span>{t('booking.totalPrice')}:</span>
-                    <span>{selectedVehicle ? calculateTotalPrice(selectedVehicle).toFixed(2) + '€' : t('booking.notCalculated')}</span>
+                    <span>{totalPrice.toFixed(2)}€</span>
                   </div>
                 </div>
               </div>
@@ -898,7 +1151,114 @@ const BookingSimple = () => {
             </div>
           </div>
         )}
+        
+        {currentStep === 6 && (
+          <div className="step-container">
+            <h2 className="step-title">{t('payment.title')}</h2>
+            <p className="step-subtitle">{t('payment.subtitle')}</p>
+            
+            <div className="payment-container">
+              <div className="payment-methods">
+                <div 
+                  className={`payment-option ${paymentMethod === 'card' ? 'selected' : ''}`}
+                  onClick={() => setPaymentMethod('card')}
+                >
+                  <div className="payment-icon">
+                    <svg viewBox="0 0 24 24">
+                      <path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/>
+                    </svg>
+                  </div>
+                  <h3>{t('payment.creditCard')}</h3>
+                  <p>{t('payment.securePayment')}</p>
+                </div>
+                
+                <div 
+                  className={`payment-option ${paymentMethod === 'cash' ? 'selected' : ''}`}
+                  onClick={() => setPaymentMethod('cash')}
+                >
+                  <div className="payment-icon">
+                    <svg viewBox="0 0 24 24">
+                      <path d="M12 22C6.49 22 2 17.51 2 12S6.49 2 12 2s10 4.49 10 10-4.49 10-10 10zm0-18c-4.41 0-8 3.59-8 8s3.59 8 8 8 8-3.59 8-8-3.59-8-8-8zm3 8c0 1.66-1.34 3-3 3s-3-1.34-3-3 1.34-3 3-3 3 1.34 3 3z"/>
+                    </svg>
+                  </div>
+                  <h3>{t('payment.cash')}</h3>
+                  <p>{t('payment.payDriver')}</p>
+                </div>
+              </div>
+              
+              {paymentMethod === 'card' && (
+                <div className="card-payment-form">
+                  <Elements stripe={stripePromise}>
+                    <StripePaymentForm 
+                      amount={totalPrice}
+                      onSuccess={handlePaymentSuccess}
+                      onError={(error) => setPaymentError(error)}
+                    />
+                  </Elements>
+                </div>
+              )}
+              
+              {paymentMethod === 'cash' && (
+                <div className="cash-payment-confirm">
+                  <div className="cash-summary">
+                    <p>{t('payment.cashMessage')}</p>
+                    <div className="total-amount">
+                      <span>{t('payment.totalAmount')}:</span>
+                      <span>{totalPrice.toFixed(2)}€</span>
+                    </div>
+                  </div>
+                  <button 
+                    className="btn-primary"
+                    onClick={confirmCashPayment}
+                    disabled={paymentProcessing}
+                  >
+                    {paymentProcessing ? t('payment.processing') : t('payment.confirmCash')}
+                  </button>
+                </div>
+              )}
+              
+              {paymentError && (
+                <div className="payment-error-message">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+                  </svg>
+                  <p>{paymentError}</p>
+                </div>
+              )}
+              
+              <div className="form-actions">
+                <button 
+                  className="btn-secondary" 
+                  onClick={prevStep}
+                  disabled={paymentProcessing}
+                >
+                  {t('buttons.back')}
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
+      
+      {showSuccessPopup && (
+        <div className="success-popup-overlay">
+          <div className="success-popup">
+            <div className="success-icon">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+              </svg>
+            </div>
+            <h2>{t('payment.successTitle')}</h2>
+            <p>{t('payment.successMessage')}</p>
+            <button 
+              className="btn-primary"
+              onClick={handleViewReservations}
+            >
+              {t('payment.viewReservations')}
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

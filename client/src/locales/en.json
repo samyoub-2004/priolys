@@ -6,20 +6,19 @@
     "partners": "Partners",
     "blog": "Blog"
   },
-  
   "hero": {
-    "title": "Exceptional Luxury Car Service",
-    "subtitle": "Your luxury transportation from Marseille",
-    "description": "Premium transportation with a premium fleet and professional drivers"
+    "title": "Premium VTC Service",
+    "subtitle": "Luxury transportation from Marseille",
+    "description": "High-end transfers with a premium fleet and professional drivers"
   },
   "reservation": {
-    "title": "Book a trip",
+    "title": "Book a Ride",
     "departureLabel": "Your departure address",
     "departurePlaceholder": "Exact address, airport, hotel",
     "dateLabel": "Departure date and time",
     "datePlaceholder": "mm/dd/yyyy --:-- --",
     "destinationLabel": "Where would you like to go?",
-    "destinationPlaceholder": "City, region, or establishment, etc...",
+    "destinationPlaceholder": "City, region, venue, etc.",
     "passengersLabel": "Number of passengers",
     "stopLabel": "Add a stop along the way",
     "simpleTrip": "One-way trip",
@@ -34,8 +33,10 @@
     "search": "Search",
     "becomePartner": "Become a partner",
     "readMore": "Read more",
-    "authenticate": "Log in",
-    "accountMenu": "Account menu"
+    "authenticate": "Sign in",
+    "accountMenu": "Account menu",
+    "back": "Back",
+    "continue": "Continue"
   },
   "ariaLabels": {
     "lightMode": "Switch to light mode",
@@ -47,17 +48,20 @@
     "linkedin": "LinkedIn"
   },
   "servicesSection": {
-    "title": "Our services and offerings",
-    "description": "We offer solutions tailored to each of your needs"
+    "title": "Our Services",
+    "description": "We offer tailored solutions for all your needs"
   },
-  "fleetSection": {
-    "title": "Our service classes",
-    "description": "A premium fleet for all your needs"
+  "fleet": {
+    "title": "Our Fleet",
+    "subtitle": "Discover our luxurious vehicle collection",
+    "passengers": "passengers",
+    "luggage": "luggage",
+    "viewMore": "View more"
   },
   "partnersSection": {
-    "title": "Become a partner",
-    "subtitle": "We move forward together",
-    "description": "Partnerships are a true strength. We love collaborating with businesses and professionals who share our quality standards. Join us to offer your clients a premium, reliable transportation service designed for every need.",
+    "title": "Become a Partner",
+    "subtitle": "Growing together",
+    "description": "Partnerships are a true strength. We love collaborating with businesses and professionals who share our commitment to quality. Join us to offer your clients a reliable, high-end private transport service tailored to every need.",
     "categories": [
       "Businesses",
       "Travel agencies",
@@ -90,20 +94,20 @@
     {
       "name": "Thomas Martin",
       "rating": 5,
-      "comment": "The best transportation company I've used. I highly recommend it!",
+      "comment": "The best transport company I've ever used. Highly recommended!",
       "date": "March 12, 2023"
     }
   ],
   "footer": {
-    "description": "Professional Luxury Car Service in Marseille",
+    "description": "Professional VTC service in Marseille",
     "about": "About",
-    "services": "Services and offerings",
+    "services": "Services",
     "contact": "Contact",
-    "legal": "Legal notices",
-    "terms": "Terms of use",
-    "privacy": "Privacy policy",
-    "vehicles": "Our vehicles",
-    "tours": "Tourist tours",
+    "legal": "Legal Notice",
+    "terms": "Terms of Use",
+    "privacy": "Privacy Policy",
+    "vehicles": "Our Vehicles",
+    "tours": "Tourist Tours",
     "rights": "All rights reserved."
   },
   "contact": {
@@ -115,43 +119,43 @@
     {
       "icon": "airport",
       "title": "Airport / Train Station Transfer",
-      "description": "VIP greeting and assurance of your connections to major transport hubs",
-      "details": ["VIP greeting", "Early arrival", "Connection assurance"]
+      "description": "VIP welcome and guaranteed connections to major transport hubs",
+      "details": ["VIP welcome", "Early arrival", "Connection guarantee"]
     },
     {
       "icon": "business",
-      "title": "Business Trips",
-      "description": "Seamless travel to stay focused on what matters",
+      "title": "Business Travel",
+      "description": "Smooth transfers so you can focus on what matters",
       "details": ["Dedicated driver", "Early arrival", "Wi-Fi connection"]
     },
     {
       "icon": "night",
-      "title": "Night Trips",
-      "description": "Travel safely even in the middle of the night",
-      "details": ["Guaranteed security", "Experienced driver", "24/7 service"]
+      "title": "Night Transfers",
+      "description": "Travel safely, even in the middle of the night",
+      "details": ["Guaranteed safety", "Experienced driver", "24/7 service"]
     },
     {
       "icon": "events",
-      "title": "Transport for Your Events",
-      "description": "Flawless transportation logistics for your events",
-      "details": ["Wi-Fi and chargers", "Stops along the way", "Custom service"]
+      "title": "Event Transportation",
+      "description": "Flawless transport logistics for your events",
+      "details": ["Wi-Fi and charger", "Stops along the way", "Custom service"]
     },
     {
       "icon": "long",
-      "title": "Long-Distance Transport",
+      "title": "Long-Distance Travel",
       "description": "An ideal solution for trips outside the city",
-      "details": ["Optimal comfort", "Stops along the way", "Complimentary beverages"]
+      "details": ["Optimal comfort", "Stops along the way", "Complimentary drinks"]
     },
     {
       "icon": "kids",
-      "title": "Children & Teen Transport",
-      "description": "Transportation for your children and teenagers to their destinations",
-      "details": ["Maximum safety", "Beverages and snacks", "Certified driver"]
+      "title": "Child & Teen Transport",
+      "description": "Transport for your children and teenagers to their destinations",
+      "details": ["Maximum safety", "Drinks and snacks", "Certified driver"]
     },
     {
       "icon": "dispo",
       "title": "On-Demand Service",
-      "description": "Your private driver available at any moment",
+      "description": "Your private driver available at all times",
       "details": ["On-demand service", "Dedicated driver", "Flexible hours"]
     }
   ],
@@ -182,24 +186,23 @@
       "image": "vip"
     },
     {
-      "category": "Grand Luxury VIP",
+      "category": "Grand VIP",
       "models": ["Mercedes-Benz Sprinter VIP"],
       "image": "vip-grand"
     }
   ],
   "blogPosts": [
     {
-      "title": "Three good reasons to prefer a luxury car service over a short-haul flight",
-      "excerpt": "Did you know that a short-haul flight emits 5 times more CO2 than a car trip...",
+      "title": "Three good reasons to choose a VTC over a short-haul flight",
+      "excerpt": "Did you know a short-haul flight emits 5 times more CO2 than a car trip?",
       "date": "August 12, 2024"
     }
   ],
   "cities": [
-    "Marseille", "Paris", "Lyon", "Toulouse", "Nice", "Nantes", 
-    "Strasbourg", "Montpellier", "Bordeaux", "Lille", "Rennes", 
+    "Marseille", "Paris", "Lyon", "Toulouse", "Nice", "Nantes",
+    "Strasbourg", "Montpellier", "Bordeaux", "Lille", "Rennes",
     "Aix-en-Provence", "Toulon", "Grenoble", "Dijon", "Avignon"
   ],
-  
   "login": {
     "title": "Log in to your account",
     "subtitle": "Access your personal space",
@@ -209,14 +212,14 @@
     "passwordPlaceholder": "••••••••",
     "rememberMe": "Remember me",
     "forgotPassword": "Forgot password?",
-    "signIn": "Log in",
+    "signIn": "Sign in",
     "or": "or continue with",
     "signInGoogle": "Continue with Google",
     "signInApple": "Continue with Apple",
     "noAccount": "Don't have an account yet?",
     "signUp": "Sign up",
-    "terms": "Terms of use",
-    "privacy": "Privacy policy",
+    "terms": "Terms of Use",
+    "privacy": "Privacy Policy",
     "help": "Help",
     "rightsReserved": "All rights reserved.",
     "languages": {
@@ -224,7 +227,6 @@
       "en": "English"
     }
   },
-  
   "signup": {
     "title": "Create an account",
     "subtitle": "Join our community today",
@@ -238,7 +240,7 @@
     "passwordPlaceholder": "Create a password",
     "confirmPassword": "Confirm password",
     "confirmPasswordPlaceholder": "Repeat your password",
-    "agreeTo": "I agree to the",
+    "agreeTo": "I accept the",
     "terms": "terms of use",
     "createAccount": "Create account",
     "or": "Or sign up with",
@@ -266,11 +268,11 @@
     "passwordTooWeak": "Your password is too weak. Please strengthen it.",
     "errors": {
       "auth/email-already-in-use": "This email is already in use",
-      "auth/weak-password": "Password too weak",
+      "auth/weak-password": "Password is too weak",
       "auth/invalid-email": "Invalid email",
-      "auth/invalid-credential": "Incorrect email or password",
+      "auth/invalid-credential": "Invalid email or password",
       "auth/user-not-found": "No account found with this email",
-      "auth/wrong-password": "Incorrect password",
+      "auth/wrong-password": "Wrong password",
       "auth/too-many-requests": "Too many failed attempts. Please try again later",
       "auth/popup-closed-by-user": "The login window was closed",
       "auth/cancelled-popup-request": "Login cancelled",
@@ -279,7 +281,7 @@
   },
   "verifyEmail": {
     "title": "Email verification required",
-    "subtitle": "Please verify your email address to activate your account",
+    "subtitle": "Please verify your email to activate your account",
     "instructions": "To complete your registration:",
     "step1": "Check your inbox",
     "step2": "Open the email from Priolys",
@@ -293,35 +295,34 @@
     "resendSuccess": "Verification email sent successfully!",
     "resendError": "Error sending email. Please try again later.",
     "verifiedSuccess": "Email verified successfully! Redirecting...",
-    "notVerifiedYet": "Your email hasn't been verified yet",
+    "notVerifiedYet": "Your email has not been verified yet",
     "verificationError": "Verification error. Please try again.",
     "redirecting": "Redirecting to homepage",
     "rightsReserved": "All rights reserved.",
-    "terms": "Terms of use",
-    "privacy": "Privacy policy",
+    "terms": "Terms of Use",
+    "privacy": "Privacy Policy",
     "help": "Help",
-    "loading": "Verifying email..."
+    "loading": "Verifying your email..."
   },
   "navbar": {
     "profile": "Profile",
     "bookings": "My bookings",
-    "logout": "Log out"
+    "logout": "Logout"
   },
-  
   "location": {
     "locating": "Locating...",
     "geolocationNotSupported": "Geolocation is not supported by your browser",
-    "permissionDenied": "Please enable location permissions to use this feature",
-    "positionUnavailable": "Unable to retrieve your location",
+    "permissionDenied": "Please allow location access to use this feature",
+    "positionUnavailable": "Unable to get your location",
     "timeout": "Location request timed out",
-    "geolocationError": "Geolocation error"
+    "geolocationError": "Error while getting location"
   },
   "vehicle": {
     "title": "Vehicle Management",
     "addVehicle": "Add vehicle",
     "addNewVehicle": "Add new vehicle",
     "name": "Vehicle name",
-    "namePlaceholder": "Ex: Tesla Model S",
+    "namePlaceholder": "e.g. Tesla Model S",
     "imageUrl": "Image URL",
     "imagePlaceholder": "https://example.com/image.jpg",
     "passengers": "Passengers",
@@ -329,6 +330,76 @@
     "pricePerKm": "Price per km",
     "pricePerHour": "Price per hour",
     "basePrice": "Base price",
-    "noVehicles": "No vehicles available. Add your first vehicle!"
+    "noVehicles": "No vehicles available. Add your first vehicle!",
+    "editVehicle": "Edit vehicle",
+    "updateVehicle": "Update",
+    "edit": "Edit",
+    "delete": "Delete",
+    "confirmDelete": "Are you sure you want to delete this vehicle?"
+  },
+  "booking": {
+    "step1Title": "Plan your journey",
+    "step1Subtitle": "Enter your departure and destination points",
+    "step2Title": "Date & Passengers",
+    "step2Subtitle": "Select date and number of passengers",
+    "step3Title": "Additional Options",
+    "step3Subtitle": "Customize your ride with extra services",
+    "step4Title": "Select Vehicle",
+    "step4Subtitle": "Choose the perfect vehicle for your journey",
+    "step5Title": "Confirm Reservation",
+    "step5Subtitle": "Review and confirm your booking details",
+    "departure": "Departure",
+    "departurePlaceholder": "Enter departure address",
+    "destination": "Destination",
+    "destinationPlaceholder": "Enter destination address",
+    "waypoints": "Intermediate Stops",
+    "waypointPlaceholder": "Enter stop address",
+    "addWaypoint": "Add Stop",
+    "flightNumber": "Flight Number",
+    "flightPlaceholder": "Enter flight number (optional)",
+    "dateTime": "Date & Time",
+    "passengers": "Passengers",
+    "airportVIP": "Airport VIP Service",
+    "babySeat": "Baby Seat (0-12 months)",
+    "childSeat": "Child Seat (1-4 years)",
+    "boosterSeat": "Booster Seat (4-8 years)",
+    "pets": "Pet Transportation",
+    "earlyArrival": "Early Arrival (15 min)",
+    "selectedOptions": "Selected Options",
+    "noOptions": "No additional options selected",
+    "total": "Total",
+    "distance": "Distance",
+    "duration": "Duration",
+    "estimatedTotal": "Estimated Total",
+    "basePrice": "Base Price",
+    "kmPrice": "Price per km",
+    "hourPrice": "Price per hour",
+    "optionsTotal": "Options Total",
+    "totalPrice": "Total Price",
+    "itinerary": "Itinerary",
+    "waypoint": "Stop",
+    "selectedVehicle": "Selected Vehicle",
+    "luggage": "luggage",
+    "loadingMap": "Loading map...",
+    "loadingVehicles": "Loading available vehicles...",
+    "noVehiclesAvailable": "No vehicles available for your passenger count",
+    "vehiclesLoadError": "Error loading vehicles. Please try again.",
+    "notCalculated": "Not calculated",
+    "confirmReservation": "Confirm Reservation"
+  },
+  "payment": {
+    "title": "Payment",
+    "subtitle": "Select your payment method",
+    "creditCard": "Credit card",
+    "cash": "Cash",
+    "securePayment": "Secure payment",
+    "payDriver": "Pay directly to the driver",
+    "confirmCash": "Confirm reservation",
+    "cashMessage": "You will pay the driver directly at the end of the trip.",
+    "totalAmount": "Total amount to pay",
+    "processing": "Processing...",
+    "successTitle": "Payment Successful!",
+    "successMessage": "Your reservation has been confirmed. A confirmation has been sent to your email.",
+    "viewReservations": "View My Reservations"
   }
 }
