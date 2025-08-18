@@ -16,7 +16,7 @@ import Chatbot from './components/ChatBot';
 import './LandingPage.css';
 
 const libraries = ['places', 'geocoding'];
-const googleMapsApiKey = "AIzaSyBLGs7aK3AGCGcRok_d-t5_1KJL1R3sf7o";
+const googleMapsApiKey = process.env.REACT_APP_GOOGLE_MAPS_API;
 
 const LandingPage = () => {
   const { t } = useTranslation();
@@ -198,7 +198,7 @@ const LandingPage = () => {
 
   // Convertir les coordonnées en adresse
   const convertCoordsToAddress = async (lat, lng) => {
-    const apiKey = "AIzaSyBq7PRtUiWEVvZWnypqiVujh_avNBiIavw";
+    const apiKey = process.env.REACT_APP_PRIOLYS_API;
     const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${apiKey}`;
 
     try {
