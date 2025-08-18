@@ -4,7 +4,7 @@ import { collection, getDocs, limit, query } from 'firebase/firestore';
 import { db } from '../../FirebaseConf/firebase';
 import './FleetSection.css'; // Fichier CSS séparé
 
-const FleetSection = () => {
+const FleetSection = ({}) => {
   const { t } = useTranslation();
   const [vehicles, setVehicles] = useState([]);
   const [showAll, setShowAll] = useState(false);
