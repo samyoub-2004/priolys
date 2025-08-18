@@ -78,7 +78,7 @@
 .vehicle-info h3 {
   font-size: 1.5rem;
   margin-bottom: 1rem;
-  color: var(--main-text);
+  color: #000 !important;
 }
 
 .vehicle-specs {
