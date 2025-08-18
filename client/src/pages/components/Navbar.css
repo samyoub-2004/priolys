@@ -259,7 +259,10 @@
     #EF4135 66%
   );
 }
-
+/* Ajoutez cette classe pour le drapeau espagnol */
+.flag-icon.es {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 480'%3E%3Cpath fill='%23c60b1e' d='M0 0h640v480H0z'/%3E%3Cpath fill='%23ffc400' d='M0 120h640v240H0z'/%3E%3C/svg%3E");
+}
 /* Drapeau anglais en couleur */
 .flag-icon.en {
   background: linear-gradient(

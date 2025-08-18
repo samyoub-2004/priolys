@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useJsApiLoader, GoogleMap, DirectionsRenderer, Marker, Autocomplete } from '@react-google-maps/api';
 import { useNavigate } from 'react-router-dom';
 import { collection, addDoc, serverTimestamp, getDocs } from 'firebase/firestore';
-import { db } from '../FirebaseConf/firebase';
+import { db, auth } from '../FirebaseConf/firebase';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements, CardNumberElement, CardExpiryElement, CardCvcElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import Navbar from '../components/Navbar';
@@ -13,7 +13,6 @@ const stripePromise = loadStripe(process.env.REACT_APP_API_STRIPE_KEY);
 const libraries = ['places', 'geocoding'];
 const googleMapsApiKey = "AIzaSyBLGs7aK3AGCGcRok_d-t5_1KJL1R3sf7o";
 
-// Style pour la carte en mode sombre
 const darkMapStyle = [
   { elementType: "geometry", stylers: [{ color: "#242f3e" }] },
   { elementType: "labels.text.stroke", stylers: [{ color: "#242f3e" }] },
@@ -490,7 +489,13 @@ const BookingSimple = () => {
   
   const saveReservation = async (paymentId = '', paymentStatus = 'pending') => {
     try {
+      const user = auth.currentUser;
+      if (!user) {
+        throw new Error(t('booking.userNotAuthenticated'));
+      }
+      
       const reservationData = {
+        userId: user.uid,
         type: 'simple',
         departure,
         destination,
@@ -802,7 +807,10 @@ const BookingSimple = () => {
               <div className="map-container">
                 {isLoaded ? (
                   <GoogleMap
-                    mapContainerStyle={{ width: '100%', height: '100%' }}
+                    mapContainerStyle={{ 
+                      width: '100%', 
+                      height: window.innerWidth < 768 ? '40vh' : '50vh'
+                    }}
                     center={center}
                     zoom={10}
                     onLoad={map => setMap(map)}

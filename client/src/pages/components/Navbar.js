@@ -148,7 +148,11 @@ const Navbar = ({
               onClick={() => setIsLanguageMenuOpen(!isLanguageMenuOpen)}
               aria-expanded={isLanguageMenuOpen}
             >
-              <span className={`flag-icon ${i18n.language === 'fr' ? 'fr' : 'en'}`}></span>
+              <span className={`flag-icon ${
+                i18n.language === 'fr' ? 'fr' : 
+                i18n.language === 'en' ? 'en' : 
+                'es'
+              }`}></span>
               {i18n.language.toUpperCase()}
               <svg className="dropdown-arrow" viewBox="0 0 24 24">
                 <path d={isLanguageMenuOpen 
@@ -171,6 +175,13 @@ const Navbar = ({
               >
                 <span className="flag-icon en"></span>
                 English
+              </button>
+              <button 
+                className={`lang-option ${i18n.language === 'es' ? 'active' : ''}`}
+                onClick={() => changeLanguage('es')}
+              >
+                <span className="flag-icon es"></span>
+                Español
               </button>
             </div>
           </div>
