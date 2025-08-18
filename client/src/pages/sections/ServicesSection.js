@@ -1,12 +1,12 @@
 import React from 'react';
 
-const ServicesSection = ({ services }) => {
+const ServicesSection = ({ services , t }) => {
   return (
     <section id="services" className="services-section">
       <div className="container">
         <div className="section-header animate-on-scroll">
-          <h2>Our Services</h2>
-          <p>Discover the range of premium services we offer</p>
+          <h2>{t('servicesSection.title')}</h2>
+          <p>{t('servicesSection.description')}</p>
         </div>
         
         <div className="services-grid">

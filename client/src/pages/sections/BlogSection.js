@@ -5,8 +5,8 @@ const BlogSection = ({ blogPosts, t }) => {
     <section id="blog" className="blog-section">
       <div className="container">
         <div className="section-header animate-on-scroll">
-          <h2>Latest News</h2>
-          <p>Stay updated with our blog</p>
+          <h2>{t("blogSection.title")}</h2>
+          <p>{t("blogSection.description")}</p>
         </div>
         
         <div className="blog-grid">

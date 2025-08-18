@@ -151,7 +151,8 @@ const Navbar = ({
               <span className={`flag-icon ${
                 i18n.language === 'fr' ? 'fr' : 
                 i18n.language === 'en' ? 'en' : 
-                'es'
+                i18n.language === 'es' ? 'es' : 
+                'ch' // Ajout du drapeau chinois
               }`}></span>
               {i18n.language.toUpperCase()}
               <svg className="dropdown-arrow" viewBox="0 0 24 24">
@@ -182,6 +183,14 @@ const Navbar = ({
               >
                 <span className="flag-icon es"></span>
                 Español
+              </button>
+              {/* Ajout de l'option chinoise */}
+              <button 
+                className={`lang-option ${i18n.language === 'ch' ? 'active' : ''}`}
+                onClick={() => changeLanguage('ch')}
+              >
+                <span className="flag-icon ch"></span>
+                中文 (Chinois)
               </button>
             </div>
           </div>

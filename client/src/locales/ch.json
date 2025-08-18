@@ -1,0 +1,405 @@
+{
+  "menu": {
+    "home": "首页",
+    "services": "服务",
+    "fleet": "车队",
+    "partners": "合作伙伴",
+    "blog": "博客"
+  },
+  "hero": {
+    "title": "卓越的VTC服务",
+    "subtitle": "来自马赛的豪华出行",
+    "description": "高端出行体验，配备豪华车队和专业司机"
+  },
+  "reservation": {
+    "title": "预订行程",
+    "departureLabel": "出发地址",
+    "departurePlaceholder": "详细地址、机场、酒店",
+    "dateLabel": "出发日期和时间",
+    "datePlaceholder": "年/月/日 时:分 上午/下午",
+    "destinationLabel": "您想去哪里？",
+    "destinationPlaceholder": "城市、地区或场所等",
+    "passengersLabel": "乘客人数",
+    "stopLabel": "添加中途停靠点",
+    "simpleTrip": "单程",
+    "hourlyRental": "按小时租赁",
+    "locationLabel": "上车地点",
+    "locationPlaceholder": "您希望在哪里上车？",
+    "durationLabel": "时长",
+    "hours": "小时"
+  },
+  "buttons": {
+    "reserve": "预订",
+    "search": "搜索",
+    "becomePartner": "成为合作伙伴",
+    "readMore": "阅读更多",
+    "authenticate": "登录",
+    "accountMenu": "账户菜单",
+    "back": "返回",
+    "continue": "继续"
+  },
+  "ariaLabels": {
+    "lightMode": "切换至浅色模式",
+    "darkMode": "切换至深色模式",
+    "menu": "菜单",
+    "facebook": "Facebook",
+    "instagram": "Instagram",
+    "twitter": "Twitter",
+    "linkedin": "LinkedIn"
+  },
+  "servicesSection": {
+    "title": "我们的服务项目",
+    "description": "我们提供满足您各种需求的定制化解决方案"
+  },
+  "fleet": {
+    "title": "我们的车队",
+    "subtitle": "探索我们的豪华车型系列",
+    "passengers": "乘客",
+    "luggage": "行李",
+    "viewMore": "查看更多"
+  },
+  "partnersSection": {
+    "title": "成为合作伙伴",
+    "subtitle": "我们携手共进",
+    "description": "合作是我们的核心优势。我们乐于与那些追求卓越品质的企业和个人合作。加入我们，为您的客户提供高端、可靠且量身定制的出行服务。",
+    "categories": [
+      "企业",
+      "旅行社",
+      "活动组织者",
+      "酒店与餐厅",
+      "其他"
+    ]
+  },
+  "blogSection": {
+    "title": "博客",
+    "description": "了解我们关于私人出行的建议和最新资讯"
+  },
+  "reviewsSection": {
+    "title": "客户评价",
+    "description": "了解满意客户的真实体验"
+  },
+  "reviews": [
+    {
+      "name": "Jean Dupont",
+      "rating": 5,
+      "comment": "服务非常出色！司机准时且非常专业。",
+      "date": "2023年1月15日"
+    },
+    {
+      "name": "Marie Lambert",
+      "rating": 4,
+      "comment": "车辆干净舒适，服务品质与价格相比非常合理。",
+      "date": "2023年2月28日"
+    },
+    {
+      "name": "Thomas Martin",
+      "rating": 5,
+      "comment": "我用过的最好的交通服务公司，强烈推荐！",
+      "date": "2023年3月12日"
+    }
+  ],
+  "footer": {
+    "description": "马赛专业VTC服务",
+    "about": "关于我们",
+    "services": "服务项目",
+    "contact": "联系",
+    "legal": "法律声明",
+    "terms": "使用条款",
+    "privacy": "隐私政策",
+    "vehicles": "我们的车辆",
+    "tours": "旅游路线",
+    "rights": "版权所有。"
+  },
+  "contact": {
+    "email": "contact@priolys.fr",
+    "phone": "+33 7 50 14 18 64",
+    "feedback": "发送反馈"
+  },
+  "services": [
+    {
+      "icon": "airport",
+      "title": "机场/车站接送",
+      "description": "VIP接机服务，确保您顺利衔接主要交通枢纽",
+      "details": ["VIP接待", "提前到达", "保障衔接"]
+    },
+    {
+      "icon": "business",
+      "title": "商务出行",
+      "description": "顺畅出行，让您专注于重要事务",
+      "details": ["专属司机", "提前到达", "Wi-Fi连接"]
+    },
+    {
+      "icon": "night",
+      "title": "夜间出行",
+      "description": "即使在深夜也能安全出行",
+      "details": ["安全保障", "经验丰富的司机", "24/7服务"]
+    },
+    {
+      "icon": "events",
+      "title": "活动出行服务",
+      "description": "为您的活动提供完美的交通物流",
+      "details": ["Wi-Fi和充电器", "途中停靠", "定制服务"]
+    },
+    {
+      "icon": "long",
+      "title": "长途出行",
+      "description": "理想的城外出行解决方案",
+      "details": ["极致舒适", "途中停靠", "免费饮品"]
+    },
+    {
+      "icon": "kids",
+      "title": "儿童及青少年接送",
+      "description": "安全接送您的孩子前往目的地",
+      "details": ["最高安全标准", "饮料和零食", "认证司机"]
+    },
+    {
+      "icon": "dispo",
+      "title": "随时待命服务",
+      "description": "您的专属司机随时为您服务",
+      "details": ["按需服务", "专属司机", "灵活时间"]
+    }
+  ],
+  "vehicles": [
+    {
+      "category": "经典轿车",
+      "models": ["梅赛德斯-奔驰C级"],
+      "image": "berline-classic"
+    },
+    {
+      "category": "商务轿车",
+      "models": ["梅赛德斯-奔驰E级"],
+      "image": "berline-business"
+    },
+    {
+      "category": "轿车",
+      "models": ["梅赛德斯-奔驰"],
+      "image": "van-eco"
+    },
+    {
+      "category": "豪华商务车",
+      "models": ["梅赛德斯-奔驰V级"],
+      "image": "van-luxe"
+    },
+    {
+      "category": "VIP",
+      "models": ["梅赛德斯-奔驰S级"],
+      "image": "vip"
+    },
+    {
+      "category": "超豪华VIP",
+      "models": ["梅赛德斯-奔驰斯宾特VIP"],
+      "image": "vip-grand"
+    }
+  ],
+  "blogPosts": [
+    {
+      "title": "为何选择VTC而非短途航班的三个理由",
+      "excerpt": "您知道吗？短途航班的二氧化碳排放量是汽车出行的5倍……",
+      "date": "2024年8月12日"
+    }
+  ],
+  "cities": [
+    "马赛", "巴黎", "里昂", "图卢兹", "尼斯", "南特",
+    "斯特拉斯堡", "蒙彼利埃", "波尔多", "里尔", "雷恩",
+    "普罗旺斯地区艾克斯", "土伦", "格勒诺布尔", "第戎", "阿维尼翁"
+  ],
+  "login": {
+    "title": "登录您的账户",
+    "subtitle": "进入您的个人空间",
+    "email": "电子邮箱",
+    "emailPlaceholder": "your@email.com",
+    "password": "密码",
+    "passwordPlaceholder": "••••••••",
+    "rememberMe": "记住我",
+    "forgotPassword": "忘记密码？",
+    "signIn": "登录",
+    "or": "或使用以下方式继续",
+    "signInGoogle": "使用Google登录",
+    "signInApple": "使用Apple登录",
+    "noAccount": "还没有账户？",
+    "signUp": "注册",
+    "terms": "使用条款",
+    "privacy": "隐私政策",
+    "help": "帮助",
+    "rightsReserved": "版权所有。",
+    "languages": {
+      "fr": "法语",
+      "en": "英语"
+    }
+  },
+  "signup": {
+    "title": "创建账户",
+    "subtitle": "立即加入我们的社区",
+    "firstName": "名字",
+    "firstNamePlaceholder": "您的名字",
+    "lastName": "姓氏",
+    "lastNamePlaceholder": "您的姓氏",
+    "email": "电子邮箱",
+    "emailPlaceholder": "your@email.com",
+    "password": "密码",
+    "passwordPlaceholder": "创建密码",
+    "confirmPassword": "确认密码",
+    "confirmPasswordPlaceholder": "重复您的密码",
+    "agreeTo": "我接受",
+    "terms": "使用条款",
+    "createAccount": "创建账户",
+    "or": "或使用以下方式注册",
+    "signUpGoogle": "使用Google注册",
+    "signUpApple": "使用Apple注册",
+    "alreadyAccount": "已有账户？",
+    "login": "登录",
+    "rightsReserved": "版权所有。",
+    "privacy": "隐私",
+    "help": "帮助",
+    "passwordsMismatch": "两次输入的密码不一致",
+    "agreeTermsRequired": "请接受使用条款",
+    "weak": "弱",
+    "medium": "中等",
+    "good": "良好",
+    "strong": "强",
+    "excellent": "极强",
+    "strength": "强度",
+    "requirements": "密码必须包含：",
+    "minLength": "至少8个字符",
+    "uppercase": "一个大写字母",
+    "lowercase": "一个小写字母",
+    "number": "一个数字",
+    "specialChar": "一个特殊字符",
+    "passwordTooWeak": "密码强度太弱，请加强。",
+    "errors": {
+      "auth/email-already-in-use": "该邮箱已被使用",
+      "auth/weak-password": "密码太弱",
+      "auth/invalid-email": "邮箱格式无效",
+      "auth/invalid-credential": "邮箱或密码错误",
+      "auth/user-not-found": "未找到该邮箱的账户",
+      "auth/wrong-password": "密码错误",
+      "auth/too-many-requests": "尝试次数过多，请稍后再试",
+      "auth/popup-closed-by-user": "登录窗口已被关闭",
+      "auth/cancelled-popup-request": "登录已取消",
+      "default": "发生错误，请重试"
+    }
+  },
+  "verifyEmail": {
+    "title": "需要邮箱验证",
+    "subtitle": "请验证您的邮箱以激活账户",
+    "instructions": "完成注册步骤：",
+    "step1": "检查您的收件箱",
+    "step2": "打开Priolys发送的邮件",
+    "step3": "点击验证链接",
+    "resendButton": "重新发送邮件",
+    "checkButton": "我已验证邮箱",
+    "didNotReceive": "未收到邮件？",
+    "spamFolder": "请检查垃圾邮件/广告邮件文件夹",
+    "wrongEmail": "邮箱错误？",
+    "login": "使用其他账户登录",
+    "resendSuccess": "验证邮件已成功发送！",
+    "resendError": "发送失败，请稍后重试。",
+    "verifiedSuccess": "邮箱验证成功！正在跳转...",
+    "notVerifiedYet": "您的邮箱尚未验证",
+    "verificationError": "验证时出错，请重试。",
+    "redirecting": "正在跳转至首页",
+    "rightsReserved": "版权所有。",
+    "terms": "使用条款",
+    "privacy": "隐私政策",
+    "help": "帮助",
+    "loading": "正在加载验证..."
+  },
+  "navbar": {
+    "profile": "个人资料",
+    "bookings": "我的预订",
+    "logout": "退出登录"
+  },
+  "location": {
+    "locating": "正在定位...",
+    "geolocationNotSupported": "您的浏览器不支持地理定位",
+    "permissionDenied": "请允许定位权限以使用此功能",
+    "positionUnavailable": "无法获取您的位置",
+    "timeout": "定位请求超时",
+    "geolocationError": "定位时发生错误"
+  },
+  "vehicle": {
+    "title": "车辆管理",
+    "addVehicle": "添加车辆",
+    "addNewVehicle": "添加新车辆",
+    "name": "车辆名称",
+    "namePlaceholder": "例如：特斯拉Model S",
+    "imageUrl": "图片链接",
+    "imagePlaceholder": "https://example.com/image.jpg",
+    "passengers": "乘客",
+    "luggage": "行李",
+    "pricePerKm": "每公里价格",
+    "pricePerHour": "每小时价格",
+    "basePrice": "基础价格",
+    "noVehicles": "暂无车辆。添加您的第一辆车！",
+    "editVehicle": "编辑车辆",
+    "updateVehicle": "更新",
+    "edit": "编辑",
+    "delete": "删除",
+    "confirmDelete": "确定要删除此车辆吗？"
+  },
+  "booking": {
+    "step1Title": "规划您的行程",
+    "step1Subtitle": "输入出发地和目的地",
+    "step2Title": "日期与乘客",
+    "step2Subtitle": "选择日期和乘客人数",
+    "step3Title": "附加选项",
+    "step3Subtitle": "通过附加服务定制您的行程",
+    "step4Title": "选择车辆",
+    "step4Subtitle": "选择最适合您行程的车辆",
+    "step5Title": "确认预订",
+    "step5Subtitle": "核对并确认预订详情",
+    "departure": "出发地",
+    "departurePlaceholder": "输入出发地址",
+    "destination": "目的地",
+    "destinationPlaceholder": "输入目的地地址",
+    "waypoints": "中途停靠点",
+    "waypointPlaceholder": "输入停靠点地址",
+    "addWaypoint": "添加停靠点",
+    "flightNumber": "航班号",
+    "flightPlaceholder": "输入航班号（可选）",
+    "dateTime": "日期和时间",
+    "passengers": "乘客",
+    "airportVIP": "机场VIP服务",
+    "babySeat": "婴儿座椅（0-12个月）",
+    "childSeat": "儿童座椅（1-4岁）",
+    "boosterSeat": "增高座椅（4-8岁）",
+    "pets": "宠物运输",
+    "earlyArrival": "提前到达（15分钟）",
+    "selectedOptions": "已选选项",
+    "noOptions": "未选择附加选项",
+    "total": "总计",
+    "distance": "距离",
+    "duration": "时长",
+    "estimatedTotal": "预估总价",
+    "basePrice": "基础价格",
+    "kmPrice": "每公里价格",
+    "hourPrice": "每小时价格",
+    "optionsTotal": "选项总价",
+    "totalPrice": "总价格",
+    "itinerary": "行程",
+    "waypoint": "停靠点",
+    "selectedVehicle": "已选车辆",
+    "luggage": "行李",
+    "loadingMap": "正在加载地图...",
+    "loadingVehicles": "正在加载可用车辆...",
+    "noVehiclesAvailable": "无适合此乘客数量的车辆",
+    "vehiclesLoadError": "加载车辆时出错，请重试。",
+    "notCalculated": "未计算",
+    "confirmReservation": "确认预订"
+  },
+  "payment": {
+    "title": "支付",
+    "subtitle": "选择您的支付方式",
+    "creditCard": "信用卡",
+    "cash": "现金",
+    "securePayment": "安全支付",
+    "payDriver": "直接向司机支付",
+    "confirmCash": "确认预订",
+    "cashMessage": "您将在行程结束时直接向司机支付费用。",
+    "totalAmount": "应付总额",
+    "processing": "处理中...",
+    "successTitle": "支付成功！",
+    "successMessage": "您的预订已确认。确认邮件已发送至您的邮箱。",
+    "viewReservations": "查看我的预订"
+  }
+}

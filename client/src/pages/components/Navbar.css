@@ -263,6 +263,10 @@
 .flag-icon.es {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 480'%3E%3Cpath fill='%23c60b1e' d='M0 0h640v480H0z'/%3E%3Cpath fill='%23ffc400' d='M0 120h640v240H0z'/%3E%3C/svg%3E");
 }
+/* Ajout du style pour le drapeau chinois */
+.flag-icon.ch {
+  background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MDAgNDAwIj48cGF0aCBmaWxsPSIjZGUyOTE0IiBkPSJNMCAwaDYwMHY0MDBIMHoiLz48cGF0aCBmaWxsPSIjZmZlZDAwIiBkPSJNMTUwIDEwMGg0MGwyMCAxMDBsLTMwIDUwbDUwIDUwbC0zMCA1MGwyMCAxMDBoLTQwbC0yMC0xMDAsMzAtNTAtNTAtNTAsMzAtNTB6Ii8+PGNpcmNsZSBjeD0iMTUwIiBjeT0iMjAwIiByPSIzMCIgZmlsbD0iI2ZmZWQwMCIvPjxjaXJjbGUgY3g9IjE1MCIgY3k9IjIwMCIgcj0iMjAiIGZpbGw9IiNkZTI5MTQiLz48Y2lyY2xlIGN4PSIxNTUiIGN5PSIxOTAiIHI9IjQiIGZpbGw9IiNmZmZmZmYiLz48cGF0aCBkPSJNMTQwIDE5MGw1LTE1IDUgMTVoLTEweiIgZmlsbD0iI2ZmZmZmZiIvPjxwYXRoIGQ9Ik0xNjAgMTkwbC01LTE1LTUgMTVoMTB6IiBmaWxsPSIjZmZmZmZmIi8+PHBhdGggZD0iTTE1MCAyMTBsMC0yMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjQiLz48L3N2Zz4=') center/contain no-repeat;
+}
 /* Drapeau anglais en couleur */
 .flag-icon.en {
   background: linear-gradient(

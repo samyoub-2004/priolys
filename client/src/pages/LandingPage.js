@@ -347,7 +347,7 @@ const LandingPage = () => {
         loadingAuth={loadingAuth}
       />
 
-      <ServicesSection services={services} />
+      <ServicesSection services={services} t={t} />
 
       <FleetSection />
 
