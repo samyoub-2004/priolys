@@ -9,7 +9,7 @@ import SignUpPage from "./pages/SignUp/SignUp"
 import VerifyEmailPage from "./pages/SignUp/VerifyEmailPage";
 import VehiclePage from "./pages/Vehicule/VehiculePage";
 import BookingSimple from "./pages/Booking/BookingSimple";
-
+import Reservation from "./pages/Reservation/Reservation";
 
 function App() {
   return (
@@ -22,6 +22,7 @@ function App() {
           <Route path="/verify-email" element={<VerifyEmailPage />} />
           <Route path="/addVehicule" element={<VehiclePage />} />
           <Route path="/Booking-Simple" element={<BookingSimple />} />
+          <Route path="/Mes-Reservation" element={<Reservation />} />
         </Routes>
       </Router>
     </I18nextProvider>

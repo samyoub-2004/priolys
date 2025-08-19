@@ -514,7 +514,7 @@ const BookingSimple = () => {
         paymentId,
         paymentStatus,
         createdAt: serverTimestamp(),
-        status: 'confirmed'
+        status: 'pending'
       };
       
       const docRef = await addDoc(collection(db, 'reservations'), reservationData);

@@ -1,0 +1,452 @@
+.reservations-container {
+  min-height: 100vh;
+  background-color: var(--main-secondary);
+  color: var(--main-text);
+}
+
+.reservations-content {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: calc(var(--main-nav-height) + 20px);
+}
+
+.reservations-header {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.reservations-header h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: var(--main-text);
+}
+
+.reservations-header p {
+  color: var(--main-light-text);
+  font-size: 1.1rem;
+}
+
+/* Table Styles */
+.reservations-table {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: var(--main-card-shadow);
+  background-color: var(--main-secondary);
+  margin-bottom: 30px;
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .reservations-table {
+    display: block;
+  }
+}
+
+.table-header {
+  background-color: var(--main-accent);
+  font-weight: bold;
+}
+
+.table-row {
+  display: grid;
+  grid-template-columns: 1.5fr 1.5fr 1.5fr 0.8fr 0.8fr 1fr 0.5fr;
+  padding: 15px;
+  border-bottom: 1px solid var(--main-border);
+  align-items: center;
+}
+
+.table-body .table-row:hover {
+  background-color: var(--main-input-bg);
+}
+
+.table-cell {
+  padding: 5px;
+}
+
+.table-cell.actions {
+  text-align: center;
+}
+
+/* Status badge */
+.status-badge {
+  padding: 5px 10px;
+  border-radius: 20px;
+  color: white;
+  font-size: 0.8rem;
+  font-weight: 500;
+  display: inline-block;
+}
+
+/* Dropdown menu */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 4px;
+  color: var(--main-text);
+}
+
+.dropdown-toggle:hover {
+  background-color: var(--main-input-bg);
+}
+
+.dropdown-toggle svg {
+  width: 20px;
+  height: 20px;
+  fill: var(--main-text);
+}
+
+.dropdown-menu {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background-color: var(--main-secondary);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 8px 0;
+  min-width: 160px;
+  z-index: 10;
+  border: 1px solid var(--main-border);
+  display: none;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 10px 16px;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  color: var(--main-text);
+  font-size: 0.9rem;
+}
+
+.dropdown-item:hover {
+  background-color: var(--main-input-bg);
+}
+
+.dropdown-item svg {
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+  fill: var(--main-text);
+}
+
+.dropdown-item.cancel {
+  color: #f44336;
+}
+
+.dropdown-item.cancel svg {
+  fill: #f44336;
+}
+
+/* Cards view for mobile */
+.reservations-cards {
+  display: grid;
+  gap: 16px;
+}
+
+@media (min-width: 768px) {
+  .reservations-cards {
+    display: none;
+  }
+}
+
+.reservation-card {
+  background-color: var(--main-secondary);
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: var(--main-card-shadow);
+  border: 1px solid var(--main-border);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.reservation-date {
+  color: var(--main-light-text);
+  font-size: 0.9rem;
+}
+
+.card-content {
+  margin-bottom: 16px;
+}
+
+.route-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.location {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+}
+
+.location svg {
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+  fill: var(--main-text);
+}
+
+.location span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.arrow {
+  margin: 0 8px;
+  color: var(--main-light-text);
+}
+
+.reservation-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+.detail-item svg {
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+  fill: var(--main-light-text);
+}
+
+.card-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-secondary, .btn-danger {
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--main-text);
+  border: 1px solid var(--main-border);
+}
+
+.btn-danger {
+  background-color: #f44336;
+  color: white;
+}
+
+/* Loading state */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+.loader {
+  width: 40px;
+  height: 40px;
+  border: 4px solid var(--main-border);
+  border-top: 4px solid var(--main-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 16px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Error message */
+.error-message {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  background-color: #ffebee;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  color: #c62828;
+}
+
+.error-message svg {
+  width: 20px;
+  height: 20px;
+  margin-right: 12px;
+  fill: #c62828;
+}
+
+/* Empty state */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--main-light-text);
+}
+
+.empty-state svg {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 16px;
+  fill: var(--main-light-text);
+}
+
+.empty-state h3 {
+  margin-bottom: 8px;
+  color: var(--main-text);
+}
+
+/* Modal styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modal-content {
+  background-color: var(--main-secondary);
+  border-radius: 12px;
+  max-width: 600px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid var(--main-border);
+}
+
+.modal-header h2 {
+  margin: 0;
+  color: var(--main-text);
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  color: var(--main-text);
+}
+
+.modal-close:hover {
+  background-color: var(--main-input-bg);
+}
+
+.modal-close svg {
+  width: 24px;
+  height: 24px;
+  fill: var(--main-text);
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+.details-section {
+  margin-bottom: 24px;
+}
+
+.details-section h3 {
+  margin-bottom: 16px;
+  color: var(--main-text);
+  font-size: 1.1rem;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--main-border);
+}
+
+.detail-item {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  margin-bottom: 12px;
+  align-items: start;
+}
+
+.detail-label {
+  font-weight: 500;
+  color: var(--main-text);
+}
+
+.detail-value {
+  color: var(--main-light-text);
+  word-break: break-word;
+}
+
+.price-breakdown {
+  border-top: 1px solid var(--main-border);
+  padding-top: 12px;
+}
+
+.price-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.price-item.total {
+  border-top: 1px solid var(--main-border);
+  padding-top: 8px;
+  margin-top: 8px;
+  font-weight: bold;
+  color: var(--main-text);
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 20px;
+  border-top: 1px solid var(--main-border);
+}
+
+/* Dark mode adjustments */
+.route-dark-mode .error-message {
+  background-color: rgba(244, 67, 54, 0.1);
+}
+
+.route-dark-mode .dropdown-menu {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}

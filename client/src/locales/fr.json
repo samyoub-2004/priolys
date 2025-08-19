@@ -36,7 +36,8 @@
     "authenticate": "S'authentifier",
     "accountMenu": "Menu compte",
     "back": "Retour",
-    "continue": "Continuer"
+    "continue": "Continuer",
+    "close" : "fermer"
   },
   "ariaLabels": {
     "lightMode": "Passer en mode clair",
@@ -401,6 +402,59 @@
     "successTitle": "Paiement réussi !",
     "successMessage": "Votre réservation a été confirmée. Une confirmation a été envoyée à votre adresse email.",
     "viewReservations": "Voir mes réservations"
+  },
+  "reservations": {
+    "title": "Mes Réservations",
+    "subtitle": "Consultez l'état de toutes vos réservations",
+    "notAuthenticated": "Vous devez être connecté pour voir vos réservations",
+    "loadError": "Erreur lors du chargement de vos réservations",
+    "loading": "Chargement de vos réservations...",
+    "noReservations": "Aucune réservation",
+    "noReservationsText": "Vous n'avez pas encore effectué de réservation. Lorsque vous en ferez une, elle apparaîtra ici.",
+    "cancelConfirm": "Êtes-vous sûr de vouloir annuler cette réservation ?",
+    "cancelError": "Erreur lors de l'annulation de la réservation",
+    
+    "date": "Date",
+    "departure": "Départ",
+    "destination": "Destination",
+    "passengers": "Passagers",
+    "price": "Prix",
+    "stat": "Statut",
+    "actions": "Actions",
+    
+    "viewDetails": "Voir les détails",
+    "cancel": "Annuler",
+    "cancelReservation": "Annuler la réservation",
+    
+    "detailsTitle": "Détails de la réservation",
+    "tripDetails": "Détails du trajet",
+    "paymentInfo": "Informations de paiement",
+    "priceBreakdown": "Détail du prix",
+    
+    "paymentMethod": "Méthode de paiement",
+    "paymentStatus": "Statut du paiement",
+    "transactionId": "ID de transaction",
+    
+    "basePrice": "Prix de base",
+    "distancePrice": "Prix distance",
+    "timePrice": "Prix temps",
+    "options": "Options",
+    "total": "Total",
+    
+    "status": {
+      "confirmed": "Confirmé",
+      "pending": "En attente",
+      "cancelled": "Annulé",
+      "completed": "Terminé",
+      "unknown": "Inconnu"
+    },
+    
+    "paymentStatuses": {
+      "paid": "Payé",
+      "pending": "En attente",
+      "failed": "Échoué"
+    }
   }
+
 }
   
