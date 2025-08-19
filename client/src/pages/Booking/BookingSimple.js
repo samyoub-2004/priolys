@@ -551,7 +551,7 @@ const BookingSimple = () => {
   
   const handleViewReservations = () => {
     localStorage.removeItem('reservationData');
-    navigate('/reservations');
+    navigate('/Mes-Reservation');
   };
 
   useEffect(() => {
