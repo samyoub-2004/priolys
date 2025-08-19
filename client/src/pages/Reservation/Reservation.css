@@ -37,6 +37,7 @@
 /* Table Styles */
 .reservations-table {
   border-radius: 8px;
+  overflow: hidden;
   box-shadow: var(--main-card-shadow);
   background-color: var(--main-secondary);
   margin-bottom: 24px;

@@ -243,6 +243,7 @@ const BookingSimple = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [isLanguageMenuOpen, setIsLanguageMenuOpen] = useState(false);
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+  const [globalLoading, setGlobalLoading] = useState(false);
   
   const [departure, setDeparture] = useState(reservationData.departure || '');
   const [destination, setDestination] = useState(reservationData.destination || '');
@@ -286,7 +287,6 @@ const BookingSimple = () => {
   const [selectedOptions, setSelectedOptions] = useState(reservationData.selectedOptions || []);
   const [paymentMethod, setPaymentMethod] = useState('');
   const [paymentError, setPaymentError] = useState('');
-  const [paymentProcessing, setPaymentProcessing] = useState(false);
   
   const totalOptionsPrice = selectedOptions.reduce((total, optionId) => {
     const option = additionalOptions.find(opt => opt.id === optionId);
@@ -527,23 +527,25 @@ const BookingSimple = () => {
   
   const handlePaymentSuccess = async (paymentId) => {
     try {
-      setPaymentProcessing(true);
+      setGlobalLoading(true);
       await saveReservation(paymentId, 'paid');
       setShowSuccessPopup(true);
     } catch (error) {
       setPaymentError(error.message);
-      setPaymentProcessing(false);
+    } finally {
+      setGlobalLoading(false);
     }
   };
   
   const confirmCashPayment = async () => {
     try {
-      setPaymentProcessing(true);
+      setGlobalLoading(true);
       await saveReservation();
       setShowSuccessPopup(true);
     } catch (error) {
       setPaymentError(error.message);
-      setPaymentProcessing(false);
+    } finally {
+      setGlobalLoading(false);
     }
   };
   
@@ -582,6 +584,15 @@ const BookingSimple = () => {
         isLanguageMenuOpen={isLanguageMenuOpen}
         setIsLanguageMenuOpen={setIsLanguageMenuOpen}
       />
+      
+      {globalLoading && (
+        <div className="global-loader-overlay">
+          <div className="global-loader">
+            <div className="loader-spinner"></div>
+            <p>{t('payment.processing')}</p>
+          </div>
+        </div>
+      )}
       
       <div className="booking-content">
         <div className="stepper">
@@ -1100,7 +1111,7 @@ const BookingSimple = () => {
                           </li>
                         );
                       })}
-                    </ul>
+                </ul>
                   </div>
                 )}
                 
@@ -1219,9 +1230,8 @@ const BookingSimple = () => {
                   <button 
                     className="btn-primary"
                     onClick={confirmCashPayment}
-                    disabled={paymentProcessing}
                   >
-                    {paymentProcessing ? t('payment.processing') : t('payment.confirmCash')}
+                    {t('payment.confirmCash')}
                   </button>
                 </div>
               )}
@@ -1239,7 +1249,6 @@ const BookingSimple = () => {
                 <button 
                   className="btn-secondary" 
                   onClick={prevStep}
-                  disabled={paymentProcessing}
                 >
                   {t('buttons.back')}
                 </button>
