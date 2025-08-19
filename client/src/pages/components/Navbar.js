@@ -262,7 +262,7 @@ const Navbar = ({
                     className="account-option"
                     onClick={() => {
                       setIsAccountMenuOpen(false);
-                      navigate('/bookings');
+                      navigate('/Mes-Reservation');
                     }}
                   >
                     <svg viewBox="0 0 24 24">

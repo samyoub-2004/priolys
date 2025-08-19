@@ -10,7 +10,7 @@ const corsOptions = {
   origin: function (origin, callback) {
     // Liste des URLs autorisées
     const allowedOrigins = [
-      'https://priolys.onrender.com',
+      'https://priolys.onrender.com/',
       'https://www.votre-domaine.com',
       'http://localhost:3000', // Pour le développement
       'http://127.0.0.1:3000'  // Alternative localhost
