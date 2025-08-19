@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useJsApiLoader, GoogleMap, DirectionsRenderer, Marker, Autocomplete } from '@react-google-maps/api';
 import { useNavigate } from 'react-router-dom';
-import { collection, addDoc, serverTimestamp, getDocs, deleteDoc, doc } from 'firebase/firestore';
+import { collection, addDoc, serverTimestamp, getDocs } from 'firebase/firestore';
 import { db, auth } from '../FirebaseConf/firebase';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements, CardNumberElement, CardExpiryElement, CardCvcElement, useStripe, useElements } from '@stripe/react-stripe-js';
@@ -244,8 +244,6 @@ const BookingSimple = () => {
   const [isLanguageMenuOpen, setIsLanguageMenuOpen] = useState(false);
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
   const [globalLoading, setGlobalLoading] = useState(false);
-  const [reservationId, setReservationId] = useState(null);
-  const [cancelling, setCancelling] = useState(false);
   
   const [departure, setDeparture] = useState(reservationData.departure || '');
   const [destination, setDestination] = useState(reservationData.destination || '');
@@ -530,8 +528,7 @@ const BookingSimple = () => {
   const handlePaymentSuccess = async (paymentId) => {
     try {
       setGlobalLoading(true);
-      const id = await saveReservation(paymentId, 'paid');
-      setReservationId(id);
+      await saveReservation(paymentId, 'paid');
       setShowSuccessPopup(true);
     } catch (error) {
       setPaymentError(error.message);
@@ -543,8 +540,7 @@ const BookingSimple = () => {
   const confirmCashPayment = async () => {
     try {
       setGlobalLoading(true);
-      const id = await saveReservation();
-      setReservationId(id);
+      await saveReservation();
       setShowSuccessPopup(true);
     } catch (error) {
       setPaymentError(error.message);
@@ -556,24 +552,6 @@ const BookingSimple = () => {
   const handleViewReservations = () => {
     localStorage.removeItem('reservationData');
     navigate('/Mes-Reservation');
-  };
-  
-  // Fonction pour annuler complètement la réservation
-  const cancelReservation = async () => {
-    if (!reservationId) return;
-    
-    setCancelling(true);
-    try {
-      await deleteDoc(doc(db, 'reservations', reservationId));
-      setShowSuccessPopup(false);
-      localStorage.removeItem('reservationData');
-      navigate('/');
-    } catch (error) {
-      console.error("Erreur lors de la suppression de la réservation: ", error);
-      setPaymentError(t('booking.cancelError'));
-    } finally {
-      setCancelling(false);
-    }
   };
 
   useEffect(() => {
@@ -1290,22 +1268,12 @@ const BookingSimple = () => {
             </div>
             <h2>{t('payment.successTitle')}</h2>
             <p>{t('payment.successMessage')}</p>
-            <div className="success-actions">
-              <button 
-                className="btn-primary"
-                onClick={handleViewReservations}
-              >
-                {t('payment.viewReservations')}
-              </button>
-              <button 
-                className="btn-secondary"
-                onClick={cancelReservation}
-                disabled={cancelling}
-              >
-                {cancelling ? t('payment.cancelling') : t('payment.cancelReservation')}
-              </button>
-            </div>
-            {paymentError && <div className="error-message">{paymentError}</div>}
+            <button 
+              className="btn-primary"
+              onClick={handleViewReservations}
+            >
+              {t('payment.viewReservations')}
+            </button>
           </div>
         </div>
       )}
